@@ -2,7 +2,7 @@
 #'
 #' This function takes necessary parameters to calculate the Reach-Score
 #'
-#' @param gender Geschlecht REDCap-ID: varid_549
+#' @param gender Geschlecht REDCap-ID:
 #' @param age Alter REDCap-ID: varid_1891
 #' @param bmi Body Mass Index (BMI) REDCap-ID: varid_2265
 #' @param diab Diabetes Mellitus REDCap-ID: varid_558
