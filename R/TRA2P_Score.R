@@ -14,7 +14,7 @@
 #' @param pavk PAVK REDCap-ID: varid_610
 #' @param redcap_data logisch; wenn TRUE benutzt die Funktion den ihr in 'data' übergebenen Dataframe und führt die Berechnung durch. Einzelne Varibalen müssen nicht als Argumente angegeben werden.
 #' @param data Datensatz mit allen Variablen aus RedCap die für die Berechung benötigt werden. Muss angegben werden wenn 'redcap_data' TRUE.
-#' @usage TRA2P_Score_new_2(CHF = NA, AH = NA, Alter = NA, Diabetes = NA, Schlaganfall = NA, Bypass_OP = NA, andere_OP = NA, eGFR = NA, Raucher = NA, pavk = NA, redcap_data = FALSE, data = NULL)
+#' @usage TRA2P_Score(CHF = NA, AH = NA, Alter = NA, Diabetes = NA, Schlaganfall = NA, Bypass_OP = NA, andere_OP = NA, eGFR = NA, Raucher = NA, pavk = NA, redcap_data = FALSE, data = NULL)
 #' @details Der Score sagt ein drei Jahres Risiko für MI, kardiovaskulären Tod und ischämischen Schlaganfall voraus (Bohula et al., 2016).
 #' @return A vector of the calculated risk per record.
 #' @export
