@@ -4,7 +4,7 @@
 \alias{TRA2P_Score}
 \title{Calculate TRA2P-Score}
 \usage{
-TRA2P_Score_new_2(CHF = NA, AH = NA, Alter = NA, Diabetes = NA, Schlaganfall = NA, Bypass_OP = NA, andere_OP = NA, eGFR = NA, Raucher = NA, pavk = NA, redcap_data = FALSE, data = NULL)
+TRA2P_Score(CHF = NA, AH = NA, Alter = NA, Diabetes = NA, Schlaganfall = NA, Bypass_OP = NA, andere_OP = NA, eGFR = NA, Raucher = NA, pavk = NA, redcap_data = FALSE, data = NULL)
 }
 \arguments{
 \item{CHF}{Kategorie Ejektionsfraktion des LV (allgemein) REDCap-ID: varid_1743}

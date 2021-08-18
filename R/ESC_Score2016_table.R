@@ -1,12 +1,12 @@
 #' Calculate ESC-Score 2016 Table Version
 #'
-#' @description This function takes necessary parameters to calculate the ESC-Score
+#' @description This function takes necessary parameters to calculate the ESC-Score 2016 Table Version
 #'
 #' @param cholesterol Cholesterin REDCap-ID: varid_1206; in mg/dl
 #' @param gender Geschlecht REDCap-ID: varid_549
 #' @param age Alter REDCap-ID: varid_1891
 #' @param RRsys Blutdruck nach 5 min Ruhe - systolisch REDCap-ID: varid_627; in mmHg
-#' @param smoker Raucher REDCap-ID: varid_561
+#' @param smoking Raucher REDCap-ID: varid_561
 #' @usage ESC_SCORE2016table(cholesterol, gender, age, RRsys, smoking)
 #' @return A vector of the calculated risk per record.
 #' @details The SCORE risk assessment is derived from a large dataset of prospective European studies and predicts fatal atherosclerotic CVD events over a ten year period.
