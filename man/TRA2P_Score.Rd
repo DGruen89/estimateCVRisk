@@ -4,32 +4,26 @@
 \alias{TRA2P_Score}
 \title{Calculate TRA2P-Score}
 \usage{
-TRA2P_Score(CHF = NA, AH = NA, Alter = NA, Diabetes = NA, Schlaganfall = NA, Bypass_OP = NA, andere_OP = NA, eGFR = NA, Raucher = NA, pavk = NA, redcap_data = FALSE, data = NULL)
+TRA2P_Score(chf = NA, ah = NA, age = NA, diabetic = NA, stroke = NA, bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA, pavk = NA, redcap_data = FALSE, data = NULL)
 }
 \arguments{
-\item{CHF}{Kategorie Ejektionsfraktion des LV (allgemein) REDCap-ID: varid_1743}
+\item{chf}{a numeric vector indicating the presence of a congestive heart failure. Values: yes = 1; no = 0.}
 
-\item{AH}{Arterielle Hypertonie REDCap-ID: varid_559}
+\item{ah}{a numeric vector indicating the presence of arterial hyperthorphy. Values: yes = 1; no = 0.}
 
-\item{Alter}{Alter REDCap-ID: varid_1891}
+\item{age}{a numeric vector with the age of persons given in years.}
 
-\item{Diabetes}{Diabetes Mellitus REDCap-ID: varid_558}
+\item{diabetic}{a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.}
 
-\item{Schlaganfall}{Schlaganfall/TIA REDCap-ID: varid_613}
+\item{stroke}{numeric vector indicating whether a person has had a stroke.}
 
-\item{Bypass_OP}{Koronare Bypass-OP REDCap-ID: varid_584}
+\item{bypass_surg}{numeric vector indicating whether a person has undergone a bypass surgery.}
 
-\item{andere_OP}{Sonstige Gefäss-Operation REDCap-ID: varid_586}
+\item{other_surg}{numeric vector indicating whether a person has other vascular disease (peripheral).}
 
-\item{eGFR}{eGFR MDRD REDCap-ID: varid_2629}
+\item{egfr}{a numeric vector; eGFR values given in mL x min^−1 x 1.73 m^−2.}
 
-\item{Raucher}{Raucher REDCap-ID: varid_561}
-
-\item{pavk}{PAVK REDCap-ID: varid_610}
-
-\item{redcap_data}{logisch; wenn TRUE benutzt die Funktion den ihr in 'data' übergebenen Dataframe und führt die Berechnung durch. Einzelne Varibalen müssen nicht als Argumente angegeben werden.}
-
-\item{data}{Datensatz mit allen Variablen aus RedCap die für die Berechung benötigt werden. Muss angegben werden wenn 'redcap_data' TRUE.}
+\item{smoker}{a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.}
 }
 \value{
 A vector of the calculated risk per record.
@@ -38,5 +32,12 @@ A vector of the calculated risk per record.
 This function takes necessary parameters to calculate the TRA2P-Score
 }
 \details{
-Der Score sagt ein drei Jahres Risiko für MI, kardiovaskulären Tod und ischämischen Schlaganfall voraus (Bohula et al., 2016).
+BACKGROUND: Patients with stable ischemic heart disease and previous myocardial infarction (MI) vary in their risk for recurrent cardiovascular events. Atherothrombotic risk assessment may be useful to identify high- risk patients who have the greatest potential to benefit from more intensive secondary preventive therapy such as treatment with vorapaxar.
+METHODS: We identified independent clinical indicators of atherothrombotic risk among 8598 stable, placebo-treated patients with a previous MI followed up for 2.5 years (median) in TRA 2°P-TIMI 50 \link[=Thrombin Receptor Antagonist in Secondary Prevention of Atherothrombotic Ischemic Eventsâ€“TIMI 50]{Thrombin Receptor Antagonist in Secondary Prevention of Atherothrombotic Ischemic Events–TIMI 50}. The efficacy and safety of vorapaxar (SCH 530348; MK-5348) were assessed by baseline risk among patients with previous MI without prior stroke or transient ischemic attack for whom there is a clinical indication for vorapaxar. End points were cardiovascular death, MI, or ischemic stroke and GUSTO (Global Use of Strategies to Open Occluded Coronary Arteries) severe bleeding.
+RESULTS: The 9 independent risk predictors were age, diabetes mellitus, hypertension, smoking, peripheral arterial disease, previous stroke, previous coronary bypass grafting, heart failure, and renal dysfunction. A simple integer-based scheme using these predictors showed a strong graded relationship with the rate of cardiovascular death/MI/ischemic stroke and the individual components (P for trend <0.001 for all). High-risk patients (≥3 risk indicators; 20\% of population) had a 3.2\% absolute risk reduction in cardiovascular disease/MI/ischemic stroke with vorapaxar, and intermediate-risk patients (1–2 risk indicators; 61\%) had a 2.1\% absolute risk reduction (P<0.001 each), translating to a number needed to treat of 31 and 48. Bleeding increased across risk groups (P for trend<0.01); however, net clinical outcome was increasingly favorable with vorapaxar across risk groups. Fatal bleeding or intracranial hemorrhage was 0.9\% with both treatments in high-risk patients.
+CONCLUSIONS: Stratification of baseline atherothrombotic risk can assist with therapeutic decision making for vorapaxar use for secondary prevention after MI.
+}
+\references{
+Bohula EA, et al. Atherothrombotic Risk Stratification and the Efficacy and Safety of Vorapaxar in Patients With Stable Ischemic Heart Disease and Previous Myocardial Infarction.
+Circulation. 2016 Jul 26;134(4):304-13. doi: 10.1161/CIRCULATIONAHA.115.019861. PMID: 27440003.
 }
