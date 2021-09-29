@@ -2,45 +2,46 @@
 #'
 #' @description This function takes necessary parameters to calculate the ESC-Score 2018 Table Version for high and low risk
 #'
-#' @param cholesterol Cholesterin REDCap-ID: varid_1206; in mg/dl
-#' @param gender Geschlecht REDCap-ID: varid_549
-#' @param age Alter REDCap-ID: varid_1891
-#' @param RRsys Blutdruck nach 5 min Ruhe - systolisch REDCap-ID: varid_627; in mmHg
-#' @param smoking Raucher REDCap-ID: varid_561
-#' @usage ESC_SCORE2016table(cholesterol, gender, age, RRsys, smoking)
-#' @return A vector of the calculated risk per record.
+#' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
+#' @param sex a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0
+#' @param age a numeric vector with the age of persons given as years
+#' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
+#' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
+#' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
+#' @param risk logical. Choose if which risk chart is used for calculation
+#' @usage ESC_SCORE2016table(totchol, sex, age, sbp, smoker)
+#' @return A vector of calculated risks of persons.
 #' @details The SCORE risk assessment is derived from a large dataset of prospective European studies and predicts fatal atherosclerotic CVD events over a ten year period.
-#'This risk estimation is based on the following risk factors: gender, age, smoking, systolic blood pressure and total cholesterol.
+#'This risk estimation is based on the following risk factors: sex, age, smoker, systolic blood pressure and total cholesterol.
 #'The threshold for high risk based on fatal cardiovascular events is defined as "higher than 5%", instead of the previous "higher than 20%" using a composite coronary endpoint.
 #'This SCORE model has been calibrated according to each European country’s mortality statistics. In other words, if used on the entire population aged 40-65, it will predict the exact number of fatal CVD-events that eventually will occur after 10 years.
 #'The relative risk chart may be used to show younger people at low total risk that, relative to others in their age group, their risk may be many times higher than necessary. This may help to motivate decisions about avoidance of smoking, healthy nutrition and exercise, as well as flagging those who may become candidates for medication. This chart refers to relative risk, not percentage risk.
 #'You can read more about the SCORE project in European Heart Journal, 2003, 24; 987-1003.
 #' @examples
+#' @references
+#' Piepoli MF,et al. 2016 European Guidelines on cardiovascular disease prevention in clinical practice: The Sixth Joint Task Force of the European Society of Cardiology and Other Societies on Cardiovascular Disease Prevention in Clinical Practice (constituted by representatives of 10 societies and by invited experts):
+#' Developed with the special contribution of the European Association for Cardiovascular Prevention & Rehabilitation (EACPR).
+#' Eur J Prev Cardiol. 2016 Jul;23(11):NP1-NP96. doi: 10.1177/2047487316653709. Epub 2016 Jun 27. PMID: 27353126.
 #' @export
-ESC_Score2018table <- function(cholesterol, gender, age, RRsys, smoking, risk = "low") {
+ESC_Score2016table <- function(totchol, sex, age, sbp, smoker, risk = c("low","high"), mmol = FALSE) {
 
 
-  ESCdata <- data.frame(age = age, cholesterol = cholesterol, gender = gender, RRsys = RRsys, smoking = smoking, mmol = FALSE)
+  ESCdata <- data.frame(age = age, totchol = totchol, sex = sex, sbp = sbp, smoker = smoker)
 
-  data$ESC_Score_value_2018 <- 0
-  data$cholesterol <- round(data$age, digits = 1)
-  data$ldl <- round(data$ldl)
-  data$hdl <- round(data$hdl)
-  data$triglycerides <- round(data$triglycerides)
-  data$sysBP <- round(data$sysBP)
+  ESCdata$Score <- NA
 
   ## defining groups
-  #gender
-  female <- (ifelse(ESCdata$gender == '3', 1, 0))
+  #sex
+  #female <- (ifelse(ESCdata$sex == 'female', 1, 0))
 
   # SBP over 170
-  SBP_4 <- (ifelse(ESCdata$RRsys > 170, 1, 0))
+  SBP_4 <- (ifelse(ESCdata$sbp > 170, 1, 0))
   # SBP 150-169
-  SBP_3 <- (ifelse(150 < ESCdata$RRsys & ESCdata$RRsys <= 170, 1, 0))
+  SBP_3 <- (ifelse(150 < ESCdata$sbp & ESCdata$sbp <= 170, 1, 0))
   # SBP 130-149
-  SBP_2 <- (ifelse(130 < ESCdata$RRsys & ESCdata$RRsys <= 150, 1, 0))
+  SBP_2 <- (ifelse(130 < ESCdata$sbp & ESCdata$sbp <= 150, 1, 0))
   # SBP under 130
-  SBP_1 <- (ifelse(ESCdata$RRsys <= 130, 1, 0))
+  SBP_1 <- (ifelse(ESCdata$sbp <= 130, 1, 0))
 
   #age
   age_5 <- (ifelse(ESCdata$age <= 65 & ESCdata$age >= 62.5, 1, 0))
@@ -51,24 +52,24 @@ ESC_Score2018table <- function(cholesterol, gender, age, RRsys, smoking, risk = 
 
   if(mmol == TRUE){
     #total cholesterol
-    chol_5 <- (ifelse((ESCdata$cholesterol) >= 7.5, 1, 0))
-    chol_4 <- (ifelse(6.5 <= (ESCdata$cholesterol) & (ESCdata$cholesterol) < 7.5, 1, 0))
-    chol_3 <- (ifelse(5.5 <= (ESCdata$cholesterol) & (ESCdata$cholesterol) < 6.5, 1, 0))
-    chol_2 <- (ifelse(4.5 <= (ESCdata$cholesterol) & (ESCdata$cholesterol) < 5.5, 1, 0))
-    chol_1 <- (ifelse((ESCdata$cholesterol) < 4.5, 1, 0))
+    chol_5 <- (ifelse((ESCdata$totchol) >= 7.5, 1, 0))
+    chol_4 <- (ifelse(6.5 <= (ESCdata$totchol) & (ESCdata$totchol) < 7.5, 1, 0))
+    chol_3 <- (ifelse(5.5 <= (ESCdata$totchol) & (ESCdata$totchol) < 6.5, 1, 0))
+    chol_2 <- (ifelse(4.5 <= (ESCdata$totchol) & (ESCdata$totchol) < 5.5, 1, 0))
+    chol_1 <- (ifelse((ESCdata$totchol) < 4.5, 1, 0))
   }
 
   if(mmol == FALSE){
     #total cholesterol
-    chol_5 <- (ifelse((ESCdata$cholesterol*0.0259) >= 7.5, 1, 0))
-    chol_4 <- (ifelse(6.5 <= (ESCdata$cholesterol*0.0259) & (ESCdata$cholesterol*0.0259) < 7.5, 1, 0))
-    chol_3 <- (ifelse(5.5 <= (ESCdata$cholesterol*0.0259) & (ESCdata$cholesterol*0.0259) < 6.5, 1, 0))
-    chol_2 <- (ifelse(4.5 <= (ESCdata$cholesterol*0.0259) & (ESCdata$cholesterol*0.0259) < 5.5, 1, 0))
-    chol_1 <- (ifelse((ESCdata$cholesterol*0.0259) < 4.5, 1, 0))
+    chol_5 <- (ifelse((ESCdata$totchol*0.0259) >= 7.5, 1, 0))
+    chol_4 <- (ifelse(6.5 <= (ESCdata$totchol*0.0259) & (ESCdata$totchol*0.0259) < 7.5, 1, 0))
+    chol_3 <- (ifelse(5.5 <= (ESCdata$totchol*0.0259) & (ESCdata$totchol*0.0259) < 6.5, 1, 0))
+    chol_2 <- (ifelse(4.5 <= (ESCdata$totchol*0.0259) & (ESCdata$totchol*0.0259) < 5.5, 1, 0))
+    chol_1 <- (ifelse((ESCdata$totchol*0.0259) < 4.5, 1, 0))
   }
 
   #smoker
-  smoker <- (ifelse(ESCdata$smoking == '1', 1, 0))
+  smoker <- (ifelse(ESCdata$smoker == '1', 1, 0))
 
   ## A - D --> age Group 65
   #A --> line 1
@@ -538,7 +539,7 @@ ESC_Score2018table <- function(cholesterol, gender, age, RRsys, smoking, risk = 
 
   # calculation of ESC Score values
   if(risk == "low") {
-  ESCdata$ESC_Score_value_2018   <- (A1*4+A2*5+A3*6+A4*7+A5*8+A6*9+A7*9+A8*11+A9*12+A10*14+
+  ESCdata$Score   <- (A1*4+A2*5+A3*6+A4*6+A5*7+A6*9+A7*9+A8*11+A9*12+A10*14+
                                      A11*8+A12*9+A13*10+A14*12+A15*14+A16*15+A17*17+A18*20+A19*23+A20*26+
                                      B1*3+B2*3+B3*4+B4*4+B5*5+B6*6+B7*6+B8*7+B9*8+B10*10+
                                      B11*5+B12*6+B13*7+B14*8+B15*10+B16*10+B17*12+B18*14+B19*16+B20*19+
@@ -581,7 +582,7 @@ ESC_Score2018table <- function(cholesterol, gender, age, RRsys, smoking, risk = 
   }
 
   if(risk == "high") {
-    ESCdata$ESC_Score_value_2018 <- (A1*7+A2*8+A3*9+A4*10+A5*12+A6*13+A7*15+A8*17+A9*19+A10*22+
+    ESCdata$Score <- (A1*7+A2*8+A3*9+A4*10+A5*12+A6*13+A7*15+A8*17+A9*19+A10*22+
                                              A11*14+A12*16+A13*19+A14*22+A15*26+A16*26+A17*30+A18*35+A19*41+A20*47+
                                              B1*5+B2*5+B3*6+B4*7+B5*8+B6*9+B7*10+B8*12+B9*13+B10*16+
                                              B11*9+B12*11+B13*13+B14*15+B15*16+B16*18+B17*21+B18*25+B19*29+B20*34+
@@ -627,5 +628,5 @@ ESC_Score2018table <- function(cholesterol, gender, age, RRsys, smoking, risk = 
 
 
 
-  return(ESCdata$ESC_Score_value_2018)
+  return(ESCdata$Score)
 }

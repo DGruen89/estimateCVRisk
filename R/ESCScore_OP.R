@@ -2,45 +2,53 @@
 #'
 #' @description This function takes necessary parameters to calculate the ESC-Score Older People (OP) Table Version for high and low risk
 #'
-#' @param cholesterol Cholesterin REDCap-ID: varid_1206; in mg/dl
-#' @param gender Geschlecht REDCap-ID: varid_549
-#' @param age Alter REDCap-ID: varid_1891
-#' @param RRsys Blutdruck nach 5 min Ruhe - systolisch REDCap-ID: varid_627; in mmHg
-#' @param smoking Raucher REDCap-ID: varid_561
-#' @usage ESC_SCORE2016table(cholesterol, gender, age, RRsys, smoking)
+#' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
+#' @param sex a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0
+#' @param age a numeric vector with the age of persons given as years
+#' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
+#' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
+#' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
+#' @usage ESC_SCORE2016table(totchol, sex, age, sbp, smoker)
 #' @return A vector of the calculated risk per record.
-#' @details The SCORE risk assessment is derived from a large dataset of prospective European studies and predicts fatal atherosclerotic CVD events over a ten year period.
-#'This risk estimation is based on the following risk factors: gender, age, smoking, systolic blood pressure and total cholesterol.
-#'The threshold for high risk based on fatal cardiovascular events is defined as "higher than 5%", instead of the previous "higher than 20%" using a composite coronary endpoint.
-#'This SCORE model has been calibrated according to each European country’s mortality statistics. In other words, if used on the entire population aged 40-65, it will predict the exact number of fatal CVD-events that eventually will occur after 10 years.
-#'The relative risk chart may be used to show younger people at low total risk that, relative to others in their age group, their risk may be many times higher than necessary. This may help to motivate decisions about avoidance of smoking, healthy nutrition and exercise, as well as flagging those who may become candidates for medication. This chart refers to relative risk, not percentage risk.
-#'You can read more about the SCORE project in European Heart Journal, 2003, 24; 987-1003.
+#' @details Abstract: Aims Estimation of cardiovascular disease risk, using SCORE (Systematic Coronary Risk Evaluation) is recommended by European guidelines on cardiovascular disease prevention.
+#' Risk estimation is inaccurate in older people. We hypothesized that this may be due to the assumption, inherent in current risk estimation systems, that risk factors function similarly
+#' in all age groups. We aimed to derive and validate a risk estimation function, SCORE O.P., solely from data from individuals aged 65 years and older.
+#' Methods and results 20,704 men and 20,121 women, aged 65 and over and without pre-existing coronary disease, from four representative, prospective studies of the general population were included.
+#' These were Italian, Belgian and Danish studies (from original SCORE dataset) and the CONOR (Cohort of Norway) study. The variables which remained statistically significant
+#' in Cox proportional hazards model and were included in the SCORE O.P. model were: age, total cholesterol, high-density lipoprotein cholesterol, systolic blood pressure, smoking status and diabetes.
+#'SCORE O.P. showed good discrimination; area under receiver operator characteristic curve (AUROC) 0.74 (95% confidence interval: 0.73 to 0.75). Calibration was also reasonable,
+#'Hosmer-Lemeshow goodness of fit test: 17.16 (men), 22.70 (women). Compared with the original SCORE function extrapolated to the ≥65 years age group discrimination improved,
+#'p = 0.05 (men), p < 0.001 (women). Simple risk charts were constructed. On simulated external validation, performed using 10-fold cross validation, AUROC was 0.74 and predicted/observed ratio
+#' was 1.02. Conclusion SCORE O.P. provides improved accuracy in risk estimation in older people and may reduce excessive use of medication in this vulnerable population.
 #' @examples
+#' (...)
+#' @references
+#' Cooney MT, et al. Cardiovascular risk estimation in older persons: SCORE O.P. Eur J Prev Cardiol. 2016 Jul;23(10):1093-103. doi: 10.1177/2047487315588390. Epub 2015 Jun 3. PMID: 26040999.
 #' @export
-ESC_ScoreOPtable <- function(cholesterol, gender, age, RRsys, smoking, risk = "low") {
+ESC_ScoreOPtable <- function(totchol, sex, age, sbp, smoker, risk = "low", mmol = FALSE) {
 
 
-  ESCdata <- data.frame(age = age, cholesterol = cholesterol, gender = gender, RRsys = RRsys, smoking = smoking, mmol = FALSE)
+  ESCdata <- data.frame(age = age, totchol = totchol, sex = sex, sbp = sbp, smoker = smoker, mmol = FALSE)
 
   data$ESC_Score_value_OP <- 0
-  data$cholesterol <- round(data$age, digits = 1)
+  data$totchol <- round(data$age, digits = 1)
   data$ldl <- round(data$ldl)
   data$hdl <- round(data$hdl)
   data$triglycerides <- round(data$triglycerides)
   data$sysBP <- round(data$sysBP)
 
   ## defining groups
-  #gender
-  female <- (ifelse(ESCdata$gender == '3', 1, 0))
+  #sex
+  female <- (ifelse(ESCdata$sex == '3', 1, 0))
 
   # SBP over 170
-  SBP_4 <- (ifelse(ESCdata$RRsys > 170, 1, 0))
+  SBP_4 <- (ifelse(ESCdata$sbp > 170, 1, 0))
   # SBP 150-169
-  SBP_3 <- (ifelse(150< ESCdata$RRsys & ESCdata$RRsys <= 170, 1, 0))
+  SBP_3 <- (ifelse(150< ESCdata$sbp & ESCdata$sbp <= 170, 1, 0))
   # SBP 130-149
-  SBP_2 <- (ifelse(130< ESCdata$RRsys & ESCdata$RRsys <= 150, 1, 0))
+  SBP_2 <- (ifelse(130< ESCdata$sbp & ESCdata$sbp <= 150, 1, 0))
   # SBP under 130
-  SBP_1 <- (ifelse(ESCdata$RRsys <= 130, 1, 0))
+  SBP_1 <- (ifelse(ESCdata$sbp <= 130, 1, 0))
 
   #age
   age_3 <- (ifelse(ESCdata$age <= 80 & ESCdata$age >= 72.5, 1, 0))
@@ -49,23 +57,23 @@ ESC_ScoreOPtable <- function(cholesterol, gender, age, RRsys, smoking, risk = "l
 
   if(mmol == TRUE){
   #total cholesterol
-  chol_5 <- (ifelse((ESCdata$cholesterol) >= 7.5, 1, 0))
-  chol_4 <- (ifelse(6.5 <= (ESCdata$cholesterol) & (ESCdata$cholesterol) < 7.5, 1, 0))
-  chol_3 <- (ifelse(5.5 <= (ESCdata$cholesterol) & (ESCdata$cholesterol) < 6.5, 1, 0))
-  chol_2 <- (ifelse(4.5 <= (ESCdata$cholesterol) & (ESCdata$cholesterol) < 5.5, 1, 0))
-  chol_1 <- (ifelse((ESCdata$cholesterol) < 4.5, 1, 0))
+  chol_5 <- (ifelse((ESCdata$totchol) >= 7.5, 1, 0))
+  chol_4 <- (ifelse(6.5 <= (ESCdata$totchol) & (ESCdata$totchol) < 7.5, 1, 0))
+  chol_3 <- (ifelse(5.5 <= (ESCdata$totchol) & (ESCdata$totchol) < 6.5, 1, 0))
+  chol_2 <- (ifelse(4.5 <= (ESCdata$totchol) & (ESCdata$totchol) < 5.5, 1, 0))
+  chol_1 <- (ifelse((ESCdata$totchol) < 4.5, 1, 0))
   }
 
   if(mmol == FALSE){
     #total cholesterol
-    chol_5 <- (ifelse((ESCdata$cholesterol*0.0259) >= 7.5, 1, 0))
-    chol_4 <- (ifelse(6.5 <= (ESCdata$cholesterol*0.0259) & (ESCdata$cholesterol*0.0259) < 7.5, 1, 0))
-    chol_3 <- (ifelse(5.5 <= (ESCdata$cholesterol*0.0259) & (ESCdata$cholesterol*0.0259) < 6.5, 1, 0))
-    chol_2 <- (ifelse(4.5 <= (ESCdata$cholesterol*0.0259) & (ESCdata$cholesterol*0.0259) < 5.5, 1, 0))
-    chol_1 <- (ifelse((ESCdata$cholesterol*0.0259) < 4.5, 1, 0))
+    chol_5 <- (ifelse((ESCdata$totchol*0.0259) >= 7.5, 1, 0))
+    chol_4 <- (ifelse(6.5 <= (ESCdata$totchol*0.0259) & (ESCdata$totchol*0.0259) < 7.5, 1, 0))
+    chol_3 <- (ifelse(5.5 <= (ESCdata$totchol*0.0259) & (ESCdata$totchol*0.0259) < 6.5, 1, 0))
+    chol_2 <- (ifelse(4.5 <= (ESCdata$totchol*0.0259) & (ESCdata$totchol*0.0259) < 5.5, 1, 0))
+    chol_1 <- (ifelse((ESCdata$totchol*0.0259) < 4.5, 1, 0))
   }
   #smoker
-  smoker <- (ifelse(ESCdata$smoking == '1', 1, 0))
+  smoker <- (ifelse(ESCdata$smoker == '1', 1, 0))
 
   ## A - D --> age Group 75
   #A --> line 1

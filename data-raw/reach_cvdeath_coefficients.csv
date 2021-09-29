@@ -1,0 +1,2 @@
+sex_coef,age_coef,smoker_coef,diab_coef,bmi_coef,vasc_coef,cv_event_coef,chf_coef,af_coef,statin_coef,ass_coef,region_EE_or_ME_coef,region_jap_aust_coef,group_mean_coef,baseline_surv_coef
+0.24519,0.04966,0.30925,0.46141,0.55132,0.24928,0.26681,0.89976,0.42705,-0.22296,-0.17968,0.25934,-0.65524,4.03317,0.97749

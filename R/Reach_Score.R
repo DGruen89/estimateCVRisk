@@ -1,452 +1,278 @@
 #' Calculate Reach-Score_Death / Reach-Score_next_CV
 #'
-#' This function takes necessary parameters to calculate the Reach-Score
+#' This function takes necessary parameters to calculate the Reach-Score. You can choose between a calculation based on a score sheet or based on a cox model (formula).
 #'
-#' @param gender Geschlecht REDCap-ID: varid_549
-#' @param age Alter REDCap-ID: varid_1891
-#' @param bmi Body Mass Index (BMI) REDCap-ID: varid_2265
-#' @param diab Diabetes Mellitus REDCap-ID: varid_558
-#' @param smoker Raucher REDCap-ID: varid_561
-#' @param vasc Anzahl der Gefäßbetten mit klinischer Erkrankung (Zerebrovaskuläre Krankheit (TIA, Schlaganfall), koronare Herzkrankheit, pAVK)
-#' @param cv_event Kardiovaskuläres Event (Myokardinfarkt und zerebrovaskulären Ereignis oder kardiovaskulärer Tod) im letzten Jahr
-#' @param chf Kategorie Ejektionsfraktion des LV (allgemein)  REDCap-ID: varid_1743
-#' @param af Vorhofflimmern-/flattern REDCap-ID: varid_576
-#' @param statin Statin REDCap-ID: varid_693
-#' @param ass ASS REDCap-ID: varid_695
-#' @param calc_cv_event logisch; wenn TRUE, werden 'CV_event' und 'vasc' automatisch berechnet. 'khk', 'mvcad', 'pavk', 'stroke', 'date_mi', 'date_invest', 'mi', müssen der Funktion zuätzlich übergeben werden
-#' @param khk Koronare Herzkrankheit REDCap-ID: varid_569
-#' @param mvcad Mehrgefäßerkrankung REDCap-ID: varid_1244
-#' @param pavk PAVK REDCap-ID: varid_610
-#' @param stroke Schlaganfall/TIA REDCap-ID: varid_613
-#' @param date_mi Datum Myokardinfarkt REDCap-ID varid_2397
-#' @param date_invest Datum der Untersuchung/Befragung REDCap-ID: varid_547
-#' @param mi Z.n. Myokardinfarkt REDCap-ID: varid_570
-#' @param redcap_data logisch; wenn TRUE benutzt die Funktion den ihr in 'data' übergebenen Dataframe und führt die Berechnung durch. Einzelne Varibalen müssen nicht als Argumente angegeben werden.
-#' @param data Datensatz mit allen Variablen aus RedCap die für die Berechung benötigt werden. Muss angegben werden wenn 'redcap_data' TRUE.
+#' @param sex a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0
+#' @param age numeric; Age of person
+#' @param bmi numeric; Body Mass Index in kg/m^2
+#' @param diabetic numeric; Diabetes Mellitus, 1 = yes, 0 = no
+#' @param smoker numeric; current Smoker (1) was defined as >= 5 cigarettes per day on average within the last month. Other (0)
+#' @param vasc numeric; Number of vascular beds involved in previously diagnosed vascular disease. Number from 1 to 3
+#' @param cv_event numeric; cardiovascular event in past year. 1 = yes, 0 = no
+#' @param chf numeric; Cognestive heart failure. 1 = yes, 0 = no
+#' @param af numeric; Atrial fibrillation. 1 = yes, 0 = no
+#' @param statin numeric; Statin therapy. 1 = yes, 0 = no
+#' @param ass numeric; ASS therapy. 1 = yes, 0 = no.
+#' @param region_EE_or_ME numeric; Geographical region membership in East Europe or Middel East
+#' @param region_jap_aust numeric; Geographical region membership in Japan or Australia
 #' @usage
-#' reach_score_next_cv(gender=NA, age=NA, bmi=NA, diab=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA,
-#' statin=NA, ass=NA, calc_cv_event = FALSE, khk = NA, mvcad = NA, pavk = NA,  stroke = NA, date_mi = NA,
-#' date_invest = NA, mi = NA, redcap_data = TRUE, data = NULL)
+#' reach_score_next_cv(male=NA, age=NA, bmi=NA, diab=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+#' region_EE_or_EM=NA, region_jap_aust = NA)
 #'
-#' reach_score_death_new(gender=NA, age=NA, bmi=NA, diab=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA,
-#' statin=NA, ass=NA, calc_cv_event = FALSE, khk = NA, mvcad = NA, pavk = NA,  stroke = NA, date_mi = NA,
-#' date_invest = NA, mi = NA, redcap_data = TRUE, data = NULL)
-#' @details Prognosemodell entwickelt zur Sekundärprävention für Patienten mit etablierten kardiovaskulären Erkrankungen, zur Vorhersage von kardiovaskulären Ereignissen oder Tod über einen Zeitraum von 20 Monaten (Wilson et al., 2012).
-#' Der Score wird verwendet, indem jedem Risikoindikator Punkte zugewiesen, die Punkte addiert oder subtrahiert und das prozentuale Risiko für das nächste kardiovaskuläre Ereignis oder den kardiovaskulären Tod bestimmt werden.
-#' Der Score wurde aufgeteilt in zwei einzelne Scores, die zum einen das kardiovaskuläre Risiko und den Tod nach 20 Monaten berechnen. Das prozentuale Risiko unterscheidet sich in beiden Scores.
+#' reach_score_death_new(male=NA, age=NA, bmi=NA, diab=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+#' region_EE_or_ME=NA, region_jap_aust = NA)
+#' @details A risk model to predict secondary cardiovascular events and cardiovascular death in outpatients with established atherothrombotic disease.
+#' Tradiotional risk factors, burden of disease, lack of treatment, and geographic location all are related to an increase risk of subsequent cardiovascular morbidity and cardiovascular mortality.
+#' @references Wilson. Peter W. F., et al. "An International Model to Predict Recurrent Cardiovascular Disease." The American Journal of Medicine (2012) 125, 695-703.
 #'
-#' @note
-#' Die Funktion unterstützt mehrere Varianten für die Berechung der Scores:
-#'
-#' \itemize{
-#'   \item{Variante 1 (calc_cv_event = FALSE & redcap_data = FALSE):}{
-#'
-#'   Alle Argumente von 'gender' bis 'ass' müssen der Funktion übergeben werden. 'cv_event' und 'vasc' muss manuell berechnet werden, da keine entsprechenden Felder in REDCap vorhanden sind.
-#'   }
-#'   \item{Variante 2 (calc_cv_event = TRUE & redcap_data = FALSE):}{
-#'
-#'   'cv_event' und 'vasc' werden von der Funktion berechnet. Zusätzlich müssen aber die Argumente 'khk', 'mvcad', 'pavk', 'stroke', 'date_mi', 'date_invest', 'mi' der Funktion übergeben werden.
-#'   }
-#'   \item{Variante 3 (calc_cv_event = FALSE & redcap_data = TRUE):}{
-#'
-#'   Wenn 'redcap_data' TRUE und ein Dataframe mit allen benötigten Variablen aus REDCAp (alle in den Argumenten beschriebenen varids) übergeben wird, berechnet die Funktion die Scores ohne das weitere Argumente angegeben werden müssen.
-#'   }
-#'  }
 #' @return A vector of the calculated risk per record.
 #' @export
-reach_score_next_cv <- function(gender=NA, age=NA, bmi=NA, diab=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, calc_cv_event = FALSE, khk = NA, mvcad = NA, pavk = NA,  stroke = NA, date_mi = NA, date_invest = NA, mi = NA, redcap_data = FALSE, data = NULL){
-
-  if(redcap_data == TRUE) {
-
-    gender = data$varid_549
-    age = data$varid_1891
-    bmi = data$varid_2265
-    diab = data$varid_558
-    smoker = data$varid_561
-    chf = data$varid_1743
-    af = data$varid_576
-    statin = data$varid_693
-    ass = data$varid_695
-    khk = data$varid_569
-    mvcad = data$varid_1244
-    pavk = data$varid_610
-    stroke = data$varid_613
-    date_mi = data$varid_2397
-    date_invest = data$varid_547
-    mi = data$varid_570
-
-  }
-
-  if(calc_cv_event == TRUE | redcap_data == TRUE) {
-
-    KHKges <- NA
-
-    ### KHK zusammenführen nach und vor Angiogramm
-
-    KHKges[khk == 0 & mvcad == 2] <- 0
-    KHKges[khk == 0 & mvcad == 3] <- 1
-    KHKges[khk == 0 & mvcad == 4] <- 1
-    KHKges[khk == 0 & mvcad == 5] <- 1
-    KHKges[khk == 0 & mvcad == 6] <- 1
-    KHKges[khk == 0 & mvcad == 7] <- 1
-    KHKges[khk == 1 & mvcad == 2] <- 0
-    KHKges[khk == 1 & mvcad == 3] <- 1
-    KHKges[khk == 1 & mvcad == 4] <- 1
-    KHKges[khk == 1 & mvcad == 5] <- 1
-    KHKges[khk == 1 & mvcad == 6] <- 1
-    KHKges[khk == 1 & mvcad == 7] <- 1
-
-    KHKges <- ifelse(is.na(mvcad), khk, KHKges)
-
-    ### erstllen der Spalte cv_event fÃ¼r die Funktion. cv_event 1 wenn ... oder ... 1, sonst 0
+reach_score_next_cv <- function(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+                                region_EE_or_ME=NA, region_jap_aust = NA){
 
 
-    #Erstellen Tabelle für Vasc Beds
-    vasc[KHKges ==1 & pavk==1 & stroke==1] <- 3
-    vasc[KHKges == 0  & pavk == 1 & stroke == 1] <- 2
-    vasc[KHKges == 1 & pavk == 0 & stroke == 1] <- 2
-    vasc[KHKges == 1 & pavk == 1 & stroke == 0] <- 2
-    vasc[KHKges == 0 & pavk == 0 & stroke == 1] <- 1
-    vasc[KHKges == 0 & pavk == 1 & stroke == 0] <- 1
-    vasc[KHKges == 1 & pavk == 0 & stroke == 0] <- 1
-    vasc[KHKges == 0 & pavk == 0 & stroke == 0] <- 0
+    data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
+                       statin = statin, ass = ass, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
 
-    #CV Event im letzten Jahr - Zeitraum erstellen für Myokardinfarkt
-    date_mi <-as.Date(date_mi)
-
-    cv_eventpastyear <- ifelse((as.Date(date_invest) - as.Date(date_mi)) <= 365 , 1, 0 ) # | (as.Date(data$varid_547) - as.Date(data$varid_614)) <= 365
-
-    #erstellen der Spalte cv_event fuer die Funktion. cv_event 1 wenn ... oder ... 1, sonst 0
-
-    cv_event <- ifelse(mi == 1 | stroke == 1, 1, 0)
-
-    cv_event <- ifelse((cv_eventpastyear == 1 & cv_event == 1) | stroke == 1, 1, 0)
-
-
-  }
-
-  risk_all <- c()
-
-  for (i in 1:length(gender)) {
-
-    riskscore <- 0
+    data$riskscore <- 0
 
     #NEXT CV EVENT
 
-    ### Punkte fÃ¼r Geschlecht (2=männlich / 3=weiblich)
-    if(is.na(gender[i])) {riskscore <- riskscore}
-    else if(gender[i] == 2) {riskscore <- riskscore +1}
-    else if(gender[i] == 3) {riskscore <- riskscore +0}
-    else if(gender[i] == 88) {riskscore <- riskscore +0}
-    else if(gender[i] == 99) {riskscore <-riskscore +0}
+    ### Points for sex (0=male / 1=female)
 
+    data$riskscore[is.na(data$sex)] <- data$riskscore[is.na(data$sex)]
+    data$riskscore[data$sex == 1] <- data$riskscore[data$sex == 1] + 0
+    data$riskscore[data$sex == 0] <- data$riskscore[data$sex == 0] + 1
 
     ### age
-    if(is.na(age[i])) {riskscore <- riskscore}
-    else if(age[i] < 25) {riskscore <- riskscore +0}
-    else if(age[i] >= 25 & age[i] < 30) {riskscore <- riskscore +1}
-    else if(age[i] >= 30 & age[i] < 35) {riskscore <- riskscore +2}
-    else if(age[i] >= 35 & age[i] < 40) {riskscore <- riskscore +3}
-    else if(age[i] >= 40 & age[i] < 45) {riskscore <- riskscore +4}
-    else if(age[i] >= 45 & age[i] < 50) {riskscore <- riskscore +5}
-    else if(age[i] >= 50 & age[i] < 55) {riskscore <- riskscore +6}
-    else if(age[i] >= 55 & age[i] < 60) {riskscore <- riskscore +7}
-    else if(age[i] >= 60 & age[i] < 65) {riskscore <- riskscore +8}
-    else if(age[i] >= 65 & age[i] < 70) {riskscore <- riskscore +9}
-    else if(age[i] >= 70 & age[i] < 75) {riskscore <- riskscore +10}
-    else if(age[i] >= 75 & age[i] < 80) {riskscore <- riskscore +11}
-    else if(age[i] >= 80 & age[i] < 85) {riskscore <- riskscore +12}
-    else if(age[i] >= 85) {riskscore <- riskscore +13}
+
+    data$riskscore[is.na(data$age)] <- data$riskscore[is.na(data$age)]
+    data$riskscore[data$age < 25] <- data$riskscore[data$age < 25] + 0
+    data$riskscore[data$age >= 25 & data$age < 30] <- data$riskscore[data$age >= 25 & data$age < 30] + 1
+    data$riskscore[data$age >= 30 & data$age < 35] <- data$riskscore[data$age >= 30 & data$age < 35] + 2
+    data$riskscore[data$age >= 35 & data$age < 40] <- data$riskscore[data$age >= 35 & data$age < 40] + 3
+    data$riskscore[data$age >= 40 & data$age < 45] <- data$riskscore[data$age >= 40 & data$age < 45] + 4
+    data$riskscore[data$age >= 45 & data$age < 50] <- data$riskscore[data$age >= 45 & data$age < 50] + 5
+    data$riskscore[data$age >= 50 & data$age < 55] <- data$riskscore[data$age >= 50 & data$age < 55] + 6
+    data$riskscore[data$age >= 55 & data$age < 60] <- data$riskscore[data$age >= 55 & data$age < 60] + 7
+    data$riskscore[data$age >= 60 & data$age < 65] <- data$riskscore[data$age >= 60 & data$age < 65] + 8
+    data$riskscore[data$age >= 65 & data$age < 70] <- data$riskscore[data$age >= 65 & data$age < 70] + 9
+    data$riskscore[data$age >= 70 & data$age < 75] <- data$riskscore[data$age >= 70 & data$age < 75] + 10
+    data$riskscore[data$age >= 75 & data$age < 80] <- data$riskscore[data$age >= 75 & data$age < 80] + 11
+    data$riskscore[data$age >= 80 & data$age < 85] <- data$riskscore[data$age >= 80 & data$age < 85] + 12
+    data$riskscore[data$age >= 85] <- data$riskscore[data$age >= 85] + 13
 
 
+    ### BMI
 
-    ### Punkte fÃ¼r BMI
-    if(is.na(bmi[i])) {riskscore <- riskscore}
-    else if(bmi[i] > 20) {riskscore <- riskscore +0}
-    else if(bmi[i] <= 20) {riskscore <- riskscore +2}
-    else if(bmi[i] == 88) {riskscore <- riskscore +0}
-    else if(bmi[i] == 99) {riskscore <-riskscore +0}
-
+    data$riskscore[is.na(data$bmi)] <- data$riskscore[is.na(data$bmi)]
+    data$riskscore[data$bmi < 20] <- data$riskscore[data$bmi < 20] + 2
+    data$riskscore[data$bmi >= 20] <- data$riskscore[data$bmi >= 20] + 0
 
 
 
     ### Raucher (Ex Raucher unter 6 Monate)
-    if(is.na(smoker[i])) {riskscore <- riskscore}
-    else if(smoker[i] == 1) {riskscore <- riskscore +2}
-    else if(smoker[i] == 0) {riskscore <- riskscore +0}
-    else if(smoker[i] == 88) {riskscore <- riskscore +0}
-    else if(smoker[i] == 99) {riskscore <-riskscore +0}
-    else if(smoker[i] == 2) {riskscore <- riskscore +0}
 
 
-    ### Diabetes
-    if(is.na(diab[i])) {riskscore <- riskscore}
-    else if(diab[i] == 1) {riskscore <- riskscore +2}
-    else if(diab[i] == 0) {riskscore <- riskscore +0}
-    else if(diab[i] == 88) {riskscore <- riskscore +0}
-    else if(diab[i] == 99) {riskscore <-riskscore +0}
+    data$riskscore[is.na(data$smoker)] <- data$riskscore[is.na(data$smoker)]
+    data$riskscore[data$smoker == 1] <- data$riskscore[data$smoker == 1] + 2
+    data$riskscore[data$smoker == 0] <- data$riskscore[data$smoker == 0]
+
+
+    ### diabeticetes
+    data$riskscore[is.na(data$diabetic)] <- data$riskscore[is.na(data$diabetic)]
+    data$riskscore[data$diabetic == 1] <- data$riskscore[data$diabetic == 1] + 2
+    data$riskscore[data$diabetic == 0] <- data$riskscore[data$diabetic == 0]
 
 
     ### Number of Vascular Beds
 
-    ###varid_569 = KHK varid_610= PAVK  varid_613=schlaganfall/TIA
-
-
-    if(is.na(vasc[i])) {riskscore <- riskscore}
-    else if(vasc[i] == 1) {riskscore <- riskscore +2}
-    else if(vasc[i] == 2) {riskscore <- riskscore +4}
-    else if(vasc[i] == 3) {riskscore <- riskscore +6}
-    else if(vasc[i] == 88) {riskscore <- riskscore +0}
-    else if(vasc[i] == 99) {riskscore <-riskscore +0}
-
+    data$riskscore[is.na(data$vasc)] <- data$riskscore[is.na(data$vasc)]
+    data$riskscore[data$vasc == 1] <- data$riskscore[data$vasc == 1] + 2
+    data$riskscore[data$vasc == 2] <- data$riskscore[data$vasc == 2] + 4
+    data$riskscore[data$vasc == 3] <- data$riskscore[data$vasc == 3] + 6
 
 
     ### CV Event im letzten jahr
-    if(is.na(cv_event[i])) {riskscore <- riskscore}
-    else if(cv_event[i] == 1) {riskscore <- riskscore +2}
-    else if(cv_event[i] == 0) {riskscore <- riskscore +0}
+
+    data$riskscore[is.na(data$cv_event)] <- data$riskscore[is.na(data$cv_event)]
+    data$riskscore[data$cv_event == 1] <- data$riskscore[data$cv_event == 1] + 2
+    data$riskscore[data$cv_event == 0] <- data$riskscore[data$cv_event == 0]
+
 
     ### Congestive Heart failure Herzinsuffizienz
-    if(is.na(chf[i])) {riskscore <- riskscore}
-    else if(chf[i] == 2) {riskscore <- riskscore +3}
-    else if(chf[i] == 3) {riskscore <- riskscore +3}
-    else if(chf[i] == 4) {riskscore <- riskscore +0}
-    else if(chf[i] == 5) {riskscore <- riskscore +0}
-    else if(chf[i] == 88) {riskscore <- riskscore +0}
-    else if(chf[i] == 99) {riskscore <-riskscore +0}
+    data$riskscore[is.na(data$chf)] <- data$riskscore[is.na(data$chf)]
+    data$riskscore[data$chf == 1] <- data$riskscore[data$chf == 1] + 3
+    data$riskscore[data$chf == 0] <- data$riskscore[data$chf == 0]
+
 
 
     ### Atrial fibrillation /Vorhofflimmern
-    if(is.na(af[i])) {riskscore <- riskscore}
-    else if(af[i] == 1) {riskscore <- riskscore +2}
-    else if(af[i] == 0) {riskscore <- riskscore +0}
-    else if(af[i] == 88) {riskscore <- riskscore +0}
-    else if(af[i] == 99) {riskscore <-riskscore +0}
+    data$riskscore[is.na(data$af)] <- data$riskscore[is.na(data$af)]
+    data$riskscore[data$af == 1] <- data$riskscore[data$af == 1] + 2
+    data$riskscore[data$af == 0] <- data$riskscore[data$af == 0]
 
 
     ### Statine therapy
-    if(is.na(statin[i])) {riskscore <- riskscore}
-    else if(statin[i] == 1) {riskscore <- riskscore -2}
-    else if(statin[i] == 0) {riskscore <- riskscore + 0}
-    else if(statin[i] == 88) {riskscore <- riskscore +0}
-    else if(statin[i] == 99) {riskscore <-riskscore +0}
+    data$riskscore[is.na(data$statin)] <- data$riskscore[is.na(data$statin)]
+    data$riskscore[data$statin == 1] <- data$riskscore[data$statin == 1] - 2
+    data$riskscore[data$statin == 0] <- data$riskscore[data$statin == 0]
 
 
     ### ASS therapy
-    if(is.na(ass[i])) {riskscore <- riskscore}
-    else if(ass[i] == 1) {riskscore <- riskscore -1}
-    else if(ass[i] == 0) {riskscore <- riskscore + 0}
-    else if(ass[i] == 88) {riskscore <- riskscore +0}
-    else if(ass[i] == 99) {riskscore <-riskscore +0}
+    data$riskscore[is.na(data$ass)] <- data$riskscore[is.na(data$ass)]
+    data$riskscore[data$ass == 1] <- data$riskscore[data$ass == 1] - 1
+    data$riskscore[data$ass == 0] <- data$riskscore[data$ass == 0]
+
+
+    ### Eastern Europe or Middle East
+
+    data$riskscore[is.na(data$region_EE_or_ME)] <- data$riskscore[is.na(data$region_EE_or_ME)]
+    data$riskscore[data$region_EE_or_ME == 1] <- data$riskscore[data$region_EE_or_ME == 1] + 2
+    data$riskscore[data$region_EE_or_ME == 0] <- data$riskscore[data$region_EE_or_ME == 0]
+
+
+    ### Japan or Australia
+
+    data$riskscore[is.na(data$region_jap_aust)] <- data$riskscore[is.na(data$region_jap_aust)]
+    data$riskscore[data$region_jap_aust == 1] <- data$riskscore[data$region_jap_aust == 1] - 2
+    data$riskscore[data$region_jap_aust == 0] <- data$riskscore[data$region_jap_aust == 0]
 
 
     ## Risikoscore > 29 immer auf 29 setzen, da keine weiteren Risikowerte bekannt
 
-    if(riskscore >29){riskscore <- 29}
-    if(riskscore <0){riskscore <- 0}
+    data$riskscore[data$riskscore > 29] <- 29
+    data$riskscore[data$riskscore < 0] <- 0
 
     #### Tabelle Next CV Event basierend auf Risikoscore
 
     df <- data.frame(interger_risk_score = c(0:29),
                      risk_20month = c(0,1,1.2,1.4,1.6,1.9,2.2,2.5,3,3.5,4,4.7,5.4,6.3,7.3,8.5,9.8,11,13,15,17,20,23,26,30,34,38,43,48,50))
 
-    ### RÃ¼ckgabe des 20M Sterberisiko auf Basis des Riscscores
+    ### Rückgabe des 20M Sterberisiko auf Basis des Riskscores
 
-    risk <-as.numeric(df[df[,1] == riskscore,2])
+    data$score <- df[match(data$riskscore, df[,1]),2]
 
-    risk_all <- append(risk_all, risk)
 
-  }
-
-  return(risk_all)
+    return(data$score)
 
 }
 #' @export
-reach_score_death <- function(gender=NA, age=NA, bmi=NA, diab=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, calc_cv_event = FALSE, khk = NA, mvcad = NA, pavk = NA,  stroke = NA, date_mi = NA, date_invest = NA, mi = NA, redcap_data = FALSE, data = NULL){
+reach_score_cv_death <- function(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+                                 region_EE_or_ME = NA, region_jap_aust = NA){
 
+    data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
+                       statin = statin, ass = ass, region_EE_or_EM = region_EE_or_ME, region_jap_aust = region_jap_aust)
 
-  if(redcap_data == TRUE) {
+    data$riskscore <- 0
 
-    gender = data$varid_549
-    age = data$varid_1891
-    bmi = data$varid_2265
-    diab = data$varid_558
-    smoker = data$varid_561
-    chf = data$varid_1743
-    af = data$varid_576
-    statin = data$varid_693
-    ass = data$varid_695
-    khk = data$varid_569
-    mvcad = data$varid_1244
-    pavk = data$varid_610
-    stroke = data$varid_613
-    date_mi = data$varid_2397
-    date_invest = data$varid_547
-    mi = data$varid_570
+    #CV Death
 
-  }
+    ### Points for sex (0=male / 1=female)
 
-  if(calc_cv_event == TRUE | redcap_data == TRUE) {
-
-    KHKges <- NA
-
-    ### KHK zusammenführen nach und vor Angiogramm
-
-    KHKges[khk == 0 & mvcad == 2] <- 0
-    KHKges[khk == 0 & mvcad == 3] <- 1
-    KHKges[khk == 0 & mvcad == 4] <- 1
-    KHKges[khk == 0 & mvcad == 5] <- 1
-    KHKges[khk == 0 & mvcad == 6] <- 1
-    KHKges[khk == 0 & mvcad == 7] <- 1
-    KHKges[khk == 1 & mvcad == 2] <- 0
-    KHKges[khk == 1 & mvcad == 3] <- 1
-    KHKges[khk == 1 & mvcad == 4] <- 1
-    KHKges[khk == 1 & mvcad == 5] <- 1
-    KHKges[khk == 1 & mvcad == 6] <- 1
-    KHKges[khk == 1 & mvcad == 7] <- 1
-
-    KHKges <- ifelse(is.na(mvcad), khk, KHKges)
-
-    ### erstllen der Spalte cv_event fÃ¼r die Funktion. cv_event 1 wenn ... oder ... 1, sonst 0
-
-
-    #Erstellen Tabelle für Vasc Beds
-    vasc[KHKges ==1 & pavk==1 & stroke==1] <- 3
-    vasc[KHKges == 0  & pavk == 1 & stroke == 1] <- 2
-    vasc[KHKges == 1 & pavk == 0 & stroke == 1] <- 2
-    vasc[KHKges == 1 & pavk == 1 & stroke == 0] <- 2
-    vasc[KHKges == 0 & pavk == 0 & stroke == 1] <- 1
-    vasc[KHKges == 0 & pavk == 1 & stroke == 0] <- 1
-    vasc[KHKges == 1 & pavk == 0 & stroke == 0] <- 1
-    vasc[KHKges == 0 & pavk == 0 & stroke == 0] <- 0
-
-    #CV Event im letzten Jahr - Zeitraum erstellen für Myokardinfarkt
-    date_mi <-as.Date(date_mi)
-
-    cv_eventpastyear <- ifelse((as.Date(date_invest) - as.Date(date_mi)) <= 365 , 1, 0 ) # | (as.Date(data$varid_547) - as.Date(data$varid_614)) <= 365
-
-    #erstellen der Spalte cv_event fuer die Funktion. cv_event 1 wenn ... oder ... 1, sonst 0
-
-    cv_event <- ifelse(mi == 1 | stroke == 1, 1, 0)
-
-    cv_event <- ifelse((cv_eventpastyear == 1 & cv_event == 1) | stroke == 1, 1, 0)
-
-
-  }
-
-
-  risk_all <- c()
-
-  for (i in 1:length(gender)) {
-
-    riskscore <- 0
-
-    #CV death
-
-    ### Punkte fÃ¼r gender
-    if(is.na(gender[i])) {riskscore <- riskscore}
-    else if(gender[i] == 2) {riskscore <- riskscore +1}
-    else if(gender[i] == 3) {riskscore <- riskscore +0}
-    else if(gender[i] == 88) {riskscore <- riskscore +0}
-    else if(gender[i] == 99) {riskscore <-riskscore +0}
+    data$riskscore[is.na(data$sex)] <- data$riskscore[is.na(data$sex)]
+    data$riskscore[data$sex == 1] <- data$riskscore[data$sex == 1] + 1
+    data$riskscore[data$sex == 0] <- data$riskscore[data$sex == 0] + 0
 
     ### age
-    if(is.na(age[i])) {riskscore <- riskscore}
-    else if(age[i] < 25) {riskscore <- riskscore +0}
-    else if(age[i] >= 25 & age[i] < 30) {riskscore <- riskscore +1}
-    else if(age[i] >= 30 & age[i] < 35) {riskscore <- riskscore +2}
-    else if(age[i] >= 35 & age[i] < 40) {riskscore <- riskscore +3}
-    else if(age[i] >= 40 & age[i] < 45) {riskscore <- riskscore +4}
-    else if(age[i] >= 45 & age[i] < 50) {riskscore <- riskscore +5}
-    else if(age[i] >= 50 & age[i] < 55) {riskscore <- riskscore +6}
-    else if(age[i] >= 55 & age[i] < 60) {riskscore <- riskscore +7}
-    else if(age[i] >= 60 & age[i] < 65) {riskscore <- riskscore +8}
-    else if(age[i] >= 65 & age[i] < 70) {riskscore <- riskscore +9}
-    else if(age[i] >= 70 & age[i] < 75) {riskscore <- riskscore +10}
-    else if(age[i] >= 75 & age[i] < 80) {riskscore <- riskscore +11}
-    else if(age[i] >= 80 & age[i] < 85) {riskscore <- riskscore +12}
-    else if(age[i] >= 85) {riskscore <- riskscore +13}
+
+    data$riskscore[is.na(data$age)] <- data$riskscore[is.na(data$age)]
+    data$riskscore[data$age < 25] <- data$riskscore[data$age < 25] + 0
+    data$riskscore[data$age >= 25 & data$age < 30] <- data$riskscore[data$age >= 25 & data$age < 30] + 1
+    data$riskscore[data$age >= 30 & data$age < 35] <- data$riskscore[data$age >= 30 & data$age < 35] + 2
+    data$riskscore[data$age >= 35 & data$age < 40] <- data$riskscore[data$age >= 35 & data$age < 40] + 3
+    data$riskscore[data$age >= 40 & data$age < 45] <- data$riskscore[data$age >= 40 & data$age < 45] + 4
+    data$riskscore[data$age >= 45 & data$age < 50] <- data$riskscore[data$age >= 45 & data$age < 50] + 5
+    data$riskscore[data$age >= 50 & data$age < 55] <- data$riskscore[data$age >= 50 & data$age < 55] + 6
+    data$riskscore[data$age >= 55 & data$age < 60] <- data$riskscore[data$age >= 55 & data$age < 60] + 7
+    data$riskscore[data$age >= 60 & data$age < 65] <- data$riskscore[data$age >= 60 & data$age < 65] + 8
+    data$riskscore[data$age >= 65 & data$age < 70] <- data$riskscore[data$age >= 65 & data$age < 70] + 9
+    data$riskscore[data$age >= 70 & data$age < 75] <- data$riskscore[data$age >= 70 & data$age < 75] + 10
+    data$riskscore[data$age >= 75 & data$age < 80] <- data$riskscore[data$age >= 75 & data$age < 80] + 11
+    data$riskscore[data$age >= 80 & data$age < 85] <- data$riskscore[data$age >= 80 & data$age < 85] + 12
+    data$riskscore[data$age >= 85] <- data$riskscore[data$age >= 85] + 13
+
+
+    ### BMI
+
+    data$riskscore[is.na(data$bmi)] <- data$riskscore[is.na(data$bmi)]
+    data$riskscore[data$bmi < 20] <- data$riskscore[data$bmi < 20] + 2
+    data$riskscore[data$bmi >= 20] <- data$riskscore[data$bmi >= 20] + 0
 
 
 
-
-    ### Punkte fÃ¼r bmi
-    if(is.na(bmi[i])) {riskscore <- riskscore}
-    else if(bmi[i] > 20) {riskscore <- riskscore +0}
-    else if(bmi[i] <= 20) {riskscore <- riskscore +2}
-    else if(bmi[i] == 88) {riskscore <- riskscore +0}
-    else if(bmi[i] == 99) {riskscore <- riskscore +0}
+    ### Raucher (Ex Raucher unter 6 Monate)
 
 
-    ### Raucher
-    if(is.na(smoker[i])) {riskscore <- riskscore}
-    else if(smoker[i] == 1) {riskscore <- riskscore +1}
-    else if(smoker[i] == 0) {riskscore <- riskscore +0}
-    else if(smoker[i] == 2) {riskscore <- riskscore +0}
-    else if(smoker[i] == 88) {riskscore <- riskscore +0}
-    else if(smoker[i] == 99) {riskscore <- riskscore +0}
+    data$riskscore[is.na(data$smoker)] <- data$riskscore[is.na(data$smoker)]
+    data$riskscore[data$smoker == 1] <- data$riskscore[data$smoker == 1] + 1
+    data$riskscore[data$smoker == 0] <- data$riskscore[data$smoker == 0]
+
 
     ### Diabetes
-    if(is.na(diab[i])) {riskscore <- riskscore}
-    else if(diab[i] == 1) {riskscore <- riskscore +2}
-    else if(diab[i] == 0) {riskscore <- riskscore +0}
-    else if(diab[i] == 88) {riskscore <- riskscore +0}
-    else if(diab[i] == 99) {riskscore <- riskscore +0}
+    data$riskscore[is.na(data$diabetic)] <- data$riskscore[is.na(data$diabetic)]
+    data$riskscore[data$diabetic == 1] <- data$riskscore[data$diabetic == 1] + 2
+    data$riskscore[data$diabetic == 0] <- data$riskscore[data$diabetic == 0]
+
 
     ### Number of Vascular Beds
-    if(is.na(vasc[i])) {riskscore <- riskscore}
-    else if(vasc[i] == 1) {riskscore <- riskscore +1}
-    else if(vasc[i] == 2) {riskscore <- riskscore +2}
-    else if(vasc[i] == 3) {riskscore <- riskscore +3}
-    else if(vasc[i] == 88) {riskscore <- riskscore +0}
-    else if(vasc[i] == 99) {riskscore <-riskscore +0}
+
+    data$riskscore[is.na(data$vasc)] <- data$riskscore[is.na(data$vasc)]
+    data$riskscore[data$vasc == 1] <- data$riskscore[data$vasc == 1] + 1
+    data$riskscore[data$vasc == 2] <- data$riskscore[data$vasc == 2] + 2
+    data$riskscore[data$vasc == 3] <- data$riskscore[data$vasc == 3] + 3
+
 
     ### CV Event im letzten jahr
-    if(is.na(cv_event[i])) {riskscore <- riskscore}
-    else if(cv_event[i] == 1) {riskscore <- riskscore +1}
-    else if(cv_event[i] == 0) {riskscore <- riskscore +0}
-    else if(cv_event[i] == 88) {riskscore <- riskscore +0}
-    else if(cv_event[i] == 99) {riskscore <- riskscore +0}
 
-    ### CHF
-    if(is.na(chf[i])) {riskscore <- riskscore}
-    else if(chf[i] == 2) {riskscore <- riskscore +4}
-    else if(chf[i] == 3) {riskscore <- riskscore +4}
-    else if(chf[i] == 4) {riskscore <- riskscore +0}
-    else if(chf[i] == 5) {riskscore <- riskscore +0}
-    else if(chf[i] == 88) {riskscore <- riskscore +0}
-    else if(chf[i] == 99) {riskscore <- riskscore +0}
+    data$riskscore[is.na(data$cv_event)] <- data$riskscore[is.na(data$cv_event)]
+    data$riskscore[data$cv_event == 1] <- data$riskscore[data$cv_event == 1] + 1
+    data$riskscore[data$cv_event == 0] <- data$riskscore[data$cv_event == 0]
 
 
-    ### Atrial fibrillation
-    if(is.na(af[i])) {riskscore <- riskscore}
-    else if(af[i] == 1) {riskscore <- riskscore +2}
-    else if(af[i] == 0) {riskscore <- riskscore +0}
-    else if(af[i] == 88) {riskscore <- riskscore +0}
-    else if(af[i] == 99) {riskscore <- riskscore +0}
+    ### Congestive Heart failure Herzinsuffizienz
+    data$riskscore[is.na(data$chf)] <- data$riskscore[is.na(data$chf)]
+    data$riskscore[data$chf == 1] <- data$riskscore[data$chf == 1] + 4
+    data$riskscore[data$chf == 0] <- data$riskscore[data$chf == 0]
+
+
+
+    ### Atrial fibrillation /Vorhofflimmern
+    data$riskscore[is.na(data$af)] <- data$riskscore[is.na(data$af)]
+    data$riskscore[data$af == 1] <- data$riskscore[data$af == 1] + 2
+    data$riskscore[data$af == 0] <- data$riskscore[data$af == 0]
 
 
     ### Statine therapy
-    if(is.na(statin[i])) {riskscore <- riskscore}
-    else if(statin[i] == 1) {riskscore <- riskscore -1}
-    else if(statin[i] == 0) {riskscore <- riskscore +0}
-    else if(statin[i] == 88) {riskscore <- riskscore +0}
-    else if(statin[i] == 99) {riskscore <- riskscore +0}
+    data$riskscore[is.na(data$statin)] <- data$riskscore[is.na(data$statin)]
+    data$riskscore[data$statin == 1] <- data$riskscore[data$statin == 1] - 1
+    data$riskscore[data$statin == 0] <- data$riskscore[data$statin == 0]
 
 
     ### ASS therapy
-    if(is.na(ass[i])) {riskscore <- riskscore}
-    else if(ass[i] == 1) {riskscore <- riskscore -1}
-    else if(ass[i] == 0) {riskscore <- riskscore +0}
-    else if(ass[i] == 88) {riskscore <- riskscore +0}
-    else if(ass[i] == 99) {riskscore <- riskscore +0}
+    data$riskscore[is.na(data$ass)] <- data$riskscore[is.na(data$ass)]
+    data$riskscore[data$ass == 1] <- data$riskscore[data$ass == 1] - 1
+    data$riskscore[data$ass == 0] <- data$riskscore[data$ass == 0]
 
 
-    ## Risikoscore > 26 immer auf 26 setzen, da keine weiteren Risikowerte bekannt
+    ### Eastern Europe or Middle East
 
-    if(riskscore >26){riskscore <- 26}
-    if(riskscore < 8){riskscore <- 8}
+    data$riskscore[is.na(data$region_EE_or_ME)] <- data$riskscore[is.na(data$region_EE_or_ME)]
+    data$riskscore[data$region_EE_or_ME == 1] <- data$riskscore[data$region_EE_or_ME == 1] + 1
+    data$riskscore[data$region_EE_or_ME == 0] <- data$riskscore[data$region_EE_or_ME == 0]
 
+
+    ### Japan or Australia
+
+    data$riskscore[is.na(data$region_jap_aust)] <- data$riskscore[is.na(data$region_jap_aust)]
+    data$riskscore[data$region_jap_aust == 1] <- data$riskscore[data$region_jap_aust == 1] - 3
+    data$riskscore[data$region_jap_aust == 0] <- data$riskscore[data$region_jap_aust == 0]
+
+
+    ## Risikoscore >= 26 immer auf 26 setzen und 0-8 auf 8 setzen, da keine weiteren Risikowerte bekannt
+
+    data$riskscore[data$riskscore > 26] <- 26
+    data$riskscore[data$riskscore <= 8] <- 8
 
     #### Tabelle CV death basierend auf Risikoscore
 
@@ -455,12 +281,69 @@ reach_score_death <- function(gender=NA, age=NA, bmi=NA, diab=NA, smoker=NA, vas
 
     ### Auswahl ob Anzeige in Prozent oder dezimal
 
-    risk <- as.numeric(df[df[,1] == riskscore,2])
+    data$score <- df[match(data$riskscore, df[,1]),2]
 
-    risk_all <- append(risk_all, risk)
+    return(data$score)
 
-  }
+}
 
-  return(risk_all)
+#' @export
+reach_score_cv_death_formula <- function(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA,
+                                         ass=NA, region_EE_or_ME=NA, region_jap_aust = NA){
+
+    utils::data(reach_cvdeath_coefficients, envir = environment())
+
+    data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
+                       statin = statin, ass = ass, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
+
+
+    ## factorize BMI
+
+    data$bmi <- ifelse(data$bmi < 20, 1, 0)
+
+    ## set all NAs to 0
+    data[is.na(data)] <- 0
+
+
+    sum_coefs <- with(data, sex * sex_coef + age * age_coef + smoker * smoker_coef + diabetic * diabetic_coef + bmi * bmi_coef + vasc * vasc_coef + cv_event * cv_event_coef + chf * chf_coef +
+                          af * af_coef + statin * statin_coef + ass * ass_coef + region_EE_or_ME * region_EE_or_ME_coef + region_jap_aust * region_jap_aust_coef)
+
+
+    ## Calcualtion of Risk
+
+    cv_death <- round((1 - (reach_cvdeath_coefficients$baseline_surv^exp(sum_coefs - reach_cvdeath_coefficients$baseline_surv)))*100,2)
+
+    cv_death <- ifelse(cv_death < 1, 1, ifelse(cv_death > 30, 30, cv_death))
+
+    return(cv_death)
+
+}
+
+#' @export
+reach_score_next_cv_formula <- function(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA,
+                                        ass=NA, region_EE_or_ME=NA, region_jap_aust = NA){
+
+    utils::data(reach_nextcv_coefficients, envir = environment())
+
+    data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
+                       statin = statin, ass = ass, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
+
+    ## factorize BMI
+
+    data$bmi <- ifelse(data$bmi < 20, 1, 0)
+
+    ## set all NAs to 0
+    data[is.na(data)] <- 0
+
+    sum_coefs <- with(data, sex * sex_coef + age * age_coef + smoker * smoker_coef + diabetic * diabetic_coef + bmi * bmi_coef + vasc * vasc_coef + cv_event * cv_event_coef + chf * chf_coef +
+                          af * af_coef + statin * statin_coef + ass * ass_coef + region_EE_or_ME * region_EE_or_ME_coef + region_jap_aust * region_jap_aust_coef)
+
+    ## Calcualtion of Risk
+
+    cv_death <- round((1 - (reach_nextcv_coefficients$baseline_surv^exp(sum_coefs - reach_nextcv_coefficients$group_mean)))*100,2)
+
+    cv_death <- ifelse(cv_death < 1, 1, ifelse(cv_death > 30, 30, cv_death))
+
+    return(cv_death)
 
 }
