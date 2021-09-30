@@ -4,11 +4,10 @@
 \alias{reach_score_next_cv}
 \title{Calculate Reach-Score_Death / Reach-Score_next_CV}
 \usage{
-reach_score_next_cv(male=NA, age=NA, bmi=NA, diab=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
-region_EE_or_EM=NA, region_jap_aust = NA)
-
-reach_score_death_new(male=NA, age=NA, bmi=NA, diab=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
-region_EE_or_ME=NA, region_jap_aust = NA)
+reach_score_next_cv(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,region_EE_or_ME=NA, region_jap_aust = NA)
+reach_score_death(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME = NA, region_jap_aust = NA)
+reach_score_cv_death_formula(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME=NA, region_jap_aust = NA)
+reach_score_next_cv_formula(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA,ass=NA, region_EE_or_ME=NA, region_jap_aust = NA)
 }
 \arguments{
 \item{sex}{a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0}

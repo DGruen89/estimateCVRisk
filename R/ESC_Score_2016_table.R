@@ -1,6 +1,6 @@
-#' Calculate ESC-Score 2018 Table Version
+#' Calculate ESC-Score 2016 Table Version
 #'
-#' @description This function takes necessary parameters to calculate the ESC-Score 2018 Table Version for high and low risk
+#' @description This function takes necessary parameters to calculate the ESC-Score 2016 Table Version for high and low risk
 #'
 #' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
 #' @param sex a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0
@@ -9,7 +9,7 @@
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
 #' @param risk logical. Choose if which risk chart is used for calculation
-#' @usage ESC_SCORE2016table(totchol, sex, age, sbp, smoker)
+#' @usage ESC_Score_2016_table(totchol, sex, age, sbp, smoker, risk = c("low","high"), mmol = FALSE)
 #' @return A vector of calculated risks of persons.
 #' @details The SCORE risk assessment is derived from a large dataset of prospective European studies and predicts fatal atherosclerotic CVD events over a ten year period.
 #'This risk estimation is based on the following risk factors: sex, age, smoker, systolic blood pressure and total cholesterol.
@@ -17,13 +17,12 @@
 #'This SCORE model has been calibrated according to each European country’s mortality statistics. In other words, if used on the entire population aged 40-65, it will predict the exact number of fatal CVD-events that eventually will occur after 10 years.
 #'The relative risk chart may be used to show younger people at low total risk that, relative to others in their age group, their risk may be many times higher than necessary. This may help to motivate decisions about avoidance of smoking, healthy nutrition and exercise, as well as flagging those who may become candidates for medication. This chart refers to relative risk, not percentage risk.
 #'You can read more about the SCORE project in European Heart Journal, 2003, 24; 987-1003.
-#' @examples
 #' @references
 #' Piepoli MF,et al. 2016 European Guidelines on cardiovascular disease prevention in clinical practice: The Sixth Joint Task Force of the European Society of Cardiology and Other Societies on Cardiovascular Disease Prevention in Clinical Practice (constituted by representatives of 10 societies and by invited experts):
 #' Developed with the special contribution of the European Association for Cardiovascular Prevention & Rehabilitation (EACPR).
 #' Eur J Prev Cardiol. 2016 Jul;23(11):NP1-NP96. doi: 10.1177/2047487316653709. Epub 2016 Jun 27. PMID: 27353126.
 #' @export
-ESC_Score2016table <- function(totchol, sex, age, sbp, smoker, risk = c("low","high"), mmol = FALSE) {
+ESC_Score_2016_table <- function(totchol, sex, age, sbp, smoker, risk = c("low","high"), mmol = FALSE) {
 
 
   ESCdata <- data.frame(age = age, totchol = totchol, sex = sex, sbp = sbp, smoker = smoker)
@@ -31,8 +30,8 @@ ESC_Score2016table <- function(totchol, sex, age, sbp, smoker, risk = c("low","h
   ESCdata$Score <- NA
 
   ## defining groups
-  #sex
-  #female <- (ifelse(ESCdata$sex == 'female', 1, 0))
+  sex
+  female <- (ifelse(ESCdata$sex == 'female', 1, 0))
 
   # SBP over 170
   SBP_4 <- (ifelse(ESCdata$sbp > 170, 1, 0))

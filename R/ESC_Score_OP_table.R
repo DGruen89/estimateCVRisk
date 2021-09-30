@@ -8,7 +8,8 @@
 #' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
-#' @usage ESC_SCORE2016table(totchol, sex, age, sbp, smoker)
+#' @param risk logical. Choose if which risk chart is used for calculation
+#' @usage ESC_Score_OP_table(totchol, sex, age, sbp, smoker, risk = c("low","high"), mmol = FALSE)
 #' @return A vector of the calculated risk per record.
 #' @details Abstract: Aims Estimation of cardiovascular disease risk, using SCORE (Systematic Coronary Risk Evaluation) is recommended by European guidelines on cardiovascular disease prevention.
 #' Risk estimation is inaccurate in older people. We hypothesized that this may be due to the assumption, inherent in current risk estimation systems, that risk factors function similarly
@@ -20,12 +21,10 @@
 #'Hosmer-Lemeshow goodness of fit test: 17.16 (men), 22.70 (women). Compared with the original SCORE function extrapolated to the ≥65 years age group discrimination improved,
 #'p = 0.05 (men), p < 0.001 (women). Simple risk charts were constructed. On simulated external validation, performed using 10-fold cross validation, AUROC was 0.74 and predicted/observed ratio
 #' was 1.02. Conclusion SCORE O.P. provides improved accuracy in risk estimation in older people and may reduce excessive use of medication in this vulnerable population.
-#' @examples
-#' (...)
 #' @references
 #' Cooney MT, et al. Cardiovascular risk estimation in older persons: SCORE O.P. Eur J Prev Cardiol. 2016 Jul;23(10):1093-103. doi: 10.1177/2047487315588390. Epub 2015 Jun 3. PMID: 26040999.
 #' @export
-ESC_ScoreOPtable <- function(totchol, sex, age, sbp, smoker, risk = "low", mmol = FALSE) {
+ESC_Score_OP_table <- function(totchol, sex, age, sbp, smoker, risk = c("low","high"), mmol = FALSE) {
 
 
   ESCdata <- data.frame(age = age, totchol = totchol, sex = sex, sbp = sbp, smoker = smoker, mmol = FALSE)

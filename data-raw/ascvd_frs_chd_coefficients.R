@@ -2,7 +2,7 @@
 
 ascvd_frs_chd_coefficients <- read.csv("ascvd_frs_chd_coefficients.csv")
 
-usethis::use_data(ascvd_frs_cvd_coefficients, overwrite = TRUE ,compress = "xz")
+#usethis::use_data(ascvd_frs_cvd_coefficients, overwrite = TRUE ,compress = "xz")
 
 
 
@@ -46,4 +46,4 @@ table_ascvd_chd[["average_risk_m"]] <- data.frame(age_class = 1:9, average_10y_C
 
 
 
-usethis::use_data(table_ascvd_chd, overwrite = TRUE, compress = "xz")
+#usethis::use_data(table_ascvd_chd, overwrite = TRUE, compress = "xz")

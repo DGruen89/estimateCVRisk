@@ -8,7 +8,7 @@
 #' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
-#' @usage ESC_SCORE2016table(totchol, sex, age, sbp, smoker)
+#' @usage ESC_Score_GER_2016_table(totchol, sex, age, sbp, smoker, mmol = FALSE)
 #' @return A vector of the calculated risk per record.
 #' @details Abstract: Estimation of absolute risk of cardiovascular disease (CVD), preferably with population-specific risk charts, has become a cornerstone of CVD primary prevention.
 #' Regular recalibration of risk charts may be necessary due to decreasing CVD rates and CVD risk factor levels. The SCORE risk charts for fatal CVD risk assessment were first calibrated
@@ -19,14 +19,12 @@
 #' aged 40–65 years free of major CVD from DEGS1, the mean 10-year risk of fatal CVD estimated by the updated charts was lower by 29% and the estimated proportion of high
 #' risk people (10-year risk > = 5%) by 50% compared to the older risk charts. This recalibration shows a need for regular updates of risk charts according to changes in mortality and
 #' risk factor levels in order to sustain the identification of people with a high CVD risk.
-#' @examples
-#' ...
 #' @references
 #' Rücker V, Keil U, Fitzgerald AP, Malzahn U, Prugger C, Ertl G, Heuschmann PU, Neuhauser H.
 #' Predicting 10-Year Risk of Fatal Cardiovascular Disease in Germany: An Update Based on the SCORE-Deutschland Risk Charts.
 #' PLoS One. 2016 Sep 9;11(9):e0162188. doi: 10.1371/journal.pone.0162188. PMID: 27612145; PMCID: PMC5017762.
 #' @export
-ESC_SCORE_GER_2016table <- function(totchol, sex, age, sbp, smoker, mmol = FALSE) {
+ESC_Score_GER_2016_table <- function(totchol, sex, age, sbp, smoker, mmol = FALSE) {
 
 
   ESCdata <- data.frame(age = age, totchol = totchol, sex = sex, sbp = sbp, smoker = smoker)

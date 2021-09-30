@@ -4,8 +4,8 @@
 #' non-fatal myocardial infarction (MI), congestive heart disease (CHD) death,
 #' or fatal or nonfatal stroke).
 #'
-#' @param race patient race (white, aa)
-#' @param sex a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0
+#' @param race a character vector indicating the patients race. Value: "white", "aa" (afro american)
+#' @param sex a character vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given as years
 #' @param totchol a numeric vector; Cholesterol values given in mg/dL
 #' @param hdl a numeric vector; HDL Cholesterol values given in mg/dL
@@ -18,13 +18,6 @@
 #' The ASCVD (atherosclerotic cardiovascular disease) risk score is a national guideline developed by the American College of Cardiology.
 #' It is a calculation of your 10-year risk of having a cardiovascular problem, such as a heart attack or stroke.
 #' This risk estimate considers age, sex, race, cholesterol levels, blood pressure, medication use, diabetic status, and smoking status.
-#' @examples
-#' library(estimateCVrisk)
-#' ascvd_accaha_10y(
-#'   race = "aa", sex = "male", age = 55,
-#'   totchol = 213, hdl = 50, sbp = 140,
-#'   bp_med = 0, smoker = 0, diabetes = 0
-#' )
 #' @references
 #' Goff, David C., et al. "2013 ACC/AHA guideline on the assessment of
 #' cardiovascular risk: a report of the American College of
@@ -43,9 +36,7 @@ ascvd_accaha_10y <- function(race, sex,
                      smoker = smoker, diabetic = diabetic)
 
 
-  ascvd_coefficients <- NULL
-
-  utils::data(ascvd_acc_aha_coefficients, envir = environment())
+  #utils::data(sysdata, envir = environment())
 
   # Generate data.frame of coefficients based on input `race` and `sex`
   # vectors. We lose the original order after the merge operation, so will
@@ -76,6 +67,6 @@ ascvd_accaha_10y <- function(race, sex,
 
   ifelse(risk_score < 1, 1, ifelse(risk_score > 30, 30, risk_score))
 
-  retunr(risk_score)
+  return(risk_score)
 
   }

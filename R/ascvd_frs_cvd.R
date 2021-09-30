@@ -12,40 +12,53 @@
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
 #' @param heart_age logical; only available in tabl version. if TRUE a dataframe (n > 1) with 2 columns or a vector (n = 1) with 2 elements is returned, containing the Values for Risk Score and Heart Age
-#'
 #' @return Estimated 10-Y Risk for CVD (percent)
 #' @details Background: Separate multivariable risk algorithms are commonly used to assess risk of specific atherosclerotic cardiovascular disease (CVD) events, ie, coronary heart disease, cerebrovascular disease, peripheral vascular disease, and heart failure. The present report presents a single multivariable risk function that predicts risk of developing all CVD and of its constituents.
-#' Methods and Results: We used Cox proportional-hazards regression to evaluate the risk of developing a first CVD event in 8491 Framingham study participants (mean age, 49 years; 4522 women) who attended a routine examination between 30 and 74 years of age and were free of CVD. Sex-specific multivariable risk functions (“general CVD” algorithms) were derived that incorporated age, total and high-density lipoprotein cholesterol, systolic blood pressure, treatment for hypertension, smoking, and diabetes status. We assessed the performance of the general CVD algorithms for predicting individual CVD events (coronary heart disease, stroke, peripheral artery disease, or heart failure). Over 12 years of follow-up, 1174 participants (456 women) developed a first CVD event. All traditional risk factors evaluated predicted CVD risk (multivariable-adjusted P⬍0.0001). The general CVD algorithm demonstrated good discrimination (C statistic, 0.763 [men] and 0.793 [women]) and calibration. Simple adjustments to the general CVD risk algorithms allowed estimation of the risks of each CVD component. Two simple risk scores are presented, 1 based on all traditional risk factors and the other based on non–laboratory-based predictors.
+#' Methods and Results: We used Cox proportional-hazards regression to evaluate the risk of developing a first CVD event in 8491 Framingham study participants (mean age, 49 years; 4522 women) who attended a routine examination between 30 and 74 years of age and were free of CVD. Sex-specific multivariable risk functions (“general CVD” algorithms) were derived that incorporated age, total and high-density lipoprotein cholesterol, systolic blood pressure, treatment for hypertension, smoking, and diabetes status. We assessed the performance of the general CVD algorithms for predicting individual CVD events (coronary heart disease, stroke, peripheral artery disease, or heart failure). Over 12 years of follow-up, 1174 participants (456 women) developed a first CVD event. All traditional risk factors evaluated predicted CVD risk (multivariable-adjusted P⬍0.0001). The general CVD algorithm demonstrated good discrimination (C statistic, 0.763 (men) and 0.793 (women) and calibration. Simple adjustments to the general CVD risk algorithms allowed estimation of the risks of each CVD component. Two simple risk scores are presented, 1 based on all traditional risk factors and the other based on non–laboratory-based predictors.
 #' Conclusions: A sex-specific multivariable risk factor algorithm can be conveniently used to assess general CVD risk and risk of individual CVD events (coronary, cerebrovascular, and peripheral arterial disease and heart failure). The estimated absolute CVD event rates can be used to quantify risk and to guide preventive care.
-#' @examples
-#' library(estimateCVrisk)
-#' ascvd_frs_cvd_formula(
-#'   sex = "male", age = 55,
-#'   totchol = 213, hdl = 50, sbp = 140,
-#'   bp_med = 0, smoker = 0, diabetic = 0)
-#'
-#'  ascvd_frs_cvd_table(
-#'   sex = "male", age = 55,
-#'   totchol = 213, hdl = 50, sbp = 140,
-#'   bp_med = 0, smoker = 0, diabetic = 0, heart_age = TRUE)
 #' @references
 #' D'Agostino RB Sr, Vasan RS, Pencina MJ, Wolf PA, Cobain M, Massaro JM, Kannel WB.
 #' General cardiovascular risk profile for use in primary care: the Framingham Heart Study.
 #' Circulation. 2008 Feb 12;117(6):743-53. doi: 10.1161/CIRCULATIONAHA.107.699579. Epub 2008 Jan 22. PMID: 18212285.
-#'
 #' @export
+ascvd_frs_cvd_formula <- function(sex, age, totchol, hdl, sbp, bp_med, smoker, diabetic){
 
-ascvd_frs_cvd_formula <- function(sex, age, totchol, hdl, sbp,
-                            bp_med, smoker, diabetic){
+  if (!all(sex %in% c("male", "female")) | missing(sex)) {
+    stop("sex must be either 'male' or 'female'")
+  }
+
+  if (!is.numeric(age) |  missing(age)) {
+    stop("age must be a valid numeric value")
+  }
+
+  if (any(is.na(totchol))| missing(totchol)) {
+    warning("totchol contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(hdl))| missing(hdl)) {
+    warning("hdl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(sbp))| missing(sbp)) {
+    warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (!all(bp_med %in% c(0,1)) | missing(bp_med)) {
+    stop("bp_med must be either 0 (no) or 1 (yes)")
+  }
+
+  if (!all(smoker %in% c(0,1)) | missing(smoker)) {
+    stop("smoker must be either 0 (no) or 1 (yes)")
+  }
+
+  if (!all(diabetic %in% c(0,1)) | missing(diabetic)) {
+    stop("diabetic must be either 0 (no) or 1 (yes)")
+  }
 
   data <- data.frame(id = 1:length(sex), sex = sex, age = age, totchol = totchol,
                      hdl = hdl, sbp = sbp, bp_med = bp_med,
                      smoker = smoker, diabetic = diabetic)
 
-
-  ascvd_frs_cvd_coefficients <- NULL
-
-  utils::data(ascvd_frs_cvd_coefficients, envir = environment())
 
   # Generate data.frame of coefficients based on input `race` and `sex`
   # vectors. We lose the original order after the merge operation, so will
@@ -59,6 +72,11 @@ ascvd_frs_cvd_formula <- function(sex, age, totchol, hdl, sbp,
 
   data$sbp_treated <- ifelse(data$bp_med == 1, data$sbp, 1)
   data$sbp_untreated <- ifelse(data$bp_med == 0, data$sbp, 1)
+
+  ## Set all NAs to 0 so that a calculation is possible.
+  ## Attention, this leads to a strong underestimation of the risk.
+
+  data[is.na(data)] <- 0
 
   indv_sum <- log(data$age) * data$ln_age_coef +
     log(data$totchol) * data$ln_totchol_coef +
@@ -76,9 +94,7 @@ ascvd_frs_cvd_formula <- function(sex, age, totchol, hdl, sbp,
   return(risk_score)
 
 }
-
 #' @export
-
 ascvd_frs_cvd_table <- function(sex, age, totchol, hdl, sbp,
                             bp_med, smoker, diabetic, heart_age = FALSE){
 
@@ -86,7 +102,7 @@ ascvd_frs_cvd_table <- function(sex, age, totchol, hdl, sbp,
                      hdl = hdl, sbp = sbp, bp_med = bp_med,
                      smoker = smoker, diabetic = diabetic)
 
-  utils::data(table_ascvd_cvd, envir = environment())
+  #utils::data(sysdata, envir = environment())
 
   data$score <- 0
 

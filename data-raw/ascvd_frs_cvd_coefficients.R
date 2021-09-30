@@ -2,7 +2,7 @@
 
 ascvd_frs_cvd_coefficients <- read.csv("ascvd_frs_cvd_coefficients.csv")
 
-usethis::use_data(ascvd_frs_cvd_coefficients, overwrite = TRUE ,compress = "xz")
+#usethis::use_data(ascvd_frs_cvd_coefficients, overwrite = TRUE ,compress = "xz")
 
 
 ## Create Risk Table
@@ -17,4 +17,4 @@ table_ascvd_cvd[["risktable_m"]] <- data.frame(points = -3:18, risk = c(0,1.1,1.
 table_ascvd_cvd[["heart_age_f"]] <- data.frame(points = 0:15, risk = c(30,31,34,36,39,42,45,48,51,55,59,64,68,73,79,80))
 table_ascvd_cvd[["heart_age_m"]] <- data.frame(points = -1:17, risk = c(29,30,32,34,36,38,40,42,45,48,51,54,57,60,64,68,72,76,80))
 
-usethis::use_data(table_ascvd_cvd, overwrite = TRUE ,compress = "xz")
+#usethis::use_data(table_ascvd_cvd, overwrite = TRUE ,compress = "xz")

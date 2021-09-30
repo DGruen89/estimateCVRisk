@@ -12,39 +12,23 @@
 #' @param dbp Diastolic blood pressure (mm Hg)
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
-#' @param comp_risk logical; only available in table version. If TRUE a dataframe (n > 1) with 3 columns or a vector (n = 1) with 3 elements is returned, containing the Values for Average 10 Years CHD Risk, Average 10 Years hard CHD Risk, Low 10 Years CHD Risk
-#'
+#' @param chol_cat a single character value to specify the use of total cholesterol ("tc") or LDL cholesterol ("ldl")
 #' @return Estimated 10-Y Risk for CHD (percent)
 #' @details Background: The objective of this study was to examine the association of Joint National Committee (JNC-V) blood pressure and National Cholesterol Education Program (NCEP) cholesterol categories with coronary heart disease (CHD) risk, to incorporate them into coronary prediction algorithms, and to compare the discrimination properties of this approach with other noncategorical prediction functions.
 #' Methods and Results: This work was designed as a prospective, single-center study in the setting of a community-based cohort. The patients were 2489 men and 2856 women 30 to 74 years old at baseline with 12 years of follow-up. During the 12 years of follow-up, a total of 383 men and 227 women developed CHD, which was significantly associated with categories of blood pressure, total cholesterol, LDL cholesterol, and HDL cholesterol (all P⬍.001). Sex-specific prediction equations were formulated to predict CHD risk according to age, diabetes, smoking, JNC-V blood pressure categories, and NCEP total cholesterol and LDL cholesterol categories. The accuracy of this categorical approach was found to be comparable to CHD prediction when the continuous variables themselves were used. After adjustment for other factors, ⬇28% ofCHD events in men and 29% in women were attributable to blood pressure levels that exceeded high normal (ⱖ130/85). The corresponding multivariable-adjusted attributable risk percent associated with elevated total cholesterol (ⱖ200 mg/dL) was 27% in men and 34% in women.
 #' Conclusions: Recommended guidelines of blood pressure, total cholesterol, and LDL cholesterol effectively predict CHD risk in a middle-aged white population sample. A simple coronary disease prediction algorithm was developed using categorical variables, which allows physicians to predict multivariate CHD risk in patients without overt CHD.
-#' @examples
-#' library(estimateCVrisk)
-#' ascvd_frs_chd_formula(
-#'   sex = "male", age = 55,
-#'   totchol = 213, hdl = 50, sbp = 140,
-#'   bp_med = 0, smoker = 0, diabetic = 0)
-#'
-#'  ascvd_frs_chd_table(
-#'   sex = "male", age = 55,
-#'   totchol = 213, hdl = 50, sbp = 140,
-#'   bp_med = 0, smoker = 0, diabetic = 0, comp_risk = TRUE)
 #' @references
 #' D'Agostino RB Sr, Vasan RS, Pencina MJ, Wolf PA, Cobain M, Massaro JM, Kannel WB.
 #' General cardiovascular risk profile for use in primary care: the Framingham Heart Study.
 #' Circulation. 2008 Feb 12;117(6):743-53. doi: 10.1161/CIRCULATIONAHA.107.699579. Epub 2008 Jan 22. PMID: 18212285.
-#'
 #' @export
+ascvd_frs_chd_formula <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, dbp, smoker, diabetic, chol_cat = c("tc", "ldl")){
 
-ascvd_frs_chd_formula <- function(sex, age, totchol, hdl, sbp,
-                            bp_med, smoker, diabetic){
+  data <- data.frame(id = 1:length(sex), sex = sex, age = age, totchol = totchol,
+                     hdl = hdl, ldl = ldl, sbp = sbp, dbp = dbp, smoker = smoker, diabetic = diabetic)
 
-  data <- data.frame(id = 1:length(sex), sex = sex, age = age, totchol = NA,
-                     hdl = hdl, ldl = NA, sbp = sbp, dbp = dbp, smoker = smoker, diabetic = diabetic, chol_cat = c("tc", "ldl"))
 
-  ascvd_frs_chd_coefficients <- NULL
-
-  utils::data(ascvd_frs_chd_coefficients, envir = environment())
+  #utils::data(sysdata, envir = environment())
 
   ## calculate BP Categories
 
@@ -195,19 +179,16 @@ ascvd_frs_chd_formula <- function(sex, age, totchol, hdl, sbp,
   return(risk_score)
 
 }
-
 #' @export
-
-ascvd_frs_cvd_table <- function(sex, age, totchol, hdl, sbp,
-                            bp_med, smoker, diabetic, heart_age = FALSE){
+ascvd_frs_chd_table <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, dbp,
+                                smoker, diabetic, chol_cat = c("tc", "ldl")){
 
   data <- data.frame(id = 1:length(sex), sex = sex, age = age, totchol = NA,
-                      hdl = hdl, ldl = NA, sbp = sbp, dbp = dbp, smoker = smoker, diabetic = diabetic, chol_cat = c("tc", "ldl"))
+                      hdl = hdl, ldl = NA, sbp = sbp, dbp = dbp, smoker = smoker, diabetic = diabetic)
 
-  utils::data(table_ascvd_chd, envir = environment())
+  #utils::data(sysdata, envir = environment())
 
   data$score <- 0
-
 
   ##geht nicht für Personen aelter 74
   ## Score Age
@@ -271,7 +252,7 @@ ascvd_frs_cvd_table <- function(sex, age, totchol, hdl, sbp,
 
   ## Score BP
 
-  ## First Categorization
+  ## First categorization
   data$bp_cat <- NA
 
   # Optimal
@@ -337,9 +318,6 @@ ascvd_frs_cvd_table <- function(sex, age, totchol, hdl, sbp,
     data_f$risk <- table_ascvd_chd[["risktable_f_ldl"]]$risk[match(data_f$score, table_ascvd_chd[["risktable_f_ldl"]]$points)]
     data_m$risk <- table_ascvd_chd[["risktable_m_ldl"]]$risk[match(data_m$score, table_ascvd_chd[["risktable_m_ldl"]]$points)]
   }
-
-  #data_f$risk_hage <- table_ascvd_cvd[["heart_age_f"]]$risk[match(data_f$score_hage, table_ascvd_cvd[["heart_age_f"]]$points)]
-  #data_m$risk_hage <- table_ascvd_cvd[["heart_age_m"]]$risk[match(data_m$score_hage, table_ascvd_cvd[["heart_age_m"]]$points)]
 
   ## combine male and female datasets and order by id
 

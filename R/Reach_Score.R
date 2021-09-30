@@ -16,19 +16,17 @@
 #' @param region_EE_or_ME numeric; Geographical region membership in East Europe or Middel East
 #' @param region_jap_aust numeric; Geographical region membership in Japan or Australia
 #' @usage
-#' reach_score_next_cv(male=NA, age=NA, bmi=NA, diab=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
-#' region_EE_or_EM=NA, region_jap_aust = NA)
-#'
-#' reach_score_death_new(male=NA, age=NA, bmi=NA, diab=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
-#' region_EE_or_ME=NA, region_jap_aust = NA)
+#' reach_score_next_cv(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,region_EE_or_ME=NA, region_jap_aust = NA)
+#' reach_score_death(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME = NA, region_jap_aust = NA)
+#' reach_score_cv_death_formula(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME=NA, region_jap_aust = NA)
+#' reach_score_next_cv_formula(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA,ass=NA, region_EE_or_ME=NA, region_jap_aust = NA)
 #' @details A risk model to predict secondary cardiovascular events and cardiovascular death in outpatients with established atherothrombotic disease.
 #' Tradiotional risk factors, burden of disease, lack of treatment, and geographic location all are related to an increase risk of subsequent cardiovascular morbidity and cardiovascular mortality.
 #' @references Wilson. Peter W. F., et al. "An International Model to Predict Recurrent Cardiovascular Disease." The American Journal of Medicine (2012) 125, 695-703.
-#'
 #' @return A vector of the calculated risk per record.
+#' @aliases
 #' @export
-reach_score_next_cv <- function(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
-                                region_EE_or_ME=NA, region_jap_aust = NA){
+reach_score_next_cv <- function(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME = NA, region_jap_aust = NA){
 
 
     data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
@@ -158,8 +156,7 @@ reach_score_next_cv <- function(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, 
 
 }
 #' @export
-reach_score_cv_death <- function(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
-                                 region_EE_or_ME = NA, region_jap_aust = NA){
+reach_score_cv_death <- function(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME = NA, region_jap_aust = NA){
 
     data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
                        statin = statin, ass = ass, region_EE_or_EM = region_EE_or_ME, region_jap_aust = region_jap_aust)
@@ -286,12 +283,10 @@ reach_score_cv_death <- function(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA,
     return(data$score)
 
 }
-
 #' @export
-reach_score_cv_death_formula <- function(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA,
-                                         ass=NA, region_EE_or_ME=NA, region_jap_aust = NA){
+reach_score_cv_death_formula <- function(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME=NA, region_jap_aust = NA){
 
-    utils::data(reach_cvdeath_coefficients, envir = environment())
+    #utils::data(sysdata, envir = environment())
 
     data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
                        statin = statin, ass = ass, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
@@ -318,12 +313,10 @@ reach_score_cv_death_formula <- function(sex=NA, age=NA, smoker=NA, diabetic=NA,
     return(cv_death)
 
 }
-
 #' @export
-reach_score_next_cv_formula <- function(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA,
-                                        ass=NA, region_EE_or_ME=NA, region_jap_aust = NA){
+reach_score_next_cv_formula <- function(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME=NA, region_jap_aust = NA){
 
-    utils::data(reach_nextcv_coefficients, envir = environment())
+    #utils::data(sysdata, envir = environment())
 
     data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
                        statin = statin, ass = ass, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)

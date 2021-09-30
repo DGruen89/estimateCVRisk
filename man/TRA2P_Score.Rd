@@ -4,7 +4,7 @@
 \alias{TRA2P_Score}
 \title{Calculate TRA2P-Score}
 \usage{
-TRA2P_Score(chf = NA, ah = NA, age = NA, diabetic = NA, stroke = NA, bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA, pavk = NA, redcap_data = FALSE, data = NULL)
+TRA2P_Score(chf = NA, ah = NA, age = NA, diabetic = NA, stroke = NA, bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA)
 }
 \arguments{
 \item{chf}{a numeric vector indicating the presence of a congestive heart failure. Values: yes = 1; no = 0.}
@@ -33,7 +33,7 @@ This function takes necessary parameters to calculate the TRA2P-Score
 }
 \details{
 BACKGROUND: Patients with stable ischemic heart disease and previous myocardial infarction (MI) vary in their risk for recurrent cardiovascular events. Atherothrombotic risk assessment may be useful to identify high- risk patients who have the greatest potential to benefit from more intensive secondary preventive therapy such as treatment with vorapaxar.
-METHODS: We identified independent clinical indicators of atherothrombotic risk among 8598 stable, placebo-treated patients with a previous MI followed up for 2.5 years (median) in TRA 2°P-TIMI 50 \link[=Thrombin Receptor Antagonist in Secondary Prevention of Atherothrombotic Ischemic Eventsâ€“TIMI 50]{Thrombin Receptor Antagonist in Secondary Prevention of Atherothrombotic Ischemic Events–TIMI 50}. The efficacy and safety of vorapaxar (SCH 530348; MK-5348) were assessed by baseline risk among patients with previous MI without prior stroke or transient ischemic attack for whom there is a clinical indication for vorapaxar. End points were cardiovascular death, MI, or ischemic stroke and GUSTO (Global Use of Strategies to Open Occluded Coronary Arteries) severe bleeding.
+METHODS: We identified independent clinical indicators of atherothrombotic risk among 8598 stable, placebo-treated patients with a previous MI followed up for 2.5 years (median) in TRA 2°P-TIMI 50 (Thrombin Receptor Antagonist in Secondary Prevention of Atherothrombotic Ischemic Events–TIMI 50). The efficacy and safety of vorapaxar (SCH 530348; MK-5348) were assessed by baseline risk among patients with previous MI without prior stroke or transient ischemic attack for whom there is a clinical indication for vorapaxar. End points were cardiovascular death, MI, or ischemic stroke and GUSTO (Global Use of Strategies to Open Occluded Coronary Arteries) severe bleeding.
 RESULTS: The 9 independent risk predictors were age, diabetes mellitus, hypertension, smoking, peripheral arterial disease, previous stroke, previous coronary bypass grafting, heart failure, and renal dysfunction. A simple integer-based scheme using these predictors showed a strong graded relationship with the rate of cardiovascular death/MI/ischemic stroke and the individual components (P for trend <0.001 for all). High-risk patients (≥3 risk indicators; 20\% of population) had a 3.2\% absolute risk reduction in cardiovascular disease/MI/ischemic stroke with vorapaxar, and intermediate-risk patients (1–2 risk indicators; 61\%) had a 2.1\% absolute risk reduction (P<0.001 each), translating to a number needed to treat of 31 and 48. Bleeding increased across risk groups (P for trend<0.01); however, net clinical outcome was increasingly favorable with vorapaxar across risk groups. Fatal bleeding or intracranial hemorrhage was 0.9\% with both treatments in high-risk patients.
 CONCLUSIONS: Stratification of baseline atherothrombotic risk can assist with therapeutic decision making for vorapaxar use for secondary prevention after MI.
 }
