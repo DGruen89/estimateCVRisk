@@ -1,14 +1,14 @@
 #' Calculate ESC-Score OP Table Version
 #'
 #' @description This function takes necessary parameters to calculate the ESC-Score Older People (OP) Table Version for high and low risk
-#'
-#' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
+#
 #' @param sex a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0
 #' @param age a numeric vector with the age of persons given as years
+#' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
 #' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
-#' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
 #' @param risk logical. Choose if which risk chart is used for calculation
+#' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
 #' @usage ESC_Score_OP_table(totchol, sex, age, sbp, smoker, risk = c("low","high"), mmol = FALSE)
 #' @return A vector of the calculated risk per record.
 #' @details Abstract: Aims Estimation of cardiovascular disease risk, using SCORE (Systematic Coronary Risk Evaluation) is recommended by European guidelines on cardiovascular disease prevention.
@@ -26,19 +26,39 @@
 #' @export
 ESC_Score_OP_table <- function(totchol, sex, age, sbp, smoker, risk = c("low","high"), mmol = FALSE) {
 
+  risk <- match.arg(risk)
+
+  if (!all(sex %in% c("male", "female")) | missing(sex)) {
+    stop("sex must be either 'male' or 'female'")
+  }
+
+  if (!is.numeric(age) | any(is.na(age))) {
+    stop("age must be a valid numeric value")
+  }
+
+  if (!is.numeric(totchol) | any(is.na(totchol))) {
+    stop("totchol must be a valid numeric value")
+  }
+
+  if (!is.numeric(sbp) | any(is.na(sbp))) {
+    stop("sbp must be a valid numeric value")
+  }
+
+  if (!is.numeric(smoker) | !all(smoker %in% c(0,1)) | missing(smoker)) {
+    stop("smoker must be either 0 (no) or 1 (yes)")
+  }
+
+  if(!is.logical(mmol)){
+    stop("mmol must be a single logical value")
+  }
 
   ESCdata <- data.frame(age = age, totchol = totchol, sex = sex, sbp = sbp, smoker = smoker, mmol = FALSE)
 
-  data$ESC_Score_value_OP <- 0
-  data$totchol <- round(data$age, digits = 1)
-  data$ldl <- round(data$ldl)
-  data$hdl <- round(data$hdl)
-  data$triglycerides <- round(data$triglycerides)
-  data$sysBP <- round(data$sysBP)
+  ESCdata$ESC_Score_value_OP <- 0
 
   ## defining groups
   #sex
-  female <- (ifelse(ESCdata$sex == '3', 1, 0))
+  female <- (ifelse(ESCdata$sex == 'female', 1, 0))
 
   # SBP over 170
   SBP_4 <- (ifelse(ESCdata$sbp > 170, 1, 0))

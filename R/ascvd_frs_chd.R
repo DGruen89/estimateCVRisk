@@ -24,6 +24,69 @@
 #' @export
 ascvd_frs_chd_formula <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, dbp, smoker, diabetic, chol_cat = c("tc", "ldl")){
 
+  chol_cat <- match.arg(chol_cat)
+
+  if (!all(sex %in% c("male", "female")) | missing(sex)) {
+    stop("sex must be either 'male' or 'female'")
+  }
+
+  if (!is.numeric(age) |  missing(age)) {
+    stop("age must be a valid numeric value")
+  }
+
+  if (any(!is.numeric(totchol)) & any(!is.na(totchol))) {
+    stop("totchol must be a valid numeric value")
+  }
+
+  if (any(is.na(totchol)) & chol_cat == "totchol") {
+    warning("totchol contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (!is.numeric(hdl) | missing(hdl)) {
+    stop("hdl must be a valid numeric value")
+  }
+
+  if (any(is.na(hdl))) {
+    warning("hdl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(!is.numeric(ldl)) & any(!is.na(ldl))) {
+    stop("ldl must be a valid numeric value")
+  }
+
+  if (any(is.na(ldl)) & chol_cat == "ldl") {
+    warning("ldl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (!is.numeric(sbp) | missing(sbp)) {
+    stop("sbp must be a valid numeric value")
+  }
+
+  if (any(is.na(sbp))) {
+    warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (!is.numeric(dbp) | missing(dbp)) {
+    stop("dbp must be a valid numeric value")
+  }
+
+  if (any(is.na(dbp))) {
+    warning("dbp contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (!is.numeric(smoker) | !all(smoker %in% c(0,1)) | missing(smoker)) {
+    stop("smoker must be either 0 (no) or 1 (yes)")
+  }
+
+  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1)) | missing(diabetic)) {
+    stop("diabetic must be either 0 (no) or 1 (yes)")
+  }
+
+  if((chol_cat == "tc" & any(is.na(totchol))) | (chol_cat == "ldl" & any(is.na(ldl)))) {
+    stop("There are no values given for the selected calculation in chol_cat")
+  }
+
+
   data <- data.frame(id = 1:length(sex), sex = sex, age = age, totchol = totchol,
                      hdl = hdl, ldl = ldl, sbp = sbp, dbp = dbp, smoker = smoker, diabetic = diabetic)
 
@@ -180,11 +243,64 @@ ascvd_frs_chd_formula <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, db
 
 }
 #' @export
-ascvd_frs_chd_table <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, dbp,
-                                smoker, diabetic, chol_cat = c("tc", "ldl")){
+ascvd_frs_chd_table <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, dbp, smoker, diabetic, chol_cat = c("tc", "ldl")){
 
-  data <- data.frame(id = 1:length(sex), sex = sex, age = age, totchol = NA,
-                      hdl = hdl, ldl = NA, sbp = sbp, dbp = dbp, smoker = smoker, diabetic = diabetic)
+  chol_cat <- match.arg(chol_cat)
+
+  if (!all(sex %in% c("male", "female")) | missing(sex)) {
+    stop("sex must be either 'male' or 'female'")
+  }
+
+  if (!is.numeric(age) |  missing(age)) {
+    stop("age must be a valid numeric value")
+  }
+
+  if (any(!is.numeric(totchol)) & any(!is.na(totchol))) {
+    stop("totchol must be a valid numeric value")
+  }
+
+  if (any(is.na(totchol)) & chol_cat == "totchol") {
+    warning("totchol contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (!is.numeric(hdl) | missing(hdl)) {
+    stop("hdl must be a valid numeric value")
+  }
+
+  if (any(is.na(hdl))) {
+    warning("hdl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(!is.numeric(ldl)) & any(!is.na(ldl))) {
+    stop("ldl must be a valid numeric value")
+  }
+
+  if (any(is.na(ldl)) & chol_cat == "ldl") {
+    warning("ldl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (!is.numeric(sbp) | missing(sbp)) {
+    stop("sbp must be a valid numeric value")
+  }
+
+  if (any(is.na(sbp))) {
+    warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (!is.numeric(smoker) | !all(smoker %in% c(0,1)) | missing(smoker)) {
+    stop("smoker must be either 0 (no) or 1 (yes)")
+  }
+
+  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1)) | missing(diabetic)) {
+    stop("diabetic must be either 0 (no) or 1 (yes)")
+  }
+
+  if((chol_cat == "tc" & any(is.na(totchol))) | (chol_cat == "ldl" & any(is.na(ldl)))) {
+    stop("There are no values given for the selected calculation in chol_cat")
+  }
+
+  data <- data.frame(id = 1:length(sex), sex = sex, age = age, totchol = totchol,
+                      hdl = hdl, ldl = ldl, sbp = sbp, dbp = dbp, smoker = smoker, diabetic = diabetic)
 
   #utils::data(sysdata, envir = environment())
 

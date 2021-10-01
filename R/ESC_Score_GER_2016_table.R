@@ -2,9 +2,9 @@
 #'
 #' @description This function takes necessary parameters to calculate the ESC-Score Germany 2016 Table Version
 #'
-#' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
-#' @param sex a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0
+#' @param sex a character vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given in years
+#' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
 #' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
@@ -24,8 +24,31 @@
 #' Predicting 10-Year Risk of Fatal Cardiovascular Disease in Germany: An Update Based on the SCORE-Deutschland Risk Charts.
 #' PLoS One. 2016 Sep 9;11(9):e0162188. doi: 10.1371/journal.pone.0162188. PMID: 27612145; PMCID: PMC5017762.
 #' @export
-ESC_Score_GER_2016_table <- function(totchol, sex, age, sbp, smoker, mmol = FALSE) {
+ESC_Score_GER_2016_table <- function(sex, age, totchol, sbp, smoker, mmol = FALSE) {
 
+  if (!all(sex %in% c("male", "female")) | missing(sex)) {
+    stop("sex must be either 'male' or 'female'")
+  }
+
+  if (!is.numeric(age) | any(is.na(age))) {
+    stop("age must be a valid numeric value")
+  }
+
+  if (!is.numeric(totchol) | any(is.na(totchol))) {
+    stop("totchol must be a valid numeric value")
+  }
+
+  if (!is.numeric(sbp) | any(is.na(sbp))) {
+    stop("sbp must be a valid numeric value")
+  }
+
+  if (!is.numeric(smoker) | !all(smoker %in% c(0,1)) | missing(smoker)) {
+    stop("smoker must be either 0 (no) or 1 (yes)")
+  }
+
+  if(!is.logical(mmol)){
+    stop("mmol must be a single logical value")
+  }
 
   ESCdata <- data.frame(age = age, totchol = totchol, sex = sex, sbp = sbp, smoker = smoker)
 

@@ -2,13 +2,13 @@
 #'
 #' @description This function takes necessary parameters to calculate the ESC-Score 2016 Table Version for high and low risk
 #'
-#' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
-#' @param sex a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0
+#' @param sex a character vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given as years
+#' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
 #' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
-#' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
 #' @param risk logical. Choose if which risk chart is used for calculation
+#' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
 #' @usage ESC_Score_2016_table(totchol, sex, age, sbp, smoker, risk = c("low","high"), mmol = FALSE)
 #' @return A vector of calculated risks of persons.
 #' @details The SCORE risk assessment is derived from a large dataset of prospective European studies and predicts fatal atherosclerotic CVD events over a ten year period.
@@ -22,8 +22,33 @@
 #' Developed with the special contribution of the European Association for Cardiovascular Prevention & Rehabilitation (EACPR).
 #' Eur J Prev Cardiol. 2016 Jul;23(11):NP1-NP96. doi: 10.1177/2047487316653709. Epub 2016 Jun 27. PMID: 27353126.
 #' @export
-ESC_Score_2016_table <- function(totchol, sex, age, sbp, smoker, risk = c("low","high"), mmol = FALSE) {
+ESC_Score_2016_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmol = FALSE) {
 
+  risk <- match.arg(risk)
+
+  if (!all(sex %in% c("male", "female")) | missing(sex)) {
+    stop("sex must be either 'male' or 'female'")
+  }
+
+  if (!is.numeric(age) | any(is.na(age))) {
+    stop("age must be a valid numeric value")
+  }
+
+  if (!is.numeric(totchol) | any(is.na(totchol))) {
+    stop("totchol must be a valid numeric value")
+  }
+
+  if (!is.numeric(sbp) | any(is.na(sbp))) {
+    stop("sbp must be a valid numeric value")
+  }
+
+  if (!is.numeric(smoker) | !all(smoker %in% c(0,1)) | missing(smoker)) {
+    stop("smoker must be either 0 (no) or 1 (yes)")
+  }
+
+  if(!is.logical(mmol)){
+    stop("mmol must be a single logical value")
+  }
 
   ESCdata <- data.frame(age = age, totchol = totchol, sex = sex, sbp = sbp, smoker = smoker)
 

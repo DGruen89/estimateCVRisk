@@ -2,6 +2,7 @@
 #'
 #' @description This function takes necessary parameters to calculate the PROCAM-Risk-Score Table Version for the Risk of acute Coronary Events based on the 10-year follow-up of the Prospective Cardiovascular Münster (PROCAM) study
 #'
+#' @param sex a character vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given as years
 #' @param ldl  a numeric vector; LDL Cholesterol values given in mg/dL
 #' @param hdl a numeric vector; HDL Cholesterol values given in mg/dL
@@ -23,15 +24,49 @@
 #' Circulation. 2002 Jan 22;105(3):310-5. doi: 10.1161/hc0302.102575. Erratum in: Circulation 2002 Feb 19;105(7):900. PMID: 11804985.
 #' @import stats
 #' @export
-procam_score_2002 <- function(age, ldl, hdl, triglycerides, smoker, diabetic, famMI, sbp){
+procam_score_2002 <- function(age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI){
+
+  if (!is.numeric(age) |  missing(age)) {
+    stop("age must be a valid numeric value")
+  }
+
+  if (!is.numeric(hdl) | missing(hdl)) {
+    stop("hdl must be a valid numeric value")
+  }
+
+  if (any(is.na(hdl))) {
+    warning("hdl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(!is.numeric(ldl)) & any(!is.na(ldl))) {
+    stop("ldl must be a valid numeric value")
+  }
+
+  if (any(is.na(ldl))) {
+    warning("ldl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (!is.numeric(sbp) | missing(sbp)) {
+    stop("sbp must be a valid numeric value")
+  }
+
+  if (any(is.na(sbp))) {
+    warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (!is.numeric(triglycerides) | !all(triglycerides %in% c(0,1)) | missing(triglycerides)) {
+    stop("triglycerides must be either 0 (no) or 1 (yes)")
+  }
+
+  if (!is.numeric(smoker) | !all(smoker %in% c(0,1)) | missing(smoker)) {
+    stop("smoker must be either 0 (no) or 1 (yes)")
+  }
+
+  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1)) | missing(diabetic)) {
+    stop("diabetic must be either 0 (no) or 1 (yes)")
+  }
 
   data <- data.frame(age = age, ldl = ldl, hdl = hdl, triglycerides = triglycerides, smoker = smoker, diabetic = diabetic, famMI = famMI, sbp = sbp)
-
-  if(sum(is.na(data) !=0)){
-
-    print("Dataframe contains NAs. Entries with missing values have a lower accuracy and underestimate the 10-year-risk")
-
-  }
 
   data$score <- 0
   data$age <- round(data$age)
@@ -100,15 +135,53 @@ procam_score_2002 <- function(age, ldl, hdl, triglycerides, smoker, diabetic, fa
 
 
 #' @export
-procam_score_2007 <- function(sex, age, ldl, hdl, triglycerides, smoker, diabetic, famMI, sbp){
+procam_score_2007 <- function(sex, age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI){
+
+  if (!all(sex %in% c("male", "female")) | missing(sex)) {
+    stop("sex must be either 'male' or 'female'")
+  }
+
+  if (!is.numeric(age) |  missing(age)) {
+    stop("age must be a valid numeric value")
+  }
+
+  if (!is.numeric(hdl) | missing(hdl)) {
+    stop("hdl must be a valid numeric value")
+  }
+
+  if (any(is.na(hdl))) {
+    warning("hdl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(!is.numeric(ldl)) & any(!is.na(ldl))) {
+    stop("ldl must be a valid numeric value")
+  }
+
+  if (any(is.na(ldl))) {
+    warning("ldl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (!is.numeric(sbp) | missing(sbp)) {
+    stop("sbp must be a valid numeric value")
+  }
+
+  if (any(is.na(sbp))) {
+    warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (!is.numeric(triglycerides) | !all(triglycerides %in% c(0,1)) | missing(triglycerides)) {
+    stop("triglycerides must be either 0 (no) or 1 (yes)")
+  }
+
+  if (!is.numeric(smoker) | !all(smoker %in% c(0,1)) | missing(smoker)) {
+    stop("smoker must be either 0 (no) or 1 (yes)")
+  }
+
+  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1)) | missing(diabetic)) {
+    stop("diabetic must be either 0 (no) or 1 (yes)")
+  }
 
   data <- data.frame(age = age, ldl = ldl, hdl = hdl, triglycerides = triglycerides, smoker = smoker, diabetic = diabetic, famMI = famMI, sbp = sbp, sex = sex)
-
-  if(sum(is.na(data) !=0)){
-
-    print("Dataframe contains NAs. Entries with missing values have a lower accuracy and underestimate the 10-year-risk")
-
-  }
 
   data$score <- 0
   data$age <- round(data$age)
