@@ -4,7 +4,17 @@
 \alias{ascvd_accaha_10y}
 \title{ACC/AHA 2013 ASCVD risk score}
 \usage{
-ascvd_accaha_10y(race, sex, age, totchol, hdl, sbp, bp_med, smoker, diabetic)
+ascvd_accaha_10y(
+  race = c("white", "aa"),
+  sex,
+  age,
+  totchol,
+  hdl,
+  sbp,
+  bp_med,
+  smoker,
+  diabetic
+)
 }
 \arguments{
 \item{race}{a character vector indicating the patients race. Value: "white", "aa" (afro american)}

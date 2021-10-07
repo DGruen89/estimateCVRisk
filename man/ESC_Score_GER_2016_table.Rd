@@ -7,11 +7,11 @@
 ESC_Score_GER_2016_table(totchol, sex, age, sbp, smoker, mmol = FALSE)
 }
 \arguments{
-\item{totchol}{a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE}
-
-\item{sex}{a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0}
+\item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}
 
 \item{age}{a numeric vector with the age of persons given in years}
+
+\item{totchol}{a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE}
 
 \item{sbp}{a numeric vector with the systolic blood pressure of persons given as mmHg}
 

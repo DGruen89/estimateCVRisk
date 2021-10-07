@@ -10,31 +10,31 @@ reach_score_cv_death_formula(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vas
 reach_score_next_cv_formula(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA,ass=NA, region_EE_or_ME=NA, region_jap_aust = NA)
 }
 \arguments{
-\item{sex}{a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0}
+\item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}
 
-\item{age}{numeric; Age of person}
+\item{age}{a numeric vector with the age of persons given as years}
 
-\item{bmi}{numeric; Body Mass Index in kg/m^2}
+\item{bmi}{a numeric vector; Body Mass Index in kg/m^2}
 
-\item{diabetic}{numeric; Diabetes Mellitus, 1 = yes, 0 = no}
+\item{diabetic}{a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.}
 
-\item{smoker}{numeric; current Smoker (1) was defined as >= 5 cigarettes per day on average within the last month. Other (0)}
+\item{smoker}{a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.}
 
-\item{vasc}{numeric; Number of vascular beds involved in previously diagnosed vascular disease. Number from 1 to 3}
+\item{vasc}{a numeric vector; Number of vascular beds involved in previously diagnosed vascular disease. Number from 1 to 3}
 
-\item{cv_event}{numeric; cardiovascular event in past year. 1 = yes, 0 = no}
+\item{cv_event}{a numeric vector; cardiovascular event in past year. 1 = yes, 0 = no}
 
-\item{chf}{numeric; Cognestive heart failure. 1 = yes, 0 = no}
+\item{chf}{a numeric vector indicating whether a person had a Congestive heart failure. Values: yes = 1; no = 0.}
 
-\item{af}{numeric; Atrial fibrillation. 1 = yes, 0 = no}
+\item{statin}{a numeric vector; indicating whether a person is on a statin therapy. 1 = yes, 0 = no}
 
-\item{statin}{numeric; Statin therapy. 1 = yes, 0 = no}
+\item{ass}{a numeric vector; indicating whether a person is on a ASS therapy. 1 = yes, 0 = no.}
 
-\item{ass}{numeric; ASS therapy. 1 = yes, 0 = no.}
+\item{region_EE_or_ME}{a logical vector; Geographical region membership in East Europe or Middel East}
 
-\item{region_EE_or_ME}{numeric; Geographical region membership in East Europe or Middel East}
+\item{region_jap_aust}{a logical vector; Geographical region membership in Japan or Australia}
 
-\item{region_jap_aust}{numeric; Geographical region membership in Japan or Australia}
+\item{afa}{numeric vector; Atrial fibrillation. 1 = yes, 0 = no}
 }
 \value{
 A vector of the calculated risk per record.

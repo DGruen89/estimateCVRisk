@@ -13,7 +13,9 @@ procam_score_2002(age, ldl, hdl, triglycerides, smoker, diabetic, famMI, sbp)
 
 \item{hdl}{a numeric vector; HDL Cholesterol values given in mg/dL}
 
-\item{triglycerides}{a numeric vector with the information whether a Patient is taking antihypertensive medication. Values: yes = 1; no = 0.}
+\item{sbp}{a numeric vector with the systolic blood pressure of persons given as mmHg}
+
+\item{triglycerides}{a numeric vector; triglycerides values given in mg/dL}
 
 \item{smoker}{a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.}
 
@@ -21,7 +23,7 @@ procam_score_2002(age, ldl, hdl, triglycerides, smoker, diabetic, famMI, sbp)
 
 \item{famMI}{a numeric vector indicating family history of premature myocardial infarction. Values: yes = 1; no = 0.}
 
-\item{sbp}{a numeric vector with the systolic blood pressure of persons given as mmHg}
+\item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}
 }
 \value{
 A vector of calculated risk per record in \%.
