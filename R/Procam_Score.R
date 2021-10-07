@@ -7,7 +7,7 @@
 #' @param ldl  a numeric vector; LDL Cholesterol values given in mg/dL
 #' @param hdl a numeric vector; HDL Cholesterol values given in mg/dL
 #' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
-#' @param triglycerides a numeric vector with the information whether a Patient is taking antihypertensive medication. Values: yes = 1; no = 0.
+#' @param triglycerides a numeric vector; triglycerides values given in mg/dL
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
 #' @param famMI a numeric vector indicating family history of premature myocardial infarction. Values: yes = 1; no = 0.
@@ -54,8 +54,12 @@ procam_score_2002 <- function(age, ldl, hdl, sbp, triglycerides, smoker, diabeti
     warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
   }
 
-  if (!is.numeric(triglycerides) | !all(triglycerides %in% c(0,1)) | missing(triglycerides)) {
-    stop("triglycerides must be either 0 (no) or 1 (yes)")
+  if (any(!is.numeric(triglycerides)) & any(!is.na(triglycerides))) {
+    stop("triglycerides must be a valid numeric value")
+  }
+
+  if (any(is.na(triglycerides))) {
+    warning("triglycerides contains NA's. This can greatly underestimate the risk for individuals")
   }
 
   if (!is.numeric(smoker) | !all(smoker %in% c(0,1)) | missing(smoker)) {
@@ -119,6 +123,10 @@ procam_score_2002 <- function(age, ldl, hdl, sbp, triglycerides, smoker, diabeti
   data$score[data$sbp >= 140 & data$sbp <= 159] <- data$score[data$sbp >= 140 & data$sbp <= 159 & !is.na(data$sbp)] + 5
   data$score[data$sbp >= 160] <- data$score[data$sbp >= 160 & !is.na(data$sbp)] + 8
 
+
+  data$score <- ifelse(data$score > 60, 60, data$score)
+  data$score <- ifelse(data$score < 20, 20, data$score)
+
   ## 10 year Risk
 
   risktable <- data.frame(points = 20:60, risk = c(1,1.1,1.2,1.3,1.4,1.6,1.7,1.8,1.9,2.3,2.4,2.8,2.9,3.3,3.5,4.0,4.2,4.8,5.1,5.7,6.1,7.0,7.4,
@@ -169,10 +177,13 @@ procam_score_2007 <- function(sex, age, ldl, hdl, sbp, triglycerides, smoker, di
     warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
   }
 
-  if (!is.numeric(triglycerides) | !all(triglycerides %in% c(0,1)) | missing(triglycerides)) {
-    stop("triglycerides must be either 0 (no) or 1 (yes)")
+  if (any(!is.numeric(triglycerides)) & any(!is.na(triglycerides))) {
+    stop("triglycerides must be a valid numeric value")
   }
 
+  if (any(is.na(triglycerides))) {
+    warning("triglycerides contains NA's. This can greatly underestimate the risk for individuals")
+  }
   if (!is.numeric(smoker) | !all(smoker %in% c(0,1)) | missing(smoker)) {
     stop("smoker must be either 0 (no) or 1 (yes)")
   }
@@ -239,12 +250,12 @@ procam_score_2007 <- function(sex, age, ldl, hdl, sbp, triglycerides, smoker, di
   data$score[data$smoker == 1  & !is.na(data$smoker)] <- data$score[data$smoker == 1  & !is.na(data$smoker)] + 12
 
   ## Score diabetic
-  data$score[data$diabetic == 1  & !is.na(data$diabetic) & data$gender == 1 & !is.na(data$gender)] <- data$score[data$diabetic == 1  & !is.na(data$diabetic) & data$gender == 1 & !is.na(data$gender)] + 9
-  data$score[data$diabetic == 1  & !is.na(data$diabetic) & data$gender == 1 & !is.na(data$gender)] <- data$score[data$diabetic == 1  & !is.na(data$diabetic) & data$gender == 0 & !is.na(data$gender)] + 11
+  data$score[data$diabetic == 1  & !is.na(data$diabetic) & data$sex == "male" & !is.na(data$sex)] <- data$score[data$diabetic == 1  & !is.na(data$diabetic) & data$sex == "male" & !is.na(data$sex)] + 9
+  data$score[data$diabetic == 1  & !is.na(data$diabetic) & data$sex == "female" & !is.na(data$sex)] <- data$score[data$diabetic == 1  & !is.na(data$diabetic) & data$sex == "female" & !is.na(data$sex)] + 11
 
 
   ## Score famMI
-  data$score[data$famMI == 1 & !is.na(data$famMI)] <- data$score[data$famMI == 1 & !is.na(data$famMI)] + 4
+  data$score[data$famMI == 1 & !is.na(data$famMI)] <- data$score[data$famMI == 1 & !is.na(data$famMI)] + 5
 
   ## Score sys BP
   data$score[data$sbp < 110 & !is.na(data$sbp)] <- data$score[data$sbp < 110 & !is.na(data$sbp)] + 0

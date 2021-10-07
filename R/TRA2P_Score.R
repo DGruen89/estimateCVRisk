@@ -2,13 +2,13 @@
 #'
 #' This function takes necessary parameters to calculate the TRA2P-Score
 #'
+#' @param age a numeric vector with the age of persons given in years.
 #' @param chf a numeric vector indicating the presence of a congestive heart failure. Values: yes = 1; no = 0.
 #' @param ah a numeric vector indicating the presence of arterial hyperthorphy. Values: yes = 1; no = 0.
-#' @param age a numeric vector with the age of persons given in years.
 #' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
-#' @param stroke  numeric vector indicating whether a person has had a stroke.
-#' @param bypass_surg numeric vector indicating whether a person has undergone a bypass surgery.
-#' @param other_surg numeric vector indicating whether a person has other vascular disease (peripheral).
+#' @param stroke  numeric vector indicating whether a person has had a stroke. Values: yes = 1; no = 0.
+#' @param bypass_surg numeric vector indicating whether a person has undergone a bypass surgery. Values: yes = 1; no = 0.
+#' @param other_surg numeric vector indicating whether a person has other vascular disease (peripheral). Values: yes = 1; no = 0.
 #' @param egfr a numeric vector; eGFR values given in mL x min^−1 x 1.73 m^−2.
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @usage TRA2P_Score(chf = NA, ah = NA, age = NA, diabetic = NA, stroke = NA, bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA)
@@ -21,7 +21,75 @@
 #' Circulation. 2016 Jul 26;134(4):304-13. doi: 10.1161/CIRCULATIONAHA.115.019861. PMID: 27440003.
 #' @return A vector of the calculated risk per record.
 #' @export
-TRA2P_Score <- function(chf = NA, ah = NA, age = NA, diabetic = NA, stroke = NA, bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA){
+tra2p_score <- function(age, chf = NA, ah = NA, diabetic = NA, stroke = NA, bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA){
+
+  if (!is.numeric(age) |  missing(age)) {
+    stop("age must be a valid numeric value")
+  }
+
+  if (!all(chf %in% c(0,1,NA))) {
+    stop("smoker must be either 0 (no), 1 (yes) or NA (missing)")
+  }
+
+  if (any(is.na(chf))) {
+    warning("No or some values for chf not provided. This results in an underestimation of the score")
+  }
+
+  if (!all(ah %in% c(0,1,NA))) {
+    stop("ah must be either 0 (no), 1 (yes) or NA (missing)")
+  }
+
+  if (any(is.na(ah))) {
+    warning("No or some values for ah not provided. This results in an underestimation of the score")
+  }
+
+  if (!all(diabetic %in% c(0,1,NA))) {
+    stop("diabetic must be either 0 (no), 1 (yes) or NA (missing)")
+  }
+
+  if (any(is.na(diabetic))) {
+    warning("No or some values for diabetic not provided. This results in an underestimation of the score")
+  }
+
+  if (!all(stroke %in% c(0,1,NA))) {
+    stop("stroke must be either 0 (no), 1 (yes) or NA (missing)")
+  }
+
+  if (any(is.na(stroke))) {
+    warning("No or some values for stroke not provided. This results in an underestimation of the score")
+  }
+
+  if (!all(bypass_surg %in% c(0,1,NA))) {
+    stop("bypass_surg must be either 0 (no), 1 (yes) or NA (missing)")
+  }
+
+  if (any(is.na(bypass_surg))) {
+    warning("No or some values for bypass_surg not provided. This results in an underestimation of the score")
+  }
+
+  if (!all(other_surg %in% c(0,1,NA))) {
+    stop("other_surg must be either 0 (no), 1 (yes) or NA (missing)")
+  }
+
+  if (any(is.na(other_surg))) {
+    warning("No or some values for other_surg not provided. This results in an underestimation of the score")
+  }
+
+  if (!all(smoker %in% c(0,1,NA))) {
+    stop("other_surg must be either 0 (no), 1 (yes) or NA (missing)")
+  }
+
+  if (any(is.na(smoker))) {
+    warning("No or some values for other_surg not provided. This results in an underestimation of the score")
+  }
+
+  if (any(!is.na(egfr)) & any(!is.numeric(egfr))) {
+    stop("egfr must be a valid value. Numeric or NA")
+  }
+
+  if (any(is.na(egfr))) {
+    warning("No or some values for BMI not provided. This results in an underestimation of the score")
+  }
 
   data <- data.frame(chf = chf, ah = ah, age = age, diabetic = diabetic, stroke = stroke, bypass_surg = bypass_surg, other_surg = other_surg, egfr = egfr, smoker = smoker)
 
