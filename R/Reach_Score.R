@@ -10,16 +10,25 @@
 #' @param vasc a numeric vector; Number of vascular beds involved in previously diagnosed vascular disease. Number from 1 to 3
 #' @param cv_event a numeric vector; cardiovascular event in past year. 1 = yes, 0 = no
 #' @param chf a numeric vector indicating whether a person had a Congestive heart failure. Values: yes = 1; no = 0.
-#' @param afa numeric vector; Atrial fibrillation. 1 = yes, 0 = no
+#' @param af numeric vector; Atrial fibrillation. 1 = yes, 0 = no
 #' @param statin a numeric vector; indicating whether a person is on a statin therapy. 1 = yes, 0 = no
 #' @param ass a numeric vector; indicating whether a person is on a ASS therapy. 1 = yes, 0 = no.
 #' @param region_EE_or_ME a logical vector; Geographical region membership in East Europe or Middel East
 #' @param region_jap_aust a logical vector; Geographical region membership in Japan or Australia
+#' @aliases reach_score_next_cv reach_score_cv_death reach_score_cv_death_formula reach_score_next_cv_formula
 #' @usage
-#' reach_score_next_cv(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,region_EE_or_ME=NA, region_jap_aust = NA)
-#' reach_score_death(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME = NA, region_jap_aust = NA)
-#' reach_score_cv_death_formula(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME=NA, region_jap_aust = NA)
-#' reach_score_next_cv_formula(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA,ass=NA, region_EE_or_ME=NA, region_jap_aust = NA)
+#' reach_score_next_cv(sex, age, bmi=NA, diabetic=NA, smoker=NA,
+#' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+#' region_EE_or_ME = FALSE, region_jap_aust = FALSE)
+#' reach_score_cv_death(sex, age, bmi=NA, diabetic=NA, smoker=NA,
+#' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+#' region_EE_or_ME = FALSE, region_jap_aust = FALSE)
+#' reach_score_cv_death_formula(sex, age, bmi=NA, diabetic=NA, smoker=NA,
+#' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+#' region_EE_or_ME = FALSE, region_jap_aust = FALSE)
+#' reach_score_next_cv_formula(sex, age, bmi=NA, diabetic=NA, smoker=NA,
+#' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+#' region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 #' @details A risk model to predict secondary cardiovascular events and cardiovascular death in outpatients with established atherothrombotic disease.
 #' Tradiotional risk factors, burden of disease, lack of treatment, and geographic location all are related to an increase risk of subsequent cardiovascular morbidity and cardiovascular mortality.
 #' @references Wilson. Peter W. F., et al. "An International Model to Predict Recurrent Cardiovascular Disease." The American Journal of Medicine (2012) 125, 695-703.
@@ -431,7 +440,7 @@ reach_score_cv_death <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=
 
 }
 #' @export
-reach_score_cv_death_formula <- function(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME=FALSE, region_jap_aust = FALSE){
+reach_score_cv_death_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME = FALSE, region_jap_aust = FALSE){
 
 
     if (!all(sex %in% c("male", "female")) | missing(sex)) {
@@ -553,7 +562,7 @@ reach_score_cv_death_formula <- function(sex=NA, age=NA, smoker=NA, diabetic=NA,
 
 }
 #' @export
-reach_score_next_cv_formula <- function(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME=FALSE, region_jap_aust = FALSE){
+reach_score_next_cv_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME = FALSE, region_jap_aust = FALSE){
 
 
     if (!all(sex %in% c("male", "female")) | missing(sex)) {

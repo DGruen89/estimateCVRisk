@@ -4,14 +4,14 @@
 \alias{ESC_Score_OP_table}
 \title{Calculate ESC-Score OP Table Version}
 \usage{
-ESC_Score_OP_table(totchol, sex, age, sbp, smoker, risk = c("low","high"), mmol = FALSE)
+ESC_Score_OP_table(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmol = FALSE)
 }
 \arguments{
-\item{totchol}{a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE}
-
 \item{sex}{a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0}
 
 \item{age}{a numeric vector with the age of persons given as years}
+
+\item{totchol}{a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE}
 
 \item{sbp}{a numeric vector with the systolic blood pressure of persons given as mmHg}
 

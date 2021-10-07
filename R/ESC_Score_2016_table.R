@@ -9,7 +9,7 @@
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param risk logical. Choose if which risk chart is used for calculation
 #' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
-#' @usage ESC_Score_2016_table(totchol, sex, age, sbp, smoker, risk = c("low","high"), mmol = FALSE)
+#' @usage ESC_Score_2016_table(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmol = FALSE)
 #' @return A vector of calculated risks of persons.
 #' @details The SCORE risk assessment is derived from a large dataset of prospective European studies and predicts fatal atherosclerotic CVD events over a ten year period.
 #'This risk estimation is based on the following risk factors: sex, age, smoker, systolic blood pressure and total cholesterol.

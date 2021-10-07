@@ -8,7 +8,7 @@
 #' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
-#' @usage ESC_Score_GER_2016_table(totchol, sex, age, sbp, smoker, mmol = FALSE)
+#' @usage ESC_Score_GER_2016_table(sex, age, totchol, sbp, smoker, mmol = FALSE)
 #' @return A vector of the calculated risk per record.
 #' @details Abstract: Estimation of absolute risk of cardiovascular disease (CVD), preferably with population-specific risk charts, has become a cornerstone of CVD primary prevention.
 #' Regular recalibration of risk charts may be necessary due to decreasing CVD rates and CVD risk factor levels. The SCORE risk charts for fatal CVD risk assessment were first calibrated

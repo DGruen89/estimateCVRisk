@@ -2,9 +2,11 @@
 % Please edit documentation in R/Procam_Score.R
 \name{procam_score_2002}
 \alias{procam_score_2002}
+\alias{procam_score_2007}
 \title{Calculate Procam Score (Version 2002 and 2007)}
 \usage{
-procam_score_2002(age, ldl, hdl, triglycerides, smoker, diabetic, famMI, sbp)
+procam_score_2002(age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI)
+procam_score_2007(sex, age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI)
 }
 \arguments{
 \item{age}{a numeric vector with the age of persons given as years}

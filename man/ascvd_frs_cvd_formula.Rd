@@ -2,9 +2,12 @@
 % Please edit documentation in R/ascvd_frs_cvd.R
 \name{ascvd_frs_cvd_formula}
 \alias{ascvd_frs_cvd_formula}
+\alias{ascvd_frs_cvd_table}
 \title{ACC/AHA 2013 ASCVD risk score}
 \usage{
 ascvd_frs_cvd_formula(sex, age, totchol, hdl, sbp, bp_med, smoker, diabetic)
+ascvd_frs_cvd_table(sex, age, totchol, hdl, sbp, bp_med,
+smoker, diabetic, heart_age = FALSE)
 }
 \arguments{
 \item{sex}{a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0}

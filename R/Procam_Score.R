@@ -11,8 +11,11 @@
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
 #' @param famMI a numeric vector indicating family history of premature myocardial infarction. Values: yes = 1; no = 0.
-#' @usage procam_score_2002(age, ldl, hdl, triglycerides, smoker, diabetic, famMI, sbp)
+#' @usage
+#' procam_score_2002(age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI)
+#' procam_score_2007(sex, age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI)
 #' @return A vector of calculated risk per record in %.
+#' @aliases procam_score_2002 procam_score_2007
 #' @details Abstract:
 #' Background: The absolute risk of an acute coronary event depends on the totality of risk factors exhibited by an individual, the so-called global risk profile. Although several scoring schemes have been suggested to calculate this profile, many omit information on important variables such as family history of coronary heart disease or LDL cholesterol.
 #' Methods and Results: Based on 325 acute coronary events occurring within 10 years of follow-up among 5389 men 35 to 65 years of age at recruitment into the Prospective Cardiovascular Muenster (PROCAM) study, we developed a Cox proportional hazards model using the following 8 independent risk variables, ranked in order of importance: age, LDL cholesterol,
@@ -140,8 +143,6 @@ procam_score_2002 <- function(age, ldl, hdl, sbp, triglycerides, smoker, diabeti
   return(data$risk)
 
 }
-
-
 #' @export
 procam_score_2007 <- function(sex, age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI){
 

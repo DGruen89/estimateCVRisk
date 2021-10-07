@@ -3,7 +3,7 @@
 export(ESC_Score_2016_table)
 export(ESC_Score_GER_2016_table)
 export(ESC_Score_OP_table)
-export(ascvd_accaha_10y)
+export(ascvd_acc_aha)
 export(ascvd_frs_chd_formula)
 export(ascvd_frs_chd_table)
 export(ascvd_frs_cvd_formula)

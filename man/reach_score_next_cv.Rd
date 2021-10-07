@@ -2,12 +2,23 @@
 % Please edit documentation in R/Reach_score.R
 \name{reach_score_next_cv}
 \alias{reach_score_next_cv}
+\alias{reach_score_cv_death}
+\alias{reach_score_cv_death_formula}
+\alias{reach_score_next_cv_formula}
 \title{Calculate Reach-Score_Death / Reach-Score_next_CV}
 \usage{
-reach_score_next_cv(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,region_EE_or_ME=NA, region_jap_aust = NA)
-reach_score_death(sex=NA, age=NA, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME = NA, region_jap_aust = NA)
-reach_score_cv_death_formula(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME=NA, region_jap_aust = NA)
-reach_score_next_cv_formula(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA,ass=NA, region_EE_or_ME=NA, region_jap_aust = NA)
+reach_score_next_cv(sex, age, bmi=NA, diabetic=NA, smoker=NA,
+vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+region_EE_or_ME = FALSE, region_jap_aust = FALSE)
+reach_score_cv_death(sex, age, bmi=NA, diabetic=NA, smoker=NA,
+vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+region_EE_or_ME = FALSE, region_jap_aust = FALSE)
+reach_score_cv_death_formula(sex, age, bmi=NA, diabetic=NA, smoker=NA,
+vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+region_EE_or_ME = FALSE, region_jap_aust = FALSE)
+reach_score_next_cv_formula(sex, age, bmi=NA, diabetic=NA, smoker=NA,
+vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 }
 \arguments{
 \item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}
@@ -26,6 +37,8 @@ reach_score_next_cv_formula(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc
 
 \item{chf}{a numeric vector indicating whether a person had a Congestive heart failure. Values: yes = 1; no = 0.}
 
+\item{af}{numeric vector; Atrial fibrillation. 1 = yes, 0 = no}
+
 \item{statin}{a numeric vector; indicating whether a person is on a statin therapy. 1 = yes, 0 = no}
 
 \item{ass}{a numeric vector; indicating whether a person is on a ASS therapy. 1 = yes, 0 = no.}
@@ -33,8 +46,6 @@ reach_score_next_cv_formula(sex=NA, age=NA, smoker=NA, diabetic=NA, bmi=NA, vasc
 \item{region_EE_or_ME}{a logical vector; Geographical region membership in East Europe or Middel East}
 
 \item{region_jap_aust}{a logical vector; Geographical region membership in Japan or Australia}
-
-\item{afa}{numeric vector; Atrial fibrillation. 1 = yes, 0 = no}
 }
 \value{
 A vector of the calculated risk per record.

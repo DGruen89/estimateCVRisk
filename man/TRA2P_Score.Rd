@@ -4,7 +4,8 @@
 \alias{tra2p_score}
 \title{Calculate TRA2P-Score}
 \usage{
-TRA2P_Score(chf = NA, ah = NA, age = NA, diabetic = NA, stroke = NA, bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA)
+tra2p_score(age, chf = NA, ah = NA, diabetic = NA, stroke = NA,
+bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA)
 }
 \arguments{
 \item{age}{a numeric vector with the age of persons given in years.}

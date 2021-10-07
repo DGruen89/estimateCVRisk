@@ -65,7 +65,7 @@ test_that("Paper example is correct", {
       chf = c(1),
       af = c(0),
       statin = c(1),
-      ass = c("1"),
+      ass = c(1),
       region_EE_or_ME = TRUE),
     c(24.49))})
 

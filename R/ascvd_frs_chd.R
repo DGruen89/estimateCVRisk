@@ -14,6 +14,12 @@
 #' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
 #' @param chol_cat a single character value to specify the use of total cholesterol ("tc") or LDL cholesterol ("ldl")
 #' @return Estimated 10-Y Risk for CHD (percent)
+#' @aliases ascvd_frs_chd_formula ascvd_frs_chd_table
+#' @usage
+#' ascvd_frs_chd_formula(sex, age, totchol = NA, hdl, ldl = NA, sbp,
+#' dbp, smoker, diabetic, chol_cat = c("tc", "ldl"))
+#' ascvd_frs_chd_table(sex, age, totchol = NA, hdl, ldl = NA, sbp,
+#' dbp, smoker, diabetic, chol_cat = c("tc", "ldl"))
 #' @details Background: The objective of this study was to examine the association of Joint National Committee (JNC-V) blood pressure and National Cholesterol Education Program (NCEP) cholesterol categories with coronary heart disease (CHD) risk, to incorporate them into coronary prediction algorithms, and to compare the discrimination properties of this approach with other noncategorical prediction functions.
 #' Methods and Results: This work was designed as a prospective, single-center study in the setting of a community-based cohort. The patients were 2489 men and 2856 women 30 to 74 years old at baseline with 12 years of follow-up. During the 12 years of follow-up, a total of 383 men and 227 women developed CHD, which was significantly associated with categories of blood pressure, total cholesterol, LDL cholesterol, and HDL cholesterol (all P⬍.001). Sex-specific prediction equations were formulated to predict CHD risk according to age, diabetes, smoking, JNC-V blood pressure categories, and NCEP total cholesterol and LDL cholesterol categories. The accuracy of this categorical approach was found to be comparable to CHD prediction when the continuous variables themselves were used. After adjustment for other factors, ⬇28% ofCHD events in men and 29% in women were attributable to blood pressure levels that exceeded high normal (ⱖ130/85). The corresponding multivariable-adjusted attributable risk percent associated with elevated total cholesterol (ⱖ200 mg/dL) was 27% in men and 34% in women.
 #' Conclusions: Recommended guidelines of blood pressure, total cholesterol, and LDL cholesterol effectively predict CHD risk in a middle-aged white population sample. A simple coronary disease prediction algorithm was developed using categorical variables, which allows physicians to predict multivariate CHD risk in patients without overt CHD.

@@ -4,7 +4,7 @@
 \alias{ESC_Score_2016_table}
 \title{Calculate ESC-Score 2016 Table Version}
 \usage{
-ESC_Score_2016_table(totchol, sex, age, sbp, smoker, risk = c("low","high"), mmol = FALSE)
+ESC_Score_2016_table(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmol = FALSE)
 }
 \arguments{
 \item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}

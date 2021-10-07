@@ -14,6 +14,8 @@
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
 #' @return Estimated 10-Y Risk for hard ASCVD (percent)
+#' @usage ascvd_acc_aha(race = c("white", "aa"), sex, age,
+#' totchol, hdl, sbp, bp_med, smoker, diabetic)
 #' @details
 #' The ASCVD (atherosclerotic cardiovascular disease) risk score is a national guideline developed by the American College of Cardiology.
 #' It is a calculation of your 10-year risk of having a cardiovascular problem, such as a heart attack or stroke.
@@ -25,7 +27,7 @@
 #' Guidelines." Journal of the American College of Cardiology 63.25
 #' Part B (2014): 2935-2959.
 #' @export
-ascvd_accaha_10y <- function(race = c("white", "aa"), sex,
+ascvd_acc_aha <- function(race = c("white", "aa"), sex,
                              age, totchol, hdl, sbp,
                              bp_med, smoker, diabetic) {
   if(missing(race)){
