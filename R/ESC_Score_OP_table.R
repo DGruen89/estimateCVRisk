@@ -2,7 +2,7 @@
 #'
 #' @description This function takes necessary parameters to calculate the ESC-Score Older People (OP) Table Version for high and low risk
 #
-#' @param sex a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0
+#' @param sex a character vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given as years
 #' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
 #' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg

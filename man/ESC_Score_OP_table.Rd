@@ -7,7 +7,7 @@
 ESC_Score_OP_table(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmol = FALSE)
 }
 \arguments{
-\item{sex}{a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0}
+\item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}
 
 \item{age}{a numeric vector with the age of persons given as years}
 
