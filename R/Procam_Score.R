@@ -8,15 +8,25 @@
 #' @param hdl a numeric vector; HDL Cholesterol values given in mg/dL
 #' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
 #' @param triglycerides a numeric vector; triglycerides values given in mg/dL
-#' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
+#' @param smoker a numeric vector. A smoker was defined as current self-reported smoker. Values: Smoker = 1, non-smoker = 0.
 #' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
-#' @param famMI a numeric vector indicating family history of premature myocardial infarction. Values: yes = 1; no = 0.
+#' @param famMI a numeric vector indicating family history of premature myocardial infarction in parents, grandparents or siblings before the age of 60 years. Values: yes = 1; no = 0.
 #' @usage
 #' procam_score_2002(age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI)
 #' procam_score_2007(sex, age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI)
 #' @return A vector of calculated risk per record in %.
 #' @aliases procam_score_2002 procam_score_2007
-#' @details Abstract:
+#' @details
+#' 2002:
+#'  - based on Cox-Modell
+#'  - German Kohort
+#'  - 2002 only precise for men 35-65
+#'  - 8 independent risk variables
+#'  - Risk for women is 4 times lesser then the risk of men
+#'  2007:
+#'  - based on Weibull-Model
+#'  - includes men an Women with age range from 20 - 75 Y
+#' Abstract:
 #' Background: The absolute risk of an acute coronary event depends on the totality of risk factors exhibited by an individual, the so-called global risk profile. Although several scoring schemes have been suggested to calculate this profile, many omit information on important variables such as family history of coronary heart disease or LDL cholesterol.
 #' Methods and Results: Based on 325 acute coronary events occurring within 10 years of follow-up among 5389 men 35 to 65 years of age at recruitment into the Prospective Cardiovascular Muenster (PROCAM) study, we developed a Cox proportional hazards model using the following 8 independent risk variables, ranked in order of importance: age, LDL cholesterol,
 #' smoking, HDL cholesterol, systolic blood pressure, family history of premature myocardial infarction, diabetes mellitus, and triglycerides. We then derived a simple point scoring system based on the beta-coefficients of this model. The accuracy of this point scoring scheme was comparable to coronary event prediction when the continuous variables themselves were used.

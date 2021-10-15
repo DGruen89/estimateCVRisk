@@ -3,7 +3,7 @@
 #' Computes 10-year risk for specific atherosclerotic cardiovascular disease (CVD) events, ie, coronary heart disease, cerebrovascular disease, peripherial vascular disease
 #' and heart failure.
 #'
-#' @param sex a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0
+#' @param sex a numeric vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given as years
 #' @param totchol a numeric vector; Cholesterol values given in mg/dL
 #' @param hdl a numeric vector; HDL Cholesterol values given in mg/dL

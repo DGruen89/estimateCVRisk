@@ -19,11 +19,11 @@ procam_score_2007(sex, age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famM
 
 \item{triglycerides}{a numeric vector; triglycerides values given in mg/dL}
 
-\item{smoker}{a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.}
+\item{smoker}{a numeric vector. A smoker was defined as current self-reported smoker. Values: Smoker = 1, non-smoker = 0.}
 
 \item{diabetic}{a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.}
 
-\item{famMI}{a numeric vector indicating family history of premature myocardial infarction. Values: yes = 1; no = 0.}
+\item{famMI}{a numeric vector indicating family history of premature myocardial infarction in parents, grandparents or siblings before the age of 60 years. Values: yes = 1; no = 0.}
 
 \item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}
 }
@@ -34,12 +34,23 @@ A vector of calculated risk per record in \%.
 This function takes necessary parameters to calculate the PROCAM-Risk-Score Table Version for the Risk of acute Coronary Events based on the 10-year follow-up of the Prospective Cardiovascular Münster (PROCAM) study
 }
 \details{
+2002:
+\itemize{
+\item based on Cox-Modell
+\item German Kohort
+\item 2002 only precise for men 35-65
+\item 8 independent risk variables
+\item Risk for women is 4 times lesser then the risk of men
+2007:
+\item based on Weibull-Model
+\item includes men an Women with age range from 20 - 75 Y
 Abstract:
 Background: The absolute risk of an acute coronary event depends on the totality of risk factors exhibited by an individual, the so-called global risk profile. Although several scoring schemes have been suggested to calculate this profile, many omit information on important variables such as family history of coronary heart disease or LDL cholesterol.
 Methods and Results: Based on 325 acute coronary events occurring within 10 years of follow-up among 5389 men 35 to 65 years of age at recruitment into the Prospective Cardiovascular Muenster (PROCAM) study, we developed a Cox proportional hazards model using the following 8 independent risk variables, ranked in order of importance: age, LDL cholesterol,
 smoking, HDL cholesterol, systolic blood pressure, family history of premature myocardial infarction, diabetes mellitus, and triglycerides. We then derived a simple point scoring system based on the beta-coefficients of this model. The accuracy of this point scoring scheme was comparable to coronary event prediction when the continuous variables themselves were used.
 The scoring system accurately predicted observed coronary events with an area under the receiver-operating characteristics curve of 82.4\% compared with 82.9\% for the Cox model with continuous variables.
 Conclusions: Our scoring system is a simple and accurate way of predicting global risk of myocardial infarction in clinical practice and will therefore allow more accurate targeting of preventive therapy.
+}
 }
 \references{
 Assmann G, Cullen P, Schulte H. Simple scoring scheme for calculating the risk of acute coronary events based on the 10-year follow-up of the prospective cardiovascular Münster (PROCAM) study.

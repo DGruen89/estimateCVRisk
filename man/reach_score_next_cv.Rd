@@ -29,7 +29,7 @@ region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 
 \item{diabetic}{a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.}
 
-\item{smoker}{a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.}
+\item{smoker}{a numeric vector. A smoker was defined as >= 5 cigarettes per day on average within the last month. Smoker = 1, non-smoker = 0.}
 
 \item{vasc}{a numeric vector; Number of vascular beds involved in previously diagnosed vascular disease. Number from 1 to 3}
 
@@ -54,8 +54,16 @@ A vector of the calculated risk per record.
 This function takes necessary parameters to calculate the Reach-Score. You can choose between a calculation based on a score sheet or based on a cox model (formula).
 }
 \details{
+\itemize{
+\item Reduction of Atherothrombosis for Continued Health (REACH) Registry
+\item established in 2003
+\item Patients with knwon atherothrombotic disease or at high risk to developing atherothrombosis.
+\item Patients from all over the world
+\item enrollment between Dec. 2003 nad June 2004.
+\item 20-month risk prediction for cardiovascular death and next cardiovascular event.
 A risk model to predict secondary cardiovascular events and cardiovascular death in outpatients with established atherothrombotic disease.
 Tradiotional risk factors, burden of disease, lack of treatment, and geographic location all are related to an increase risk of subsequent cardiovascular morbidity and cardiovascular mortality.
+}
 }
 \references{
 Wilson. Peter W. F., et al. "An International Model to Predict Recurrent Cardiovascular Disease." The American Journal of Medicine (2012) 125, 695-703.

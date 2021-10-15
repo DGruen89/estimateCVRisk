@@ -11,7 +11,7 @@ ascvd_frs_chd_table(sex, age, totchol = NA, hdl, ldl = NA, sbp,
 dbp, smoker, diabetic, chol_cat = c("tc", "ldl"))
 }
 \arguments{
-\item{sex}{a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0}
+\item{sex}{a numeric vector indicating the sex of the person. Values: "female", "male"}
 
 \item{age}{a numeric vector with the age of persons given as years}
 

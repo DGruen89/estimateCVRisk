@@ -6,7 +6,7 @@
 #' @param age a numeric vector with the age of persons given as years
 #' @param bmi a numeric vector; Body Mass Index in kg/m^2
 #' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
-#' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
+#' @param smoker a numeric vector. A smoker was defined as >= 5 cigarettes per day on average within the last month. Smoker = 1, non-smoker = 0.
 #' @param vasc a numeric vector; Number of vascular beds involved in previously diagnosed vascular disease. Number from 1 to 3
 #' @param cv_event a numeric vector; cardiovascular event in past year. 1 = yes, 0 = no
 #' @param chf a numeric vector indicating whether a person had a Congestive heart failure. Values: yes = 1; no = 0.
@@ -29,7 +29,15 @@
 #' reach_score_next_cv_formula(sex, age, bmi=NA, diabetic=NA, smoker=NA,
 #' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
 #' region_EE_or_ME = FALSE, region_jap_aust = FALSE)
-#' @details A risk model to predict secondary cardiovascular events and cardiovascular death in outpatients with established atherothrombotic disease.
+#' @details
+#' - Reduction of Atherothrombosis for Continued Health (REACH) Registry
+#' - established in 2003
+#' - Patients with knwon atherothrombotic disease or at high risk to developing atherothrombosis.
+#' - Patients from all over the world
+#  - Patients with age >= 45
+#' - enrollment between Dec. 2003 nad June 2004.
+#' - 20-month risk prediction for cardiovascular death and next cardiovascular event.
+#' A risk model to predict secondary cardiovascular events and cardiovascular death in outpatients with established atherothrombotic disease.
 #' Tradiotional risk factors, burden of disease, lack of treatment, and geographic location all are related to an increase risk of subsequent cardiovascular morbidity and cardiovascular mortality.
 #' @references Wilson. Peter W. F., et al. "An International Model to Predict Recurrent Cardiovascular Disease." The American Journal of Medicine (2012) 125, 695-703.
 #' @return A vector of the calculated risk per record.
@@ -70,10 +78,6 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
 
     if (!all(vasc %in% c(1,2,3,NA))) {
         stop("vasc must be either 1,2,3 or NA (missing)")
-    }
-
-    if (any(is.na(vasc))) {
-        warning("No or some values for vasc not provided. This results in an underestimation of the score")
     }
 
     if (!all(cv_event %in% c(0,1,NA))) {

@@ -10,7 +10,7 @@ ascvd_frs_cvd_table(sex, age, totchol, hdl, sbp, bp_med,
 smoker, diabetic, heart_age = FALSE)
 }
 \arguments{
-\item{sex}{a numeric vector indicating the sex of the person. Values: "female" = 1, "male" = 0}
+\item{sex}{a numeric vector indicating the sex of the person. Values: "female", "male"}
 
 \item{age}{a numeric vector with the age of persons given as years}
 
