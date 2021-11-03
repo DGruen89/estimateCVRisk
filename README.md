@@ -1,7 +1,6 @@
 # estimateCVRisk
 
-Cardiovascular diseases (CVDs) are the leading cause of death globaly. In 2019 an estimated 17.9 million people died from CVDs, representing 32% of all global deaths. Of 
-these deaths, 85% were due to heart attack and stroke. It is important to detect cardiovascular disease as early as possible so that so that an early treatment can begin. To determine the risk of CVD US American, European and German guidelines recommend different risk equations. <br/>
+Cardiovascular diseases (CVDs) are the leading cause of death globaly. In 2019 an estimated 17.9 million people died from CVDs, representing 32% of all global deaths ([Source: WHO](https://www.who.int/en/news-room/fact-sheets/detail/cardiovascular-diseases-(cvds))). Of these deaths, 85% were due to heart attack and stroke. It is important to detect cardiovascular disease as early as possible so that so that an early treatment can begin. To determine the risk of CVD US American, European and German guidelines recommend different risk equations. <br/>
 **The aim** of this package is to provide a tool for easily calculation of different risk scores for e.g. prospective risk analysis in clinicla kohorts or comparisms of different scores in these kohorts (tools for comparism will be included in future updates of the package). The usage of R provides an easily and fast way to calculate the scores even in large Dataset. 
 
 ## about the package
