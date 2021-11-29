@@ -83,7 +83,7 @@ diabetic #
 bp_med   #
 ```
 
-The different risk estimation functions require specific sets of variables as shown in the tables below
+The different risk estimation functions require specific sets of variables as shown in the tables below. Each risk function can be passed single values as well as vectors. The output is a vector with the same length as the input vector (see also section Examples).
 
 Primary Prevention  | race | gender          
 ------------------- | ---- |-------------
@@ -95,7 +95,6 @@ Secondary Prevention | race | gender
 Reach_Score          | x    | x
 TRA2P_Score          | x    | x
 
-The function can be passed single values as well as vectors. The output is a vector with the same length as the input vector.
 
 
 
