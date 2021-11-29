@@ -42,11 +42,15 @@ devtools::install_github("DGruen89/estimateCVRisk")
 
 ## Usage of the package in R ##
 
-After loading the "estimateCVRisk" package with
+First, load the the "estimateCVRisk" package with
 ```R
 library("estimateCVRisk")
 ```
-the following functions representing risk estimation for **primary prevention** are available
+
+### Functions ###
+
+After loading the package the following functions representing risk estimation for **primary prevention** are available
+
 ```R
 ascvd_acc_aha()             # ACC/AHA 2013 ASCVD risk score
 ascvd_frs_chd()             
@@ -56,34 +60,40 @@ ESC_Score_GER_2016_table()
 ESC_Score_OP_table()
 Procam_Score()
 ```
+
 and the following functions representing risk estimation for **secondary prevention** are available
 ```R
 Reach_Score()
 TRA2P_Score()
 ```
 
-The "estimateCVRisk" package defined the variables needed for risk estimation as follows:
+### Variables ###
+
+The "estimateCVRisk" package defines the **variables** needed for risk estimation as follows:
 
 ```R
-      race     # ethnicity; categorical [white|black|....]
-      sex      # gender; categorical [female|male]
-      age      # age; integer [years]
-      totchol  # total cholesterol; integer [mg/dl]
-      hdl      # 
-      sbp      # 
-      smoker   # 
-      diabetic # 
-      bp_med   #
+race     # ethnicity; categorical [white|black|....]
+sex      # gender; categorical [female|male]
+age      # age; integer [years]
+totchol  # total cholesterol; integer [mg/dl]
+hdl      # 
+sbp      # 
+smoker   # 
+diabetic # 
+bp_med   #
 ```
 
 The different risk estimation functions require specific sets of variables as shown in the tables below
 
-Primary Prevention  | race          |gender          
-------------------- | ------------- |-------------
-ascvd_acc_aha       | x             | x
-ascvd_frs_chd       | x             | x
+Primary Prevention  | race | gender          
+------------------- | ---- |-------------
+ascvd_acc_aha       | x    | x
+ascvd_frs_chd       | x    | x
 
-
+Secondary Prevention | race | gender          
+-------------------- | ---- |-------------
+Reach_Score          | x    | x
+TRA2P_Score          | x    | x
 
 The function can be passed single values as well as vectors. The output is a vector with the same length as the input vector.
 
