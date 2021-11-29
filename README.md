@@ -26,7 +26,7 @@ Currently available riskscore functions in the package:<br/><br/>
 - REducation of Atherothrombosis for Continued Health (**REACH**) (https://doi.org/10.1016/j.amjmed.2012.01.014)<br/>
 - Thrombin Receptor Antagonist in Secondary Prevention of Atherothrombotic Ischemic Events-TIMI 50 (**TRA 2°P-TIMI**)<br/>
 - soon available - INternational VErapamil‐SR/Trandolapril STudy (**INVEST**) score (https://doi.org/10.1161/JAHA.113.000205)<br/>
-- soon available - ABC-CHF risk model (**ABC-CHD**) score (https://doi.org/10.1016/j.jacc.2017.06.030)<br/>
+- soon available - ABC-CHF risk model (**ABC-CHD**) score (https://doi.org/10.1016/j.jacc.2017.06.030)<br/><br/>
 
 
 ## Installation of the package in R
@@ -42,9 +42,28 @@ devtools::install_github("DGruen89/estimateCVRisk")
 
 ## Usage of the package in R
 
+After loading the "estimateCVRisk" package with
 ```
 library("estimateCVRisk")
+```
+the following functions representing risk estimation for **primary prevention** are available
+```
+ascvd_acc_aha()
+ascvd_frs_chd()
+ascvd_frs_cvd()
+ESC_Score_2016_table()
+ESC_Score_GER_2016_table()
+ESC_Score_OP_table()
+Procam_Score()
+```
+and the following functions representing risk estimation for **secondary prevention** are available
+```
+Reach_Score()
+TRA2P_Score()
+```
 
+
+```
  ascvd_acc_aha(
       race = c("white","aa","white","aa"),
       sex = c("female", "female", "male", "male"),
