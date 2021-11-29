@@ -6,8 +6,9 @@ The **aim** of this package is to provide a tool for CVD risk calculation in the
 
 ## About the package ##
 
-estimateCVRisk is a package which allows calculation of different scores for CVD risk estimation.<br/>
-Currently available riskscore functions in the package:<br/><br/>
+**estimateCVRisk** is a package which allows calculation of different scores for CVD risk estimation.<br/>
+
+Currently available risk score functions in the package:<br/><br/>
 
 **Primary Prevention**<br/>
 - Systematic COronary Risk Evaluation from the European Society of Cardiology (**ESC-SCORE**) (https://doi.org/10.1016/S0195-668X(03)00114-3)<br/>
