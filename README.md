@@ -1,10 +1,10 @@
-# estimateCVRisk
+# estimateCVRisk #
 
 Cardiovascular diseases (CVDs) are among the leading causes of death globaly. In 2019 an estimated 17.9 million people died from CVDs, representing 32% of all global deaths ([Source: WHO](https://www.who.int/en/news-room/fact-sheets/detail/cardiovascular-diseases-(cvds))). Of these deaths, 85% were due to heart attack and stroke. Hence, it is important to estimate cardiovascular risk as early as possible e.g. facilitating a timely and personalized treatment. 
 To estimate individual CVD risk, guidelines of the respective medical societies recommend diffent risk calculators such as the ASCVD Risk estimator (American College of Cardiology (ACC) / American Heart Association (AHA); https://doi.org/10.1161/CIR.0000000000000678) or the SCORE system (European Society of Cardiology (ESC); https://doi.org/10.1093/eurheartj/ehab484).<br/>
 The **aim** of this package is to provide a tool for CVD risk calculation in the context of primary and secondary prevention integrating various CVD risk scores for e.g. prospective risk analyses in clinical cohorts or comparison of different scores. The implementation as R package provides an easily and fast way to calculate the scores even in large Dataset. 
 
-## About the package
+## About the package ##
 
 estimateCVRisk is a package which allows calculation of different scores for CVD risk estimation.<br/>
 Currently available riskscore functions in the package:<br/><br/>
@@ -29,7 +29,7 @@ Currently available riskscore functions in the package:<br/><br/>
 - soon available - ABC-CHF risk model (**ABC-CHD**) score (https://doi.org/10.1016/j.jacc.2017.06.030)<br/><br/>
 
 
-## Installation of the package in R
+## Installation of the package in R ##
 
 Installation of the GitHub Version in R:
 ```R
@@ -40,7 +40,7 @@ install.packages("devtools")
 devtools::install_github("DGruen89/estimateCVRisk")
 ```
 
-## Usage of the package in R
+## Usage of the package in R ##
 
 After loading the "estimateCVRisk" package with
 ```R
@@ -61,7 +61,15 @@ and the following functions representing risk estimation for **secondary prevent
 Reach_Score()
 TRA2P_Score()
 ```
+The function can be passed single values as well as vectors. The output is a vector with the same length as the input vector.
 
+
+
+## Examples ##
+
+### Calculate CVD risk with the SCORE risk estimation for an individual ###
+
+### Calculate CVD risk with the FRS-CHD risk estimation for a group individuals ###
 
 ```R
  ascvd_acc_aha(
@@ -76,4 +84,6 @@ TRA2P_Score()
       bp_med = c(0,0,0,0))
 ```
 
-The function can be passed single values as well as vectors. The output is a vector with the same length as the input vector.
+### Calculate CVD risk with the TRA 2°P-TIMI for a cohort dataset ###
+
+
