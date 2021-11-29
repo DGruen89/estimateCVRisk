@@ -43,12 +43,12 @@ devtools::install_github("DGruen89/estimateCVRisk")
 ## Usage of the package in R
 
 After loading the "estimateCVRisk" package with
-```
+```R
 library("estimateCVRisk")
 ```
 the following functions representing risk estimation for **primary prevention** are available
-```
-ascvd_acc_aha()             " ACC/AHA 2013 ASCVD risk score
+```R
+ascvd_acc_aha()             # ACC/AHA 2013 ASCVD risk score
 ascvd_frs_chd()             
 ascvd_frs_cvd()
 ESC_Score_2016_table()
@@ -57,13 +57,13 @@ ESC_Score_OP_table()
 Procam_Score()
 ```
 and the following functions representing risk estimation for **secondary prevention** are available
-```
+```R
 Reach_Score()
 TRA2P_Score()
 ```
 
 
-```
+```R
  ascvd_acc_aha(
       race = c("white","aa","white","aa"),
       sex = c("female", "female", "male", "male"),
