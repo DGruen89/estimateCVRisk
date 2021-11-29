@@ -8,6 +8,7 @@ The **aim** of this package is to provide a tool for CVD risk calculation in the
 
 estimateCVRisk is a package which allows you to calculate different risk scores for CVD risk estimation.<br/>
 Currently available riskscore functions in the package:<br/><br/>
+
 **Primary Prevention**<br/>
 - Systematic COronary Risk Evaluation from the European Society of Cardiology (**ESC-SCORE**) (https://doi.org/10.1016/S0195-668X(03)00114-3)<br/>
 - Systematic COronary Risk Evaluation in older persons (**ESC-SCORE O.P.**) (https://doi.org/10.1177/2047487315588390)<br/>
@@ -16,17 +17,30 @@ Currently available riskscore functions in the package:<br/><br/>
 - PROCAM II Score (https://doi.org/10.1111/j.1365-2362.2007.01888.x)<br/>
 - Atherosclerotic cardiovascular disease score (**ASCVD**) Guideline from ACC/AHA on the Assessment of CV (https://doi.org/10.1161/01.cir.0000437741.48606.98)<br/>
 - Framingham Risk Score to assess risk of specific CVD (**FRS-CVD**) (https://doi.org/10.1161/CIRCULATIONAHA.107.699579)<br/>
-- Framingham Risk Score to assess risk of CHD (**FRS-CHD**) (https://doi.org/10.1161/01.CIR.97.18.1837)<br/><br/>
+- Framingham Risk Score to assess risk of CHD (**FRS-CHD**) (https://doi.org/10.1161/01.CIR.97.18.1837)<br/>
+- soon available - SCORE2 (https://doi.org/10.1093/eurheartj/ehab309)
+- soon available - SCORE2-OP (https://doi.org/10.1093/eurheartj/ehab312)
+
+
 **Secondary Prevention**<br/>
 - REducation of Atherothrombosis for Continued Health (**REACH**) (https://doi.org/10.1016/j.amjmed.2012.01.014)<br/>
 - Thrombin Receptor Antagonist in Secondary Prevention of Atherothrombotic Ischemic Events-TIMI 50 (**TRA 2°P-TIMI**)<br/><br/>
 
-available soon:<br/> 
-- SCORE2 (https://doi.org/10.1093/eurheartj/ehab309)
-- SCORE2-OP (https://doi.org/10.1093/eurheartj/ehab312)
- 
 
-## Usage
+## Installation of the package in R
+
+```
+# Installation of the GitHub Version in R:
+
+# Step 1: if not already installed you need to install R package "devtools":
+install.packages("devtools")
+
+# Step 2: install the package "estimateCVRisk" with:
+devtools::install_github("DGruen89/estimateCVRisk")
+
+```
+
+## Usage of the package in R
 
 ```
 library("estimateCVRisk")
