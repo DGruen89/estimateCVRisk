@@ -61,6 +61,30 @@ and the following functions representing risk estimation for **secondary prevent
 Reach_Score()
 TRA2P_Score()
 ```
+
+The "estimateCVRisk" package defined the variables needed for risk estimation as follows:
+
+```R
+      race     # ethnicity; categorical [white|black|....]
+      sex      # gender; categorical [female|male]
+      age      # age; integer [years]
+      totchol  # total cholesterol; integer [mg/dl]
+      hdl      # 
+      sbp      # 
+      smoker   # 
+      diabetic # 
+      bp_med   #
+```
+
+The different risk estimation functions require specific sets of variables as shown in the tables below
+
+Primary Prevention  | race          |gender          
+------------------- | ------------- |-------------
+ascvd_acc_aha       | x             | x
+ascvd_frs_chd       | x             | x
+
+
+
 The function can be passed single values as well as vectors. The output is a vector with the same length as the input vector.
 
 
