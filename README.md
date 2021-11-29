@@ -48,8 +48,8 @@ library("estimateCVRisk")
 ```
 the following functions representing risk estimation for **primary prevention** are available
 ```
-ascvd_acc_aha()
-ascvd_frs_chd()
+ascvd_acc_aha()             " ACC/AHA 2013 ASCVD risk score
+ascvd_frs_chd()             
 ascvd_frs_cvd()
 ESC_Score_2016_table()
 ESC_Score_GER_2016_table()
