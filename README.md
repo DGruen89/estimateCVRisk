@@ -32,7 +32,7 @@ Currently available riskscore functions in the package:<br/><br/>
 ## Installation of the package in R
 
 Installation of the GitHub Version in R:
-```
+```R
 # Step 1: if not already installed, you need to install the R package "devtools":
 install.packages("devtools")
 
