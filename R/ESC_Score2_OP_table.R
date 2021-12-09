@@ -9,20 +9,30 @@
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param risk logical. Choose if which risk chart is used for calculation
 #' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
-#' @usage ESC_Score_2016_table(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmol = FALSE)
+#' @usage ESC_Score2_OP_table(sex, age, totchol, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE)
 #' @return A vector of calculated risks of persons.
-#' @details The SCORE risk assessment is derived from a large dataset of prospective European studies and predicts fatal atherosclerotic CVD events over a ten year period.
-#'This risk estimation is based on the following risk factors: sex, age, smoker, systolic blood pressure and total cholesterol.
-#'The threshold for high risk based on fatal cardiovascular events is defined as "higher than 5%", instead of the previous "higher than 20%" using a composite coronary endpoint.
-#'This SCORE model has been calibrated according to each European country’s mortality statistics. In other words, if used on the entire population aged 40-65, it will predict the exact number of fatal CVD-events that eventually will occur after 10 years.
-#'The relative risk chart may be used to show younger people at low total risk that, relative to others in their age group, their risk may be many times higher than necessary. This may help to motivate decisions about avoidance of smoking, healthy nutrition and exercise, as well as flagging those who may become candidates for medication. This chart refers to relative risk, not percentage risk.
-#'You can read more about the SCORE project in European Heart Journal, 2003, 24; 987-1003.
+#' @details Aims:
+#' The aim of this study was to derive and validate the SCORE2-Older Persons (SCORE2-OP) risk model to estimate 5- and 10-year risk of cardiovascular disease (CVD)
+#' in individuals aged over 70 years in four geographical risk regions.
+#' Methods and results:
+#' Sex-specific competing risk-adjusted models for estimating CVD risk (CVD mortality, myocardial infarction, or stroke) were derived in individuals
+#' aged over 65 without pre-existing atherosclerotic CVD from the Cohort of Norway (28 503 individuals, 10 089 CVD events).
+#' Models included age, smoking status, diabetes, systolic blood pressure, and total- and high-density lipoprotein cholesterol.
+#' Four geographical risk regions were defined based on country-specific CVD mortality rates. Models were recalibrated to each region using region-specific estimated CVD
+#' incidence rates and risk factor distributions. For external validation, we analysed data from 6 additional study populations {338 615 individuals, 33 219 CVD validation cohorts,
+#' C-indices ranged between 0.63 \[95% confidence interval (CI) 0.61–0.65\] and 0.67 (0.64–0.69)}.
+#' Regional calibration of expected-vs.-observed risks was satisfactory. For given risk factor profiles, there was substantial variation across the four risk regions
+#' in the estimated 10-year CVD event risk.
+#' Conclusions:
+#' The competing risk-adjusted SCORE2-OP model was derived, recalibrated, and externally validated to estimate 5- and 10-year CVD risk in older adults (aged 70 years or older)
+#' in four geographical risk regions. These models can be used for communicating the risk of CVD and potential benefit from risk factor treatment
+#' and may facilitate shared decision-making between clinicians and patients in CVD risk management in older persons.
 #' @references
-#' Piepoli MF,et al. 2016 European Guidelines on cardiovascular disease prevention in clinical practice: The Sixth Joint Task Force of the European Society of Cardiology and Other Societies on Cardiovascular Disease Prevention in Clinical Practice (constituted by representatives of 10 societies and by invited experts):
-#' Developed with the special contribution of the European Association for Cardiovascular Prevention & Rehabilitation (EACPR).
-#' Eur J Prev Cardiol. 2016 Jul;23(11):NP1-NP96. doi: 10.1177/2047487316653709. Epub 2016 Jun 27. PMID: 27353126.
+#' SCORE2-OP working group and ESC Cardiovascular risk collaboration,
+#' SCORE2-OP risk prediction algorithms: estimating incident cardiovascular event risk in older persons in four geographical risk regions,
+#' European Heart Journal, Volume 42, Issue 25, 1 July 2021, Pages 2455–2467, https://doi.org/10.1093/eurheartj/ehab312
 #' @export
-ESC_Score_2016_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmol = FALSE) {
+ESC_Score2_OP_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE) {
 
   risk <- match.arg(risk)
 

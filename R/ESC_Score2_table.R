@@ -1,6 +1,6 @@
 #' Calculate ESC-Score2  Table Version
 #'
-#' @description This function takes necessary parameters to calculate the ESC-Score2 Table Version for high and low risk
+#' @description This function takes necessary parameters to calculate the ESC-Score2 to estimate 10-year risk of cardiovascular disease in Europe.
 #'
 #' @param sex a character vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given as years
@@ -9,20 +9,30 @@
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param risk logical. Choose if which risk chart is used for calculation
 #' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
-#' @usage ESC_Score_2016_table(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmol = FALSE)
+#' @usage ESC_Score2_table(sex, age, totchol, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE)
 #' @return A vector of calculated risks of persons.
-#' @details The SCORE risk assessment is derived from a large dataset of prospective European studies and predicts fatal atherosclerotic CVD events over a ten year period.
-#'This risk estimation is based on the following risk factors: sex, age, smoker, systolic blood pressure and total cholesterol.
-#'The threshold for high risk based on fatal cardiovascular events is defined as "higher than 5%", instead of the previous "higher than 20%" using a composite coronary endpoint.
-#'This SCORE model has been calibrated according to each European country’s mortality statistics. In other words, if used on the entire population aged 40-65, it will predict the exact number of fatal CVD-events that eventually will occur after 10 years.
-#'The relative risk chart may be used to show younger people at low total risk that, relative to others in their age group, their risk may be many times higher than necessary. This may help to motivate decisions about avoidance of smoking, healthy nutrition and exercise, as well as flagging those who may become candidates for medication. This chart refers to relative risk, not percentage risk.
-#'You can read more about the SCORE project in European Heart Journal, 2003, 24; 987-1003.
+#' @details Aims:
+#' The aim of this study was to develop, validate, and illustrate an updated prediction model (SCORE2) to estimate 10-year fatal and non-fatal cardiovascular disease (CVD) risk in individuals
+#' without previous CVD or diabetes aged 40–69 years in Europe.
+#' Methods and results:
+#' We derived risk prediction models using individual-participant data from 45 cohorts in 13 countries (677 684 individuals, 30 121 CVD events).
+#' We used sex-specific and competing risk-adjusted models, including age, smoking status, systolic blood pressure, and total- and HDL-cholesterol.
+#' We defined four risk regions in Europe according to country-specific CVD mortality, recalibrating models to each region using expected incidences
+#' and risk factor distributions. Region-specific incidence was estimated using CVD mortality and incidence data on 10 776 466 individuals.
+#' For external validation, we analysed data from 25 additional cohorts in 15 European countries (1 133 181 individuals, 43 492 CVD events).
+#' After applying the derived risk prediction models to external validation cohorts, C-indices ranged from 0.67 (0.65–0.68) to 0.81 (0.76–0.86).
+#' Predicted CVD risk varied several-fold across European regions. For example, the estimated 10-year CVD risk for a 50-year-old smoker,
+#' with a systolic blood pressure of 140mmHg, total cholesterol of 5.5mmol/L, and HDL-cholesterol of 1.3mmol/L, ranged from 5.9% for men in low-risk countries
+#' to 14.0% for men in very high-risk countries, and from 4.2% for women in low-risk countries to 13.7% for women in very high-risk countries
+#' Conclusion:
+#' SCORE2—a new algorithm derived, calibrated, and validated to predict 10-year risk of first-onset CVD in European populations—enhances
+#' the identification of individuals at higher risk of developing CVD across Europe.
 #' @references
-#' Piepoli MF,et al. 2016 European Guidelines on cardiovascular disease prevention in clinical practice: The Sixth Joint Task Force of the European Society of Cardiology and Other Societies on Cardiovascular Disease Prevention in Clinical Practice (constituted by representatives of 10 societies and by invited experts):
-#' Developed with the special contribution of the European Association for Cardiovascular Prevention & Rehabilitation (EACPR).
-#' Eur J Prev Cardiol. 2016 Jul;23(11):NP1-NP96. doi: 10.1177/2047487316653709. Epub 2016 Jun 27. PMID: 27353126.
+#' SCORE2 working group and ESC Cardiovascular risk collaboration,
+#' SCORE2 risk prediction algorithms: new models to estimate 10-year risk of cardiovascular disease in Europe,
+#' European Heart Journal, Volume 42, Issue 25, 1 July 2021, Pages 2439–2454, https://doi.org/10.1093/eurheartj/ehab309
 #' @export
-ESC_Score_2016_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmol = FALSE) {
+ESC_Score2_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE) {
 
   risk <- match.arg(risk)
 
