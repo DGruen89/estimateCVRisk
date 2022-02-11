@@ -17,15 +17,18 @@
 #' @return A vector of calculated risk per record in %.
 #' @aliases procam_score_2002 procam_score_2007
 #' @details
-#' 2002:
-#'  - based on Cox-Modell
-#'  - German Kohort
-#'  - 2002 only precise for men 35-65
-#'  - 8 independent risk variables
-#'  - Risk for women is 4 times lesser then the risk of men
-#'  2007:
-#'  - based on Weibull-Model
-#'  - includes men an Women with age range from 20 - 75 Y
+#' The 2002-Model:
+#' \itemize{
+#'  \item{based on Cox-Model}
+#'  \item{based on a German Kohort}
+#'  \item{Score only precise for men 35-65}
+#'  \item{Risk for women is 4 times lower then the risk of men}
+#'  }
+#'  The 2007-Model:
+#'  \itemize{
+#'   \item{based on Weibull-Model}
+#'   \item{includes men an Women with age range from 20 - 75 years}
+#'  }
 #' Abstract:
 #' Background: The absolute risk of an acute coronary event depends on the totality of risk factors exhibited by an individual, the so-called global risk profile. Although several scoring schemes have been suggested to calculate this profile, many omit information on important variables such as family history of coronary heart disease or LDL cholesterol.
 #' Methods and Results: Based on 325 acute coronary events occurring within 10 years of follow-up among 5389 men 35 to 65 years of age at recruitment into the Prospective Cardiovascular Muenster (PROCAM) study, we developed a Cox proportional hazards model using the following 8 independent risk variables, ranked in order of importance: age, LDL cholesterol,
@@ -41,6 +44,10 @@ procam_score_2002 <- function(age, ldl, hdl, sbp, triglycerides, smoker, diabeti
 
   if (!is.numeric(age) |  missing(age)) {
     stop("age must be a valid numeric value")
+  }
+
+  if (any(age) < 35 | any(age) > 65) {
+    warning("Some values are outside the optimal age range (35-65 years). Risk cannot be calculated exactly.")
   }
 
   if (!is.numeric(hdl) | missing(hdl)) {
@@ -160,6 +167,10 @@ procam_score_2007 <- function(sex, age, ldl, hdl, sbp, triglycerides, smoker, di
 
   if (!is.numeric(age) |  missing(age)) {
     stop("age must be a valid numeric value")
+  }
+
+  if (any(age) < 20 | any(age) > 75) {
+    warning("Some values are outside the optimal age range (20-75 years). Risk cannot be calculated exactly.")
   }
 
   if (!is.numeric(hdl) | missing(hdl)) {

@@ -54,15 +54,17 @@ A vector of the calculated risk per record.
 This function takes necessary parameters to calculate the Reach-Score. You can choose between a calculation based on a score sheet or based on a cox model (formula).
 }
 \details{
-\itemize{
-\item Reduction of Atherothrombosis for Continued Health (REACH) Registry
-\item established in 2003
-\item Patients with knwon atherothrombotic disease or at high risk to developing atherothrombosis.
-\item Patients from all over the world
-\item enrollment between Dec. 2003 nad June 2004.
-\item 20-month risk prediction for cardiovascular death and next cardiovascular event.
 A risk model to predict secondary cardiovascular events and cardiovascular death in outpatients with established atherothrombotic disease.
-Tradiotional risk factors, burden of disease, lack of treatment, and geographic location all are related to an increase risk of subsequent cardiovascular morbidity and cardiovascular mortality.
+Tradiotional risk factors, burden of disease, lack of treatment, and geographic location all are related to an increase risk of subsequent
+cardiovascular morbidity and cardiovascular mortality.
+\itemize{
+\item{Reduction of Atherothrombosis for Continued Health (REACH) Registry}
+\item{established in 2003}
+\item{Patients from all over the world}
+\item{applicable for patients with age >= 45}
+\item{Study enrolled between Dec. 2003 nad June 2004}
+\item{20-month risk prediction for cardiovascular death and next cardiovascular event}
+\item{applicable for Patients with knwon atherothrombotic disease or at high risk to developing atherothrombosis}
 }
 }
 \references{

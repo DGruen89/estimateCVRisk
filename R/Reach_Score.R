@@ -30,15 +30,18 @@
 #' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
 #' region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 #' @details
-#' - Reduction of Atherothrombosis for Continued Health (REACH) Registry
-#' - established in 2003
-#' - Patients with knwon atherothrombotic disease or at high risk to developing atherothrombosis.
-#' - Patients from all over the world
-#  - Patients with age >= 45
-#' - enrollment between Dec. 2003 nad June 2004.
-#' - 20-month risk prediction for cardiovascular death and next cardiovascular event.
 #' A risk model to predict secondary cardiovascular events and cardiovascular death in outpatients with established atherothrombotic disease.
-#' Tradiotional risk factors, burden of disease, lack of treatment, and geographic location all are related to an increase risk of subsequent cardiovascular morbidity and cardiovascular mortality.
+#' Tradiotional risk factors, burden of disease, lack of treatment, and geographic location all are related to an increase risk of subsequent
+#' cardiovascular morbidity and cardiovascular mortality.
+#' \itemize{
+#'  \item{Reduction of Atherothrombosis for Continued Health (REACH) Registry}
+#'  \item{established in 2003}
+#'  \item{Patients from all over the world}
+#'  \item{applicable for patients with age >= 45}
+#'  \item{Study enrolled between Dec. 2003 nad June 2004}
+#'  \item{20-month risk prediction for cardiovascular death and next cardiovascular event}
+#'  \item{applicable for Patients with knwon atherothrombotic disease or at high risk to developing atherothrombosis}
+#'  }
 #' @references Wilson. Peter W. F., et al. "An International Model to Predict Recurrent Cardiovascular Disease." The American Journal of Medicine (2012) 125, 695-703.
 #' @return A vector of the calculated risk per record.
 #' @export
@@ -50,6 +53,10 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
 
     if (!is.numeric(age) |  missing(age)) {
         stop("age must be a valid numeric value")
+    }
+
+    if (any(age) < 45) {
+        warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
     }
 
     if (any(!is.na(bmi)) & any(!is.numeric(bmi))) {
