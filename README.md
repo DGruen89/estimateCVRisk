@@ -26,7 +26,7 @@ Currently available risk score functions in the package:<br/><br/>
 
 **Secondary Prevention**<br/>
 - REducation of Atherothrombosis for Continued Health (**REACH**) (https://doi.org/10.1016/j.amjmed.2012.01.014)<br/>
-- Thrombin Receptor Antagonist in Secondary Prevention of Atherothrombotic Ischemic Events-TIMI 50 (**TRA 2°P-TIMI**)<br/>
+- Thrombin Receptor Antagonist in Secondary Prevention of Atherothrombotic Ischemic Events-TIMI 50 (**TRA 2°P-TIMI**) (https://doi.org/10.1161/CIRCULATIONAHA.115.019861)<br/>
 - soon available - INternational VErapamil‐SR/Trandolapril STudy (**INVEST**) score (https://doi.org/10.1161/JAHA.113.000205)<br/>
 - soon available - ABC-CHF risk model (**ABC-CHD**) score (https://doi.org/10.1016/j.jacc.2017.06.030)<br/><br/>
 
