@@ -142,11 +142,9 @@ procam_score_2002 <- function(age, ldl, hdl, sbp, triglycerides, smoker, diabeti
 
   ## 10 year Risk
 
-  risktable <- data.frame(points = 20:60, risk = c(1,1.1,1.2,1.3,1.4,1.6,1.7,1.8,1.9,2.3,2.4,2.8,2.9,3.3,3.5,4.0,4.2,4.8,5.1,5.7,6.1,7.0,7.4,
-                                                   8.0,8.8,10.2,10.5,10.7,12.8,13.2,15.5,16.8,17.5,19.6,21.7,22.2,23.8,25.1,28.0,29.4,30.0))
   data$risk <- NA
 
-  data$risk <- risktable$risk[match(data$score, risktable$points)]
+  data$risk <- risktable_procam2002$risk[match(data$score, risktable_procam2002$points)]
 
   data$risk[!complete.cases(data$risk)] <- NA
 
