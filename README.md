@@ -21,6 +21,7 @@ Currently available risk score functions in the package:<br/><br/>
 - Framingham Risk Score to assess risk of CHD (**FRS-CHD**) (https://doi.org/10.1161/01.CIR.97.18.1837)<br/>
 - soon available - SCORE2 (https://doi.org/10.1093/eurheartj/ehab309)<br/>
 - soon available - SCORE2-OP (https://doi.org/10.1093/eurheartj/ehab312)<br/>
+- soon available - 10-Year Coronary Heart Disease Risk Prediction Using Coronary Artery Calcium and Traditional Risk Factors: Derivation in the MESA (Multi-Ethnic Study of Atherosclerosis)(**MESA**) (https://doi.org/10.1016/j.jacc.2015.08.035)<br/>
 
 
 **Secondary Prevention**<br/>
