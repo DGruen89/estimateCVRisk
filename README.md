@@ -75,21 +75,25 @@ The "estimateCVRisk" package defines the **variables** needed for risk estimatio
 ```R
 age            # age; integer [years]
 sex            # gender; categorical [female|male]
-ethnicity      # ethnicity; categorical [white|aa] ("aa"=afro american)
+ethnicity      # ethnicity; categorical [white|aa]; ("aa"=afro american)
 totchol        # total cholesterol; numeric [mg/dl]
 hdl            # high-density lipoprotein; numeric [mg/dl]
 ldl            # low-density lipoprotein; numeric [mg/dl]
 triglycerides  # triglycerides; numeric [mg/dl]
 sbp            # systolic blood pressure; numeric [mmHg]
 dbp            # diastolic blood pressure; numeric [mmHg]
-bp_med         # information if individual is on a blood pressure medication; numeric [1|0] ("1"=yes;"0"=no)
-smoker         # information on current self-reported smoking status; numeric [1|0] ("1"=smoker;"0"=non-smoker)
-diabetic       # diabteic status of individual; numeric [1|0] ("1"=diabetic;"0"=non-diabetic)
-famMI          # family history of premature myocardial infarction; numeric [1|0] ("1"=yes;"0"=no)
+bp_med         # information if individual is on a blood pressure medication; numeric [1|0]; ("1"=yes;"0"=no)
+smoker         # information on current self-reported smoking status; numeric [1|0]; ("1"=smoker;"0"=non-smoker)
+diabetic       # diabetic status of individual; numeric [1|0]; ("1"=diabetic;"0"=non-diabetic)
+famMI          # family history of premature myocardial infarction; numeric [1|0]; ("1"=yes;"0"=no)
 
 ```
 
-The different risk estimation functions require specific sets of risk variables as shown in the tables below. Each risk function can be passed single values as well as vectors. The output is a vector with the same length as the input vector (see also section Examples).
+
+The different risk estimation functions require specific sets of risk variables as shown in the tables below. Further (optional) variables affecting the output of each function might be needed (e.g. with ```heart_age=TRUE``` set the function ```ascvd_frs_cvd_formula()``` will add the estimated heart age to the estimated risk score as part fo the returned dataframe).
+
+Each risk function can be passed single values as well as vectors. The returned output is a vector with the same length as the input vector (see also section Examples).
+
 
 Primary Prevention  | age | sex | ethnicity | totchol | hdl | ldl | triglycerides | sbp | dbp | bp_med | smoker | diabetic | famMI |        
 ------------------- | --- |-----|-----------|---------|-----|-----|---------------|-----|-----|--------|--------|----------|-------|
@@ -101,6 +105,7 @@ ESC_Score_GER_2016  | x   | x   |           | x       |     |     |             
 ESC_Score_OP        | x   | x   |           | x       |     |     |               | x   |     |        | x      |          |       |
 procam_score_2002   | x   | x   |           |         | x   | x   | x             | x   |     |        | x      | x        |  x    |
 procam_score_2007   | x   | x   |           |         | x   | x   | x             | x   |     |        | x      | x        |  x    |
+
 
 Secondary Prevention | race | gender          
 -------------------- | ---- |-------------
