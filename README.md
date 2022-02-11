@@ -73,23 +73,24 @@ TRA2P_Score()
 The "estimateCVRisk" package defines the **variables** needed for risk estimation as follows:
 
 ```R
-race     # ethnicity; categorical [white|black|....]
-sex      # gender; categorical [female|male]
-age      # age; integer [years]
-totchol  # total cholesterol; integer [mg/dl]
-hdl      # 
-sbp      # 
-smoker   # 
-diabetic # 
-bp_med   #
+age         # age; integer [years]
+sex         # gender; categorical [female|male]
+ethnicity   # ethnicity; categorical [white|aa] ("aa"=afro american)
+totchol     # total cholesterol; numeric [mg/dl]
+hdl         # high-density lipoprotein; numeric [mg/dl]
+sbp         # systolic blood pressure; numeric [mmHg]
+bp_med      # information if individual is on a blood pressure medication; numeric [1|0] ("1"=yes;"0"=no)
+smoker      # information on current self-reported smoking status; numeric [1|0] ("1"=smoker;"0"=non-smoker)
+diabetic    # diabteic status of individual; numeric [1|0] ("1"=diabetic;"0"=non-diabetic)
 ```
 
 The different risk estimation functions require specific sets of variables as shown in the tables below. Each risk function can be passed single values as well as vectors. The output is a vector with the same length as the input vector (see also section Examples).
 
-Primary Prevention  | race | gender          
-------------------- | ---- |-------------
-ascvd_acc_aha       | x    | x
-ascvd_frs_chd       | x    | x
+Primary Prevention  | age | sex | ethnicity | totchol | hdl | sbp | bp_med | smoker | diabetic |      
+------------------- | --- |-----|-----------|---------|-----|-----|--------|--------|----------|
+ascvd_acc_aha       | x   | x   | x         | x       | x   | x   | x      | x      | x        |
+ascvd_frs_chd       | x   | x   |           | x       | x   | x   | x      | x      | x        |
+ascvd_frs_cvd       | x   | x   |           | x       | x   | x   | x      | x      | x        |
 
 Secondary Prevention | race | gender          
 -------------------- | ---- |-------------
