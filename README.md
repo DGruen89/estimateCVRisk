@@ -19,8 +19,8 @@ Currently available risk score functions in the package:<br/><br/>
 - Atherosclerotic cardiovascular disease score (**ASCVD**) Guideline from ACC/AHA on the Assessment of CV (https://doi.org/10.1161/01.cir.0000437741.48606.98)<br/>
 - Framingham Risk Score to assess risk of specific CVD (**FRS-CVD**) (https://doi.org/10.1161/CIRCULATIONAHA.107.699579)<br/>
 - Framingham Risk Score to assess risk of CHD (**FRS-CHD**) (https://doi.org/10.1161/01.CIR.97.18.1837)<br/>
-- soon available - SCORE2 (https://doi.org/10.1093/eurheartj/ehab309)<br/>
-- soon available - SCORE2-OP (https://doi.org/10.1093/eurheartj/ehab312)<br/>
+- Systematic COronary Risk Evaluation 2 from the European Society of Cardiology (**ESC-SCORE2**) (https://doi.org/10.1093/eurheartj/ehab309)<br/>
+- Systematic COronary Risk Evaluation 2 in older persons (**ESC-SCORE2 O.P.**) (https://doi.org/10.1093/eurheartj/ehab312)<br/>
 - soon available - 10-Year Coronary Heart Disease Risk Prediction Using Coronary Artery Calcium and Traditional Risk Factors: Derivation in the MESA (Multi-Ethnic Study of Atherosclerosis)(**MESA**) (https://doi.org/10.1016/j.jacc.2015.08.035)<br/>
 
 
