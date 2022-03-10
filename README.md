@@ -93,7 +93,7 @@ smoker          # information on current self-reported smoking status; numeric [
 diabetic        # diabetic status of individual; numeric [1|0]; ("1"=diabetic;"0"=non-diabetic)
 famMI           # family history of premature myocardial infarction; numeric [1|0]; ("1"=yes;"0"=no)
 chf             # information if individual has a congestive heart failure (CHF); numeric [1|0]; ("1"=yes;"0"=no)
-af              # information if individual has artrial fibrillation (AF); numeric [1|0]; ("1"=yes;"0"=no)
+af              # information if individual has atrial fibrillation (AF); numeric [1|0]; ("1"=yes;"0"=no)
 cv_event        # information if individual had a cardiovascular event in the past year; numeric [1|0]; ("1"=yes;"0"=no)
 vasc            # Number of vascular beds involved in previously diagnosed vascular disease; numeric [0-3]
 famMI           # information of family history of premature myocardial infarction in parents, grandparents or siblings before the age of 60 years; numeric [1|0]; ("1"=yes;"0"=no)
