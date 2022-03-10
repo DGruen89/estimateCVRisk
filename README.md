@@ -60,6 +60,8 @@ ascvd_frs_cvd()
 ESC_Score_2016_table()
 ESC_Score_GER_2016_table()
 ESC_Score_OP_table()
+ESC_Score2_table()
+ESC_Score2_OP_table()
 Procam_Score()
 ```
 
@@ -74,19 +76,34 @@ TRA2P_Score()
 The "estimateCVRisk" package defines the **variables** needed for risk estimation as follows:
 
 ```R
-age            # age; integer [years]
-sex            # gender; categorical [female|male]
-ethnicity      # ethnicity; categorical [white|aa]; ("aa"=afro american)
-totchol        # total cholesterol; numeric [mg/dl]
-hdl            # high-density lipoprotein; numeric [mg/dl]
-ldl            # low-density lipoprotein; numeric [mg/dl]
-triglycerides  # triglycerides; numeric [mg/dl]
-sbp            # systolic blood pressure; numeric [mmHg]
-dbp            # diastolic blood pressure; numeric [mmHg]
-bp_med         # information if individual is on a blood pressure medication; numeric [1|0]; ("1"=yes;"0"=no)
-smoker         # information on current self-reported smoking status; numeric [1|0]; ("1"=smoker;"0"=non-smoker)
-diabetic       # diabetic status of individual; numeric [1|0]; ("1"=diabetic;"0"=non-diabetic)
-famMI          # family history of premature myocardial infarction; numeric [1|0]; ("1"=yes;"0"=no)
+age             # age; integer [years]
+sex             # gender; categorical [female|male]
+ethnicity       # ethnicity; categorical [white|aa]; ("aa"=afro american)
+bmi             # body mass index; numeric [kg/m^2]
+totchol         # total cholesterol; numeric [mg/dl]
+hdl             # high-density lipoprotein; numeric [mg/dl]
+ldl             # low-density lipoprotein; numeric [mg/dl]
+triglycerides   # triglycerides; numeric [mg/dl]
+sbp             # systolic blood pressure; numeric [mmHg]
+dbp             # diastolic blood pressure; numeric [mmHg]
+bp_med          # information if individual is on a blood pressure medication; numeric [1|0]; ("1"=yes;"0"=no)
+asa             # information if individual is on a acetylsalicylic acid medication; numeric [1|0]; ("1"=yes;"0"=no)
+statin          # information if individual is on a statin medication; numeric [1|0]; ("1"=yes;"0"=no)
+smoker          # information on current self-reported smoking status; numeric [1|0]; ("1"=smoker;"0"=non-smoker)
+diabetic        # diabetic status of individual; numeric [1|0]; ("1"=diabetic;"0"=non-diabetic)
+famMI           # family history of premature myocardial infarction; numeric [1|0]; ("1"=yes;"0"=no)
+chf             # information if individual has a congestive heart failure (CHF); numeric [1|0]; ("1"=yes;"0"=no)
+af              # information if individual has artrial fibrillation (AF); numeric [1|0]; ("1"=yes;"0"=no)
+cv_event        # information if individual had a cardiovascular event in the past year; numeric [1|0]; ("1"=yes;"0"=no)
+vasc            # Number of vascular beds involved in previously diagnosed vascular disease; numeric [0-3]
+famMI           # information of family history of premature myocardial infarction in parents, grandparents or siblings before the age of 60 years; numeric [1|0]; ("1"=yes;"0"=no)
+ah              # information if individual has arterial hyperthorphy (AF); numeric [1|0]; ("1"=yes;"0"=no)
+stroke          # information if individual had a stroke; numeric [1|0]; ("1"=yes;"0"=no)
+bypass_surg     # information if individual had undergone a bypass surgery; numeric [1|0]; ("1"=yes;"0"=no)
+other_surg      # information if individual had a other vascular disease (peripheral) surgery; numeric [1|0]; ("1"=yes;"0"=no) 
+egfr            # estimated glomerular filtration rate (eGFR); numeric [mL x min^−1 x 1.73 m^−2]
+region_EE_or_ME # Geographical region membership in East Europe or Middel East; logical [TRUE|FALSE] 
+region_jap_aust # Geographical region membership in Japan or Australia; logical [TRUE|FALSE]
 
 ```
 
@@ -96,16 +113,16 @@ The different risk estimation functions require specific sets of risk variables 
 Each risk function can be passed single values as well as vectors. The returned output is a vector with the same length as the input vector (see also section Examples).
 
 
-Primary Prevention  | age | sex | ethnicity | totchol | hdl | ldl | triglycerides | sbp | dbp | bp_med | smoker | diabetic | famMI |        
-------------------- | --- |-----|-----------|---------|-----|-----|---------------|-----|-----|--------|--------|----------|-------|
-ascvd_acc_aha       | x   | x   | x         | x       | x   |     |               | x   |     | x      | x      | x        |       |
-ascvd_frs_chd       | x   | x   |           | x       | x   | x   |               | x   | x   |        | x      | x        |       |
-ascvd_frs_cvd       | x   | x   |           | x       | x   |     |               | x   |     | x      | x      | x        |       |
-ESC_Score_2016      | x   | x   |           | x       |     |     |               | x   |     |        | x      |          |       |
-ESC_Score_GER_2016  | x   | x   |           | x       |     |     |               | x   |     |        | x      |          |       |
-ESC_Score_OP        | x   | x   |           | x       |     |     |               | x   |     |        | x      |          |       |
-procam_score_2002   | x   | x   |           |         | x   | x   | x             | x   |     |        | x      | x        |  x    |
-procam_score_2007   | x   | x   |           |         | x   | x   | x             | x   |     |        | x      | x        |  x    |
+Primary Prevention  | age | sex | ethnicity | bmi | totchol | hdl | ldl | triglycerides | sbp | dbp | bp_med | asa | statin | smoker | diabetic | famMI | chf | af | cv_event | vasc | famMI | ah | stroke | bypass_surg | other_surg | egfr | region_EE_or_ME | region_jap_aust |        
+------------------- | --- |-----|-----------|-----|---------|-----|-----|---------------|-----|-----|--------|-----|--------|--------|----------|-------|-----|----|----------|------|-------|----|--------|-------------|------------|------|-----------------|-----------------|
+ascvd_acc_aha       | x   | x   | x         |     | x       | x   |     |               | x   |     | x      |     |        | x      | x        |       |     |    |          |      |       |    |        |             |            |      |                 |                 |
+ascvd_frs_chd       | x   | x   |           |     | x       | x   | x   |               | x   | x   |        |     |        | x      | x        |       |     |    |          |      |       |    |        |             |            |      |                 |                 |
+ascvd_frs_cvd       | x   | x   |           |     | x       | x   |     |               | x   |     | x      |     |        | x      | x        |       |     |    |          |      |       |    |        |             |            |      |                 |                 |
+ESC_Score_2016      | x   | x   |           |     | x       |     |     |               | x   |     |        |     |        | x      |          |       |     |    |          |      |       |    |        |             |            |      |                 |                 |
+ESC_Score_GER_2016  | x   | x   |           |     | x       |     |     |               | x   |     |        |     |        | x      |          |       |     |    |          |      |       |    |        |             |            |      |                 |                 |
+ESC_Score_OP        | x   | x   |           |     | x       |     |     |               | x   |     |        |     |        | x      |          |       |     |    |          |      |       |    |        |             |            |      |                 |                 |
+procam_score_2002   | x   | x   |           |     |         | x   | x   | x             | x   |     |        |     |        | x      | x        |  x    |     |    |          |      |       |    |        |             |            |      |                 |                 |
+procam_score_2007   | x   | x   |           |     |         | x   | x   | x             | x   |     |        |     |        | x      | x        |  x    |     |    |          |      |       |    |        |             |            |      |                 |                 |
 
 
 Secondary Prevention | race | gender          
