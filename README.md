@@ -57,18 +57,22 @@ After loading the package the following functions representing risk estimation f
 ascvd_acc_aha()             # ACC/AHA 2013 ASCVD risk score
 ascvd_frs_chd()             
 ascvd_frs_cvd()
-ESC_Score_2016_table()
-ESC_Score_GER_2016_table()
-ESC_Score_OP_table()
-ESC_Score2_table()
-ESC_Score2_OP_table()
-Procam_Score()
+ESC_Score_2016_table()      # table based version of the 2016 ESC risk score
+ESC_Score_GER_2016_table()  # table based version of the 2016 german population specific risk score
+ESC_Score_OP_table()        # table based version of the 2016 ESC risk score specially for people aged 65 years or older 
+ESC_Score2_table()          # table based version of the 2021 ESC SCORE2 risk score
+ESC_Score2_OP_table()       # table based version of the 2021 ESC SCORE2 risk score for people aged 70 years or older
+procam_score_2002()         # table based version of procam I score
+procam_score_2007()         # table based version of procam II score
 ```
 
 and the following functions representing risk estimation for **secondary prevention** are available
 ```R
-Reach_Score()
-TRA2P_Score()
+reach_score_next_cv()          # table based version of the reach score for risk estimation of cardivascular event in the next x years
+reach_score_cv_death()         # table based version of the reach score for risk estimation of cardivascular death in the next x years
+reach_score_next_cv_formula()  # formula (cox-model) based version of the reach score for risk estimation of cardivascular death in the next x years
+reach_score_cv_death_formula() # formula (cox-model) based version of the reach score for risk estimation of cardivascular event in the next x years
+tra2p_score()                  # TRA 2°P-TIMI 50 risk score
 ```
 
 ### Variables ###
@@ -127,7 +131,7 @@ Secondary Prevention  | age | sex | bmi | asa | statin | smoker | diabetic | chf
 Reach_Score           | x   | x   | x   | x   | x      | x      | x        | x   | x  | x        | x    |    |        |             |            |      | x               | x               |
 TRA2P_Score           | x   |     |     |     |        | x      | x        | x   |    |          |      | x  | x      | x           | x          | x    |                 |                 |
 
-
+* all scores using the same variables [ESC_Score_2016, ESC_Score_GER_2016, ESC_Score_OP, ESC_Score2, ESC_Score2_OP] 
 
 ## Examples ##
 
