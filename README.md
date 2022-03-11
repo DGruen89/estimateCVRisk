@@ -112,24 +112,20 @@ The different risk estimation functions require specific sets of risk variables 
 
 Each risk function can be passed single values as well as vectors. The returned output is a vector with the same length as the input vector (see also section Examples).
 
-
-Primary Prevention  | age | sex | ethnicity | bmi | totchol | hdl | ldl | triglycerides | sbp | dbp | bp_med | asa | statin | smoker | diabetic | famMI | chf | af | cv_event | vasc | famMI | ah | stroke | bypass_surg | other_surg | egfr | region_EE_or_ME | region_jap_aust |        
-------------------- | --- |-----|-----------|-----|---------|-----|-----|---------------|-----|-----|--------|-----|--------|--------|----------|-------|-----|----|----------|------|-------|----|--------|-------------|------------|------|-----------------|-----------------|
-ascvd_acc_aha       | x   | x   | x         |     | x       | x   |     |               | x   |     | x      |     |        | x      | x        |       |     |    |          |      |       |    |        |             |            |      |                 |                 |
-ascvd_frs_chd       | x   | x   |           |     | x       | x   | x   |               | x   | x   |        |     |        | x      | x        |       |     |    |          |      |       |    |        |             |            |      |                 |                 |
-ascvd_frs_cvd       | x   | x   |           |     | x       | x   |     |               | x   |     | x      |     |        | x      | x        |       |     |    |          |      |       |    |        |             |            |      |                 |                 |
-ESC_Score_2016      | x   | x   |           |     | x       |     |     |               | x   |     |        |     |        | x      |          |       |     |    |          |      |       |    |        |             |            |      |                 |                 |
-ESC_Score_GER_2016  | x   | x   |           |     | x       |     |     |               | x   |     |        |     |        | x      |          |       |     |    |          |      |       |    |        |             |            |      |                 |                 |
-ESC_Score_OP        | x   | x   |           |     | x       |     |     |               | x   |     |        |     |        | x      |          |       |     |    |          |      |       |    |        |             |            |      |                 |                 |
-procam_score_2002   | x   | x   |           |     |         | x   | x   | x             | x   |     |        |     |        | x      | x        |  x    |     |    |          |      |       |    |        |             |            |      |                 |                 |
-procam_score_2007   | x   | x   |           |     |         | x   | x   | x             | x   |     |        |     |        | x      | x        |  x    |     |    |          |      |       |    |        |             |            |      |                 |                 |
+Primary Prevention  | age | sex | ethnicity | totchol | hdl | ldl | triglycerides | sbp | dbp | bp_med | smoker | diabetic | famMI | famMI |  
+------------------- | --- |-----|-----------|---------|-----|-----|---------------|-----|-----|--------|--------|----------|-------|-------|
+ascvd_acc_aha       | x   | x   | x         | x       | x   |     |               | x   |     | x      | x      | x        |       |       |
+ascvd_frs_chd       | x   | x   |           | x       | x   | x   |               | x   | x   |        | x      | x        |       |       |
+ascvd_frs_cvd       | x   | x   |           | x       | x   |     |               | x   |     | x      | x      | x        |       |       |
+ESC_Score*          | x   | x   |           | x       |     |     |               | x   |     |        | x      |          |       |       |
+procam_score_2002   | x   |     |           |         | x   | x   | x             | x   |     |        | x      | x        |  x    | x     |
+procam_score_2007   | x   | x   |           |         | x   | x   | x             | x   |     |        | x      | x        |  x    | x     |
 
 
-Secondary Prevention | race | gender          
--------------------- | ---- |-------------
-Reach_Score          | x    | x
-TRA2P_Score          | x    | x
-
+Secondary Prevention  | age | sex | bmi | asa | statin | smoker | diabetic | chf | af | cv_event | vasc | ah | stroke | bypass_surg | other_surg | egfr | region_EE_or_ME | region_jap_aust |        
+--------------------- | --- |-----|-----|-----|--------|--------|----------|-----|----|----------|------|----|--------|-------------|------------|------|-----------------|-----------------|
+Reach_Score           | x   | x   | x   | x   | x      | x      | x        | x   | x  | x        | x    |    |        |             |            |      | x               | x               |
+TRA2P_Score           | x   |     |     |     |        | x      | x        | x   |    |          |      | x  | x      | x           | x          | x    |                 |                 |
 
 
 
