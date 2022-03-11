@@ -131,7 +131,7 @@ Secondary Prevention  | age | sex | bmi | asa | statin | smoker | diabetic | chf
 Reach_Score           | x   | x   | x   | x   | x      | x      | x        | x   | x  | x        | x    |    |        |             |            |      | x               | x               |
 TRA2P_Score           | x   |     |     |     |        | x      | x        | x   |    |          |      | x  | x      | x           | x          | x    |                 |                 |
 
-* all scores using the same variables [ESC_Score_2016, ESC_Score_GER_2016, ESC_Score_OP, ESC_Score2, ESC_Score2_OP] 
+\* all scores using the same variables [ESC_Score_2016, ESC_Score_GER_2016, ESC_Score_OP, ESC_Score2, ESC_Score2_OP] 
 
 ## Examples ##
 
