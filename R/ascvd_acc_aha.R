@@ -4,7 +4,7 @@
 #' non-fatal myocardial infarction (MI), congestive heart disease (CHD) death,
 #' or fatal or nonfatal stroke).
 #'
-#' @param race a character vector indicating the patients race. Value: "white", "aa" (afro american)
+#' @param ethnicity a character vector indicating the patients ethnicity. Value: "white", "aa" (afro american)
 #' @param sex a character vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given as years
 #' @param totchol a numeric vector; Cholesterol values given in mg/dL
@@ -14,12 +14,12 @@
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
 #' @return Estimated 10-Y Risk for hard ASCVD (percent)
-#' @usage ascvd_acc_aha(race = c("white", "aa"), sex, age,
+#' @usage ascvd_acc_aha(ethnicity = c("white", "aa"), sex, age,
 #' totchol, hdl, sbp, bp_med, smoker, diabetic)
 #' @details
 #' The ASCVD (atherosclerotic cardiovascular disease) risk score is a national guideline developed by the American College of Cardiology.
 #' It is a calculation of your 10-year risk of having a cardiovascular problem, such as a heart attack or stroke.
-#' This risk estimate considers age, sex, race, cholesterol levels, blood pressure, medication use, diabetic status, and smoking status.
+#' This risk estimate considers age, sex, ethnicity, cholesterol levels, blood pressure, medication use, diabetic status, and smoking status.
 #' @references
 #' Goff, David C., et al. "2013 ACC/AHA guideline on the assessment of
 #' cardiovascular risk: a report of the American College of
@@ -27,7 +27,7 @@
 #' Guidelines." Journal of the American College of Cardiology 63.25
 #' Part B (2014): 2935-2959.
 #' @export
-ascvd_acc_aha <- function(race = c("white", "aa"), sex,
+ascvd_acc_aha <- function(ethnicity = c("white", "aa"), sex,
                              age, totchol, hdl, sbp,
                              bp_med, smoker, diabetic) {
   if(missing(race)){

@@ -8,16 +8,16 @@
 \title{Calculate Reach-Score_Death / Reach-Score_next_CV}
 \usage{
 reach_score_next_cv(sex, age, bmi=NA, diabetic=NA, smoker=NA,
-vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, asa=NA,
 region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 reach_score_cv_death(sex, age, bmi=NA, diabetic=NA, smoker=NA,
-vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, asa=NA,
 region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 reach_score_cv_death_formula(sex, age, bmi=NA, diabetic=NA, smoker=NA,
-vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, asa=NA,
 region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 reach_score_next_cv_formula(sex, age, bmi=NA, diabetic=NA, smoker=NA,
-vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, asa=NA,
 region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 }
 \arguments{
@@ -41,7 +41,7 @@ region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 
 \item{statin}{a numeric vector; indicating whether a person is on a statin therapy. 1 = yes, 0 = no}
 
-\item{ass}{a numeric vector; indicating whether a person is on a ASS therapy. 1 = yes, 0 = no.}
+\item{asa}{information if individual is on a acetylsalicylic acid medication; numeric ("1"=yes;"0"=no)}
 
 \item{region_EE_or_ME}{a logical vector; Geographical region membership in East Europe or Middel East}
 

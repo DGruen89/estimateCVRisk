@@ -12,22 +12,22 @@
 #' @param chf a numeric vector indicating whether a person had a Congestive heart failure. Values: yes = 1; no = 0.
 #' @param af numeric vector; Atrial fibrillation. 1 = yes, 0 = no
 #' @param statin a numeric vector; indicating whether a person is on a statin therapy. 1 = yes, 0 = no
-#' @param ass a numeric vector; indicating whether a person is on a ASS therapy. 1 = yes, 0 = no.
+#' @param asa information if individual is on a acetylsalicylic acid medication; numeric ("1"=yes;"0"=no)
 #' @param region_EE_or_ME a logical vector; Geographical region membership in East Europe or Middel East
 #' @param region_jap_aust a logical vector; Geographical region membership in Japan or Australia
 #' @aliases reach_score_next_cv reach_score_cv_death reach_score_cv_death_formula reach_score_next_cv_formula
 #' @usage
 #' reach_score_next_cv(sex, age, bmi=NA, diabetic=NA, smoker=NA,
-#' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+#' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, asa=NA,
 #' region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 #' reach_score_cv_death(sex, age, bmi=NA, diabetic=NA, smoker=NA,
-#' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+#' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, asa=NA,
 #' region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 #' reach_score_cv_death_formula(sex, age, bmi=NA, diabetic=NA, smoker=NA,
-#' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+#' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, asa=NA,
 #' region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 #' reach_score_next_cv_formula(sex, age, bmi=NA, diabetic=NA, smoker=NA,
-#' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA,
+#' vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, asa=NA,
 #' region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 #' @details
 #' A risk model to predict secondary cardiovascular events and cardiovascular death in outpatients with established atherothrombotic disease.
@@ -45,7 +45,7 @@
 #' @references Wilson. Peter W. F., et al. "An International Model to Predict Recurrent Cardiovascular Disease." The American Journal of Medicine (2012) 125, 695-703.
 #' @return A vector of the calculated risk per record.
 #' @export
-reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME = FALSE, region_jap_aust = FALSE){
+reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, asa=NA, region_EE_or_ME = FALSE, region_jap_aust = FALSE){
 
     if (!all(sex %in% c("male", "female")) | missing(sex)) {
         stop("sex must be either 'male' or 'female'")
@@ -248,7 +248,7 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
 
 }
 #' @export
-reach_score_cv_death <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME = FALSE, region_jap_aust = FALSE){
+reach_score_cv_death <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, asa=NA, region_EE_or_ME = FALSE, region_jap_aust = FALSE){
 
 
     if (!all(sex %in% c("male", "female")) | missing(sex)) {
@@ -451,7 +451,7 @@ reach_score_cv_death <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=
 
 }
 #' @export
-reach_score_cv_death_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME = FALSE, region_jap_aust = FALSE){
+reach_score_cv_death_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, asa=NA, region_EE_or_ME = FALSE, region_jap_aust = FALSE){
 
 
     if (!all(sex %in% c("male", "female")) | missing(sex)) {
@@ -573,7 +573,7 @@ reach_score_cv_death_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=N
 
 }
 #' @export
-reach_score_next_cv_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, ass=NA, region_EE_or_ME = FALSE, region_jap_aust = FALSE){
+reach_score_next_cv_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, asa=NA, region_EE_or_ME = FALSE, region_jap_aust = FALSE){
 
 
     if (!all(sex %in% c("male", "female")) | missing(sex)) {

@@ -4,11 +4,11 @@
 \alias{ascvd_acc_aha}
 \title{ACC/AHA 2013 ASCVD risk score}
 \usage{
-ascvd_acc_aha(race = c("white", "aa"), sex, age,
+ascvd_acc_aha(ethnicity = c("white", "aa"), sex, age,
 totchol, hdl, sbp, bp_med, smoker, diabetic)
 }
 \arguments{
-\item{race}{a character vector indicating the patients race. Value: "white", "aa" (afro american)}
+\item{ethnicity}{a character vector indicating the patients ethnicity. Value: "white", "aa" (afro american)}
 
 \item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}
 
@@ -37,7 +37,7 @@ or fatal or nonfatal stroke).
 \details{
 The ASCVD (atherosclerotic cardiovascular disease) risk score is a national guideline developed by the American College of Cardiology.
 It is a calculation of your 10-year risk of having a cardiovascular problem, such as a heart attack or stroke.
-This risk estimate considers age, sex, race, cholesterol levels, blood pressure, medication use, diabetic status, and smoking status.
+This risk estimate considers age, sex, ethnicity, cholesterol levels, blood pressure, medication use, diabetic status, and smoking status.
 }
 \references{
 Goff, David C., et al. "2013 ACC/AHA guideline on the assessment of
