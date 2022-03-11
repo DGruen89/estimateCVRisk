@@ -36,9 +36,21 @@ Computes 10-year risk for specific atherosclerotic cardiovascular disease (CVD) 
 and heart failure.
 }
 \details{
-Background: Separate multivariable risk algorithms are commonly used to assess risk of specific atherosclerotic cardiovascular disease (CVD) events, ie, coronary heart disease, cerebrovascular disease, peripheral vascular disease, and heart failure. The present report presents a single multivariable risk function that predicts risk of developing all CVD and of its constituents.
-Methods and Results: We used Cox proportional-hazards regression to evaluate the risk of developing a first CVD event in 8491 Framingham study participants (mean age, 49 years; 4522 women) who attended a routine examination between 30 and 74 years of age and were free of CVD. Sex-specific multivariable risk functions (“general CVD” algorithms) were derived that incorporated age, total and high-density lipoprotein cholesterol, systolic blood pressure, treatment for hypertension, smoking, and diabetes status. We assessed the performance of the general CVD algorithms for predicting individual CVD events (coronary heart disease, stroke, peripheral artery disease, or heart failure). Over 12 years of follow-up, 1174 participants (456 women) developed a first CVD event. All traditional risk factors evaluated predicted CVD risk (multivariable-adjusted P⬍0.0001). The general CVD algorithm demonstrated good discrimination (C statistic, 0.763 (men) and 0.793 (women) and calibration. Simple adjustments to the general CVD risk algorithms allowed estimation of the risks of each CVD component. Two simple risk scores are presented, 1 based on all traditional risk factors and the other based on non–laboratory-based predictors.
-Conclusions: A sex-specific multivariable risk factor algorithm can be conveniently used to assess general CVD risk and risk of individual CVD events (coronary, cerebrovascular, and peripheral arterial disease and heart failure). The estimated absolute CVD event rates can be used to quantify risk and to guide preventive care.
+Background: \cr
+Separate multivariable risk algorithms are commonly used to assess risk of specific atherosclerotic cardiovascular disease (CVD) events,
+ie, coronary heart disease, cerebrovascular disease, peripheral vascular disease, and heart failure.
+The present report presents a single multivariable risk function that predicts risk of developing all CVD and of its constituents.\cr
+Methods and Results:\cr
+We used Cox proportional-hazards regression to evaluate the risk of developing a first CVD event in 8491 Framingham study participants (mean age, 49 years; 4522 women)
+who attended a routine examination between 30 and 74 years of age and were free of CVD. Sex-specific multivariable risk functions (“general CVD” algorithms) were derived that incorporated
+age, total and high-density lipoprotein cholesterol, systolic blood pressure, treatment for hypertension, smoking, and diabetes status.
+We assessed the performance of the general CVD algorithms for predicting individual CVD events (coronary heart disease, stroke, peripheral artery disease, or heart failure).
+Over 12 years of follow-up, 1174 participants (456 women) developed a first CVD event. All traditional risk factors evaluated predicted CVD risk (multivariable-adjusted P⬍0.0001).
+The general CVD algorithm demonstrated good discrimination (C statistic, 0.763 (men) and 0.793 (women) and calibration. Simple adjustments to the general CVD risk algorithms
+allowed estimation of the risks of each CVD component. Two simple risk scores are presented, 1 based on all traditional risk factors and the other based on non–laboratory-based predictors.\cr
+Conclusions:\cr
+A sex-specific multivariable risk factor algorithm can be conveniently used to assess general CVD risk and risk of individual
+CVD events (coronary, cerebrovascular, and peripheral arterial disease and heart failure). The estimated absolute CVD event rates can be used to quantify risk and to guide preventive care.
 }
 \references{
 D'Agostino RB Sr, Vasan RS, Pencina MJ, Wolf PA, Cobain M, Massaro JM, Kannel WB.

@@ -10,7 +10,8 @@
 #' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
 #' @usage ESC_Score_GER_2016_table(sex, age, totchol, sbp, smoker, mmol = FALSE)
 #' @return A vector of the calculated risk per record.
-#' @details Abstract: Estimation of absolute risk of cardiovascular disease (CVD), preferably with population-specific risk charts, has become a cornerstone of CVD primary prevention.
+#' @details Abstract:\cr
+#' Estimation of absolute risk of cardiovascular disease (CVD), preferably with population-specific risk charts, has become a cornerstone of CVD primary prevention.
 #' Regular recalibration of risk charts may be necessary due to decreasing CVD rates and CVD risk factor levels. The SCORE risk charts for fatal CVD risk assessment were first calibrated
 #' for Ger- many with 1998 risk factor level data and 1999 mortality statistics. We present an update of these risk charts based on the SCORE methodology including estimates of relative
 #' risks from SCORE, risk factor levels from the German Health Interview and Examination Survey for Adults 2008–11 (DEGS1) and official mortality statistics from 2012. Competing risks methods

@@ -30,17 +30,17 @@ This function takes necessary parameters to calculate the ESC-Score2 OP Table Ve
 \details{
 Aims:
 The aim of this study was to derive and validate the SCORE2-Older Persons (SCORE2-OP) risk model to estimate 5- and 10-year risk of cardiovascular disease (CVD)
-in individuals aged over 70 years in four geographical risk regions.
-Methods and results:
+in individuals aged over 70 years in four geographical risk regions.\cr
+Methods and results:\cr
 Sex-specific competing risk-adjusted models for estimating CVD risk (CVD mortality, myocardial infarction, or stroke) were derived in individuals
 aged over 65 without pre-existing atherosclerotic CVD from the Cohort of Norway (28 503 individuals, 10 089 CVD events).
 Models included age, smoking status, diabetes, systolic blood pressure, and total- and high-density lipoprotein cholesterol.
 Four geographical risk regions were defined based on country-specific CVD mortality rates. Models were recalibrated to each region using region-specific estimated CVD
 incidence rates and risk factor distributions. For external validation, we analysed data from 6 additional study populations {338 615 individuals, 33 219 CVD validation cohorts,
-C-indices ranged between 0.63 [95\% confidence interval (CI) 0.61–0.65] and 0.67 (0.64–0.69)}.
+C-indices ranged between 0.63 [95\% confidence interval (CI) 0.61 - 0.65] and 0.67 (0.64 – 0.69)}.
 Regional calibration of expected-vs.-observed risks was satisfactory. For given risk factor profiles, there was substantial variation across the four risk regions
-in the estimated 10-year CVD event risk.
-Conclusions:
+in the estimated 10-year CVD event risk.\cr
+Conclusions:\cr
 The competing risk-adjusted SCORE2-OP model was derived, recalibrated, and externally validated to estimate 5- and 10-year CVD risk in older adults (aged 70 years or older)
 in four geographical risk regions. These models can be used for communicating the risk of CVD and potential benefit from risk factor treatment
 and may facilitate shared decision-making between clinicians and patients in CVD risk management in older persons.

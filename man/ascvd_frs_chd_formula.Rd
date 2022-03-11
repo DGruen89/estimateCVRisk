@@ -39,9 +39,21 @@ Computes 10-year risk for specific atherosclerotic cardiovascular disease (CVD) 
 and heart failure.
 }
 \details{
-Background: The objective of this study was to examine the association of Joint National Committee (JNC-V) blood pressure and National Cholesterol Education Program (NCEP) cholesterol categories with coronary heart disease (CHD) risk, to incorporate them into coronary prediction algorithms, and to compare the discrimination properties of this approach with other noncategorical prediction functions.
-Methods and Results: This work was designed as a prospective, single-center study in the setting of a community-based cohort. The patients were 2489 men and 2856 women 30 to 74 years old at baseline with 12 years of follow-up. During the 12 years of follow-up, a total of 383 men and 227 women developed CHD, which was significantly associated with categories of blood pressure, total cholesterol, LDL cholesterol, and HDL cholesterol (all p < 0.001). Sex-specific prediction equations were formulated to predict CHD risk according to age, diabetes, smoking, JNC-V blood pressure categories, and NCEP total cholesterol and LDL cholesterol categories. The accuracy of this categorical approach was found to be comparable to CHD prediction when the continuous variables themselves were used. After adjustment for other factors, ⬇28\% ofCHD events in men and 29\% in women were attributable to blood pressure levels that exceeded high normal (130/85). The corresponding multivariable-adjusted attributable risk percent associated with elevated total cholesterol (200 mg/dL) was 27\% in men and 34\% in women.
-Conclusions: Recommended guidelines of blood pressure, total cholesterol, and LDL cholesterol effectively predict CHD risk in a middle-aged white population sample. A simple coronary disease prediction algorithm was developed using categorical variables, which allows physicians to predict multivariate CHD risk in patients without overt CHD.
+Background: \cr
+The objective of this study was to examine the association of Joint National Committee (JNC-V) blood pressure and National Cholesterol Education Program (NCEP) cholesterol categories
+with coronary heart disease (CHD) risk, to incorporate them into coronary prediction algorithms, and to compare the discrimination properties of this approach
+with other noncategorical prediction functions.\cr
+Methods and Results:\cr
+This work was designed as a prospective, single-center study in the setting of a community-based cohort. The patients were 2489 men and 2856 women 30 to 74 years old at baseline
+with 12 years of follow-up. During the 12 years of follow-up, a total of 383 men and 227 women developed CHD, which was significantly associated with categories of
+blood pressure, total cholesterol, LDL cholesterol, and HDL cholesterol (all p < 0.001). Sex-specific prediction equations were formulated to predict CHD risk according to
+age, diabetes, smoking, JNC-V blood pressure categories, and NCEP total cholesterol and LDL cholesterol categories. The accuracy of this categorical approach was found
+to be comparable to CHD prediction when the continuous variables themselves were used. After adjustment for other factors, 28\% of CHD events in men and 29\% in women
+were attributable to blood pressure levels that exceeded high normal (130/85). The corresponding multivariable-adjusted attributable risk percent associated with
+elevated total cholesterol (200 mg/dL) was 27\% in men and 34\% in women.\cr
+Conclusions:\cr
+Recommended guidelines of blood pressure, total cholesterol, and LDL cholesterol effectively predict CHD risk in a middle-aged white population sample.
+A simple coronary disease prediction algorithm was developed using categorical variables, which allows physicians to predict multivariate CHD risk in patients without overt CHD.
 }
 \references{
 D'Agostino RB Sr, Vasan RS, Pencina MJ, Wolf PA, Cobain M, Massaro JM, Kannel WB.

@@ -28,20 +28,20 @@ A vector of calculated risks of persons.
 This function takes necessary parameters to calculate the ESC-Score2 to estimate 10-year risk of cardiovascular disease in Europe.
 }
 \details{
-Aims:
+Aims:\cr
 The aim of this study was to develop, validate, and illustrate an updated prediction model (SCORE2) to estimate 10-year fatal and non-fatal cardiovascular disease (CVD) risk in individuals
-without previous CVD or diabetes aged 40–69 years in Europe.
-Methods and results:
+without previous CVD or diabetes aged 40–69 years in Europe.\cr
+Methods and results:\cr
 We derived risk prediction models using individual-participant data from 45 cohorts in 13 countries (677 684 individuals, 30 121 CVD events).
 We used sex-specific and competing risk-adjusted models, including age, smoking status, systolic blood pressure, and total- and HDL-cholesterol.
 We defined four risk regions in Europe according to country-specific CVD mortality, recalibrating models to each region using expected incidences
 and risk factor distributions. Region-specific incidence was estimated using CVD mortality and incidence data on 10 776 466 individuals.
 For external validation, we analysed data from 25 additional cohorts in 15 European countries (1 133 181 individuals, 43 492 CVD events).
-After applying the derived risk prediction models to external validation cohorts, C-indices ranged from 0.67 (0.65–0.68) to 0.81 (0.76–0.86).
+After applying the derived risk prediction models to external validation cohorts, C-indices ranged from 0.67 (0.65 – 0.68) to 0.81 (0.76 – 0.86).
 Predicted CVD risk varied several-fold across European regions. For example, the estimated 10-year CVD risk for a 50-year-old smoker,
 with a systolic blood pressure of 140mmHg, total cholesterol of 5.5mmol/L, and HDL-cholesterol of 1.3mmol/L, ranged from 5.9\% for men in low-risk countries
-to 14.0\% for men in very high-risk countries, and from 4.2\% for women in low-risk countries to 13.7\% for women in very high-risk countries
-Conclusion:
+to 14.0\% for men in very high-risk countries, and from 4.2\% for women in low-risk countries to 13.7\% for women in very high-risk countries\cr
+Conclusion:\cr
 SCORE2—a new algorithm derived, calibrated, and validated to predict 10-year risk of first-onset CVD in European populations—enhances
 the identification of individuals at higher risk of developing CVD across Europe.
 }

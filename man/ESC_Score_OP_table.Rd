@@ -28,7 +28,8 @@ A vector of the calculated risk per record.
 This function takes necessary parameters to calculate the ESC-Score Older People (OP) Table Version for high and low risk
 }
 \details{
-Abstract: Aims Estimation of cardiovascular disease risk, using SCORE (Systematic Coronary Risk Evaluation) is recommended by European guidelines on cardiovascular disease prevention.
+Abstract: \cr
+Aims Estimation of cardiovascular disease risk, using SCORE (Systematic Coronary Risk Evaluation) is recommended by European guidelines on cardiovascular disease prevention.
 Risk estimation is inaccurate in older people. We hypothesized that this may be due to the assumption, inherent in current risk estimation systems, that risk factors function similarly
 in all age groups. We aimed to derive and validate a risk estimation function, SCORE O.P., solely from data from individuals aged 65 years and older.
 Methods and results 20,704 men and 20,121 women, aged 65 and over and without pre-existing coronary disease, from four representative, prospective studies of the general population were included.

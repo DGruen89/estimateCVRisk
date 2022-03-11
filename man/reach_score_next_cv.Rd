@@ -56,7 +56,26 @@ This function takes necessary parameters to calculate the Reach-Score. You can c
 \details{
 A risk model to predict secondary cardiovascular events and cardiovascular death in outpatients with established atherothrombotic disease.
 Tradiotional risk factors, burden of disease, lack of treatment, and geographic location all are related to an increase risk of subsequent
-cardiovascular morbidity and cardiovascular mortality.
+cardiovascular morbidity and cardiovascular mortality. \cr
+\cr
+Abstract: \cr
+Background:\cr
+Prediction models for cardiovascular events and cardiovascular death in patients with established cardiovascular disease are not generally available.\cr
+Methods: \cr
+Participants from the prospective REduction of Atherothrombosis for Continued Health (REACH) Registry provided a global outpatient population with known cardiovascular disease at entry.
+Cardiovascular prediction models were estimated from the 2-year follow-up data of 49,689 participants from around the world.\cr
+Results:\cr
+A developmental prediction model was estimated from 33,419 randomly selected participants (2394 cardiovascular events with 1029 cardiovascular deaths) from the pool of 49,689.
+The number of vascular beds with clinical disease, diabetes, smoking, low body mass index, history of atrial fibrillation, cardiac failure,
+and history of cardiovascular event(s) <1 year before baseline examination increased risk of a subsequent cardiovascular event.
+Statin (hazard ratio 0.75; 95\% confidence interval, 0.69-0.82) and acetylsalicylic acid therapy (hazard ratio 0.90; 95\% confidence interval, 0.83-0.99)
+also were significantly associated with reduced risk of cardiovascular events. The prediction model was validated
+in the remaining 16,270 REACH subjects (1172 cardiovascular events, 494 cardiovascular deaths). Risk of cardiovascular death was similarly estimated with the same set of risk factors.
+Simple algorithms were developed for prediction of overall cardiovascular events and for cardiovascular death.\cr
+Conclusions:\cr
+This study establishes and validates a risk model to predict secondary cardiovascular events and cardiovascular death in outpatients with established atherothrombotic disease.
+Traditional risk factors, burden of disease, lack of treatment, and geographic location all are related to an increased risk of subsequent cardiovascular morbidity and cardiovascular mortality.
+
 \itemize{
 \item{Reduction of Atherothrombosis for Continued Health (REACH) Registry}
 \item{established in 2003}

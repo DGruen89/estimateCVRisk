@@ -29,12 +29,18 @@
 #'   \item{based on Weibull-Model}
 #'   \item{includes men an Women with age range from 20 - 75 years}
 #'  }
-#' Abstract:
-#' Background: The absolute risk of an acute coronary event depends on the totality of risk factors exhibited by an individual, the so-called global risk profile. Although several scoring schemes have been suggested to calculate this profile, many omit information on important variables such as family history of coronary heart disease or LDL cholesterol.
-#' Methods and Results: Based on 325 acute coronary events occurring within 10 years of follow-up among 5389 men 35 to 65 years of age at recruitment into the Prospective Cardiovascular Muenster (PROCAM) study, we developed a Cox proportional hazards model using the following 8 independent risk variables, ranked in order of importance: age, LDL cholesterol,
-#' smoking, HDL cholesterol, systolic blood pressure, family history of premature myocardial infarction, diabetes mellitus, and triglycerides. We then derived a simple point scoring system based on the beta-coefficients of this model. The accuracy of this point scoring scheme was comparable to coronary event prediction when the continuous variables themselves were used.
+#' Abstract:\cr
+#' Background: \cr
+#' The absolute risk of an acute coronary event depends on the totality of risk factors exhibited by an individual, the so-called global risk profile.
+#' Although several scoring schemes have been suggested to calculate this profile, many omit information on important variables such as family history of coronary heart disease or LDL cholesterol.\cr
+#' Methods and Results:\cr
+#' Based on 325 acute coronary events occurring within 10 years of follow-up among 5389 men 35 to 65 years of age at recruitment into the Prospective Cardiovascular Muenster (PROCAM) study,
+#' we developed a Cox proportional hazards model using the following 8 independent risk variables, ranked in order of importance: age, LDL cholesterol, smoking, HDL cholesterol, systolic blood pressure,
+#' family history of premature myocardial infarction, diabetes mellitus, and triglycerides. We then derived a simple point scoring system based on the beta-coefficients of this model.
+#' The accuracy of this point scoring scheme was comparable to coronary event prediction when the continuous variables themselves were used.\cr
 #' The scoring system accurately predicted observed coronary events with an area under the receiver-operating characteristics curve of 82.4% compared with 82.9% for the Cox model with continuous variables.
-#' Conclusions: Our scoring system is a simple and accurate way of predicting global risk of myocardial infarction in clinical practice and will therefore allow more accurate targeting of preventive therapy.
+#' Conclusions:\cr
+#' Our scoring system is a simple and accurate way of predicting global risk of myocardial infarction in clinical practice and will therefore allow more accurate targeting of preventive therapy.
 #' @references
 #' Assmann G, Cullen P, Schulte H. Simple scoring scheme for calculating the risk of acute coronary events based on the 10-year follow-up of the prospective cardiovascular Münster (PROCAM) study.
 #' Circulation. 2002 Jan 22;105(3):310-5. doi: 10.1161/hc0302.102575. Erratum in: Circulation 2002 Feb 19;105(7):900. PMID: 11804985.
