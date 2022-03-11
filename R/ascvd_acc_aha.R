@@ -30,12 +30,12 @@
 ascvd_acc_aha <- function(ethnicity = c("white", "aa"), sex,
                              age, totchol, hdl, sbp,
                              bp_med, smoker, diabetic) {
-  if(missing(race)){
-    race <- match.arg(race)
+  if(missing(ethnicity)){
+    ethnicity <- match.arg(ethnicity)
   }
 
-  if (!all(race %in% c("white", "aa"))) {
-    stop("race must be either 'white' or 'aa'")
+  if (!all(ethnicity %in% c("white", "aa"))) {
+    stop("ethnicity must be either 'white' or 'aa'")
   }
 
   if (!all(sex %in% c("male", "female")) | missing(sex)) {
@@ -82,18 +82,18 @@ ascvd_acc_aha <- function(ethnicity = c("white", "aa"), sex,
     stop("bp_med must be either 0 (no) or 1 (yes)")
   }
 
-  data <- data.frame(id = 1:length(race), race = race, sex = sex, age = age, totchol = totchol,
+  data <- data.frame(id = 1:length(ethnicity), ethnicity = ethnicity, sex = sex, age = age, totchol = totchol,
                      hdl = hdl, sbp = sbp, bp_med = bp_med,
                      smoker = smoker, diabetic = diabetic)
 
 
   #utils::data(sysdata, envir = environment())
 
-  # Generate data.frame of coefficients based on input `race` and `sex`
+  # Generate data.frame of coefficients based on input `ethnicity` and `sex`
   # vectors. We lose the original order after the merge operation, so will
   # need to re-sort the output based on the original order of `race_sex`.
 
-  data <- merge(data, ascvd_acc_aha_coefficients, by = c("race","sex"), all.x = TRUE)
+  data <- merge(data, ascvd_acc_aha_coefficients, by = c("ethnicity","sex"), all.x = TRUE)
   data <- data[order(data$id),]
 
   data$sbp_treated <- ifelse(data$bp_med == 1, data$sbp, 1)

@@ -52,7 +52,7 @@ procam_score_2002 <- function(age, ldl, hdl, sbp, triglycerides, smoker, diabeti
     stop("age must be a valid numeric value")
   }
 
-  if (any(age) < 35 | any(age) > 65) {
+  if (any(age < 35) | any(age > 65)) {
     warning("Some values are outside the optimal age range (35-65 years). Risk cannot be calculated exactly.")
   }
 
@@ -175,7 +175,7 @@ procam_score_2007 <- function(sex, age, ldl, hdl, sbp, triglycerides, smoker, di
     stop("age must be a valid numeric value")
   }
 
-  if (any(age) < 20 | any(age) > 75) {
+  if (any(age < 20) | any(age > 75)) {
     warning("Some values are outside the optimal age range (20-75 years). Risk cannot be calculated exactly.")
   }
 

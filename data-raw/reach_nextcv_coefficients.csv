@@ -1,2 +1,2 @@
-"sex_coef","age_coef","smoker_coef","diabetic_coef","bmi_coef","vasc_coef","cv_event_coef","chf_coef","af_coef","statin_coef","ass_coef","region_EE_or_ME_coef","region_jap_aust_coef","group_mean","baseline_surv"
+"sex_coef","age_coef","smoker_coef","diabetic_coef","bmi_coef","vasc_coef","cv_event_coef","chf_coef","af_coef","statin_coef","asa_coef","region_EE_or_ME_coef","region_jap_aust_coef","group_mean","baseline_surv"
 0.10246,0.03089,0.24121,0.37824,0.31428,0.30277,0.38168,0.51873,0.26652,-0.28332,-0.10151,0.27574,-0.31604,2.68845,0.93681

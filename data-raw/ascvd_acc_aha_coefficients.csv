@@ -1,4 +1,4 @@
-"race","sex","ln_age_coef","ln_age_squared_coef","ln_totchol_coef","ln_age_totchol_coef","ln_hdl_coef","ln_age_hdl_coef","ln_treated_sbp_coef","ln_age_treated_sbp_coef","ln_untreated_sbp_coef","ln_age_untreated_sbp_coef","smoker_coef","ln_age_smoker_coef","diabetic_coef","group_mean_coef","baseline_survival"
+"ethnicity","sex","ln_age_coef","ln_age_squared_coef","ln_totchol_coef","ln_age_totchol_coef","ln_hdl_coef","ln_age_hdl_coef","ln_treated_sbp_coef","ln_age_treated_sbp_coef","ln_untreated_sbp_coef","ln_age_untreated_sbp_coef","smoker_coef","ln_age_smoker_coef","diabetic_coef","group_mean_coef","baseline_survival"
 "white","female",-29.799,4.884,13.54,-3.114,-13.578,3.149,2.019,0,1.957,0,7.574,-1.665,0.661,-29.18,0.9665
 "aa","female",17.114,0,0.94,0,-18.92,4.475,29.291,-6.432,27.82,-6.087,0.691,0,0.874,86.61,0.9533
 "white","male",12.344,0,11.853,-2.664,-7.99,1.769,1.797,0,1.764,0,7.837,-1.795,0.658,61.18,0.9144

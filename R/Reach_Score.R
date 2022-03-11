@@ -74,7 +74,7 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
         stop("age must be a valid numeric value")
     }
 
-    if (any(age) < 45) {
+    if (any(age < 45)) {
         warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
     }
 
@@ -130,12 +130,12 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
         warning("No or some values for statin not provided. This results in an underestimation of the score")
     }
 
-    if (!all(ass %in% c(0,1,NA))) {
-        stop("ass must be either 0 (no), 1 (yes) or NA (missing)")
+    if (!all(asa %in% c(0,1,NA))) {
+        stop("asa must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (any(is.na(ass))) {
-        warning("No or some values for ass not provided. This results in an underestimation of the score")
+    if (any(is.na(asa))) {
+        warning("No or some values for asa not provided. This results in an underestimation of the score")
     }
 
     if (all(!is.logical(region_EE_or_ME)) | all(!is.logical(region_jap_aust))) {
@@ -143,7 +143,7 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
     }
 
     data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
-                       statin = statin, ass = ass, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
+                       statin = statin, asa = asa, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
 
     data$riskscore <- 0
 
@@ -231,9 +231,9 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
 
 
     ### ASS therapy
-    data$riskscore[is.na(data$ass)] <- data$riskscore[is.na(data$ass)]
-    data$riskscore[data$ass == 1] <- data$riskscore[data$ass == 1] - 1
-    data$riskscore[data$ass == 0] <- data$riskscore[data$ass == 0]
+    data$riskscore[is.na(data$asa)] <- data$riskscore[is.na(data$asa)]
+    data$riskscore[data$asa == 1] <- data$riskscore[data$asa == 1] - 1
+    data$riskscore[data$asa == 0] <- data$riskscore[data$asa == 0]
 
 
     ### Eastern Europe or Middle East
@@ -276,6 +276,10 @@ reach_score_cv_death <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=
 
     if (!is.numeric(age) |  missing(age)) {
         stop("age must be a valid numeric value")
+    }
+
+    if (any(age < 45)) {
+        warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
     }
 
     if (any(!is.na(bmi)) & any(!is.numeric(bmi))) {
@@ -334,12 +338,12 @@ reach_score_cv_death <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=
         warning("No or some values for statin not provided. This results in an underestimation of the score")
     }
 
-    if (!all(ass %in% c(0,1,NA))) {
-        stop("ass must be either 0 (no), 1 (yes) or NA (missing)")
+    if (!all(asa %in% c(0,1,NA))) {
+        stop("asa must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (any(is.na(ass))) {
-        warning("No or some values for ass not provided. This results in an underestimation of the score")
+    if (any(is.na(asa))) {
+        warning("No or some values for asa not provided. This results in an underestimation of the score")
     }
 
     if (all(!is.logical(region_EE_or_ME)) | all(!is.logical(region_jap_aust))) {
@@ -347,7 +351,7 @@ reach_score_cv_death <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=
     }
 
     data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
-                       statin = statin, ass = ass, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
+                       statin = statin, asa = asa, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
 
     data$riskscore <- 0
 
@@ -435,9 +439,9 @@ reach_score_cv_death <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=
 
 
     ### ASS therapy
-    data$riskscore[is.na(data$ass)] <- data$riskscore[is.na(data$ass)]
-    data$riskscore[data$ass == 1] <- data$riskscore[data$ass == 1] - 1
-    data$riskscore[data$ass == 0] <- data$riskscore[data$ass == 0] + 0
+    data$riskscore[is.na(data$asa)] <- data$riskscore[is.na(data$asa)]
+    data$riskscore[data$asa == 1] <- data$riskscore[data$asa == 1] - 1
+    data$riskscore[data$asa == 0] <- data$riskscore[data$asa == 0] + 0
 
 
     ### Eastern Europe or Middle East
@@ -481,6 +485,10 @@ reach_score_cv_death_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=N
         stop("age must be a valid numeric value")
     }
 
+    if (any(age < 45)) {
+        warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
+    }
+
     if (any(!is.na(bmi)) & any(!is.numeric(bmi))) {
         stop("bmi must be a valid value. Numeric or NA")
     }
@@ -537,12 +545,12 @@ reach_score_cv_death_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=N
         warning("No or some values for statin not provided. This results in an underestimation of the score")
     }
 
-    if (!all(ass %in% c(0,1,NA))) {
-        stop("ass must be either 0 (no), 1 (yes) or NA (missing)")
+    if (!all(asa %in% c(0,1,NA))) {
+        stop("asa must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (any(is.na(ass))) {
-        warning("No or some values for ass not provided. This results in an underestimation of the score")
+    if (any(is.na(asa))) {
+        warning("No or some values for asa not provided. This results in an underestimation of the score")
     }
 
     if (all(!is.logical(region_EE_or_ME)) | all(!is.logical(region_jap_aust))) {
@@ -550,7 +558,7 @@ reach_score_cv_death_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=N
     }
 
     data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
-                       statin = statin, ass = ass, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
+                       statin = statin, asa = asa, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
 
 
     ## factorize BMI
@@ -578,7 +586,7 @@ reach_score_cv_death_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=N
         data$chf * reach_nextcv_coefficients$chf_coef +
         data$af * reach_nextcv_coefficients$af_coef +
         data$statin * reach_nextcv_coefficients$statin_coef +
-        data$ass * reach_nextcv_coefficients$ass_coef +
+        data$asa * reach_nextcv_coefficients$asa_coef +
         data$region_EE_or_ME * reach_nextcv_coefficients$region_EE_or_ME_coef +
         data$region_jap_aust * reach_nextcv_coefficients$region_jap_aust_coef
 
@@ -603,6 +611,10 @@ reach_score_next_cv_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA
         stop("age must be a valid numeric value")
     }
 
+    if (any(age < 45)) {
+        warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
+    }
+
     if (any(!is.na(bmi)) & any(!is.numeric(bmi))) {
         stop("bmi must be a valid value. Numeric or NA")
     }
@@ -659,12 +671,12 @@ reach_score_next_cv_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA
         warning("No or some values for statin not provided. This results in an underestimation of the score")
     }
 
-    if (!all(ass %in% c(0,1,NA))) {
-        stop("ass must be either 0 (no), 1 (yes) or NA (missing)")
+    if (!all(asa %in% c(0,1,NA))) {
+        stop("asa must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (any(is.na(ass))) {
-        warning("No or some values for ass not provided. This results in an underestimation of the score")
+    if (any(is.na(asa))) {
+        warning("No or some values for asa not provided. This results in an underestimation of the score")
     }
 
     if (all(!is.logical(region_EE_or_ME)) | all(!is.logical(region_jap_aust))) {
@@ -672,7 +684,7 @@ reach_score_next_cv_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA
     }
 
     data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
-                       statin = statin, ass = ass, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
+                       statin = statin, asa = asa, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
 
     ## factorize BMI
 
@@ -697,7 +709,7 @@ reach_score_next_cv_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA
         data$chf * reach_nextcv_coefficients$chf_coef +
         data$af * reach_nextcv_coefficients$af_coef +
         data$statin * reach_nextcv_coefficients$statin_coef +
-        data$ass * reach_nextcv_coefficients$ass_coef +
+        data$asa * reach_nextcv_coefficients$asa_coef +
         data$region_EE_or_ME * reach_nextcv_coefficients$region_EE_or_ME_coef +
         data$region_jap_aust * reach_nextcv_coefficients$region_jap_aust_coef
 

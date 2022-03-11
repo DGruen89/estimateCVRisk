@@ -3,7 +3,7 @@
 test_that("Paper example is correct", {
   expect_identical(
     ascvd_acc_aha(
-      race = c("white","aa","white","aa"),
+      ethnicity = c("white","aa","white","aa"),
       sex = c("female", "female", "male", "male"),
       age = c(55,55,55,55),
       totchol = c(213,213,213,213),
