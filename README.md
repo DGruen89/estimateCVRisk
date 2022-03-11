@@ -137,6 +137,17 @@ TRA2P_Score           | x   |     |     |     |        | x      | x        | x  
 
 ### Calculate CVD risk with the SCORE risk estimation for an individual ###
 
+```R
+ ESC_Score_2016_table(
+      sex = "female",
+      age = 55,
+      totchol = 5,
+      sbp = 135,
+      smoker = 1,
+      risk = "high",
+      mmol = TRUE)
+```
+
 ### Calculate CVD risk with the FRS-CHD risk estimation for a group individuals ###
 
 ```R
@@ -153,5 +164,15 @@ TRA2P_Score           | x   |     |     |     |        | x      | x        | x  
 ```
 
 ### Calculate CVD risk with the TRA 2°P-TIMI for a cohort dataset ###
-
-
+```R
+ whit(data, tra2p_score( 
+      age = age,
+      chf = chf,
+      ah = ah,
+      diabetic = diabetic,
+      stroke = stroke,
+      bypass_surg = bypass_surg,
+      other_surg = other_surg,
+      egfr = egfr,
+      smoker = smoker))
+```
