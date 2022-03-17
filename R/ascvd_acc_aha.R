@@ -91,7 +91,7 @@ ascvd_acc_aha <- function(ethnicity = c("white", "aa"), sex,
 
   # Generate data.frame of coefficients based on input `ethnicity` and `sex`
   # vectors. We lose the original order after the merge operation, so will
-  # need to re-sort the output based on the original order of `race_sex`.
+  # need to re-sort the output based on the original order of `ethnicity_sex`.
 
   data <- merge(data, ascvd_acc_aha_coefficients, by = c("ethnicity","sex"), all.x = TRUE)
   data <- data[order(data$id),]
