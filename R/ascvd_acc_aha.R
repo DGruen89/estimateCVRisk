@@ -46,6 +46,10 @@ ascvd_acc_aha <- function(ethnicity = c("white", "aa"), sex,
     stop("age must be a valid numeric value")
   }
 
+  if (any(age < 40) | any(age > 79)) {
+    warning("Some values are outside the optimal age range (40-79 years). Risk calculation can thus become less accurate.")
+  }
+
   if (any(!is.numeric(totchol)) & any(!is.na(totchol))) {
     stop("totchol must be a valid numeric value")
   }

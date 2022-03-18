@@ -52,6 +52,10 @@ ascvd_frs_chd_formula <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, db
     stop("age must be a valid numeric value")
   }
 
+  if (any(age < 30) | any(age > 74)) {
+    warning("Some values are outside the optimal age range (30-74 years). Risk calculation can thus become less accurate.")
+  }
+
   if (any(!is.numeric(totchol)) & any(!is.na(totchol))) {
     stop("totchol must be a valid numeric value")
   }

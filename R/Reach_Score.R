@@ -75,7 +75,7 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
     }
 
     if (any(age < 45)) {
-        warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
+        warning("Some age values are below the optimal age range. Risk calculation can thus become less accurate.")
     }
 
     if (any(!is.na(bmi)) & any(!is.numeric(bmi))) {

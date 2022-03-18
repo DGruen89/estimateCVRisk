@@ -53,7 +53,7 @@ procam_score_2002 <- function(age, ldl, hdl, sbp, triglycerides, smoker, diabeti
   }
 
   if (any(age < 35) | any(age > 65)) {
-    warning("Some values are outside the optimal age range (35-65 years). Risk cannot be calculated exactly.")
+    warning("Some values are outside the optimal age range (35-65 years). Risk calculation can thus become less accurate.")
   }
 
   if (!is.numeric(hdl) | missing(hdl)) {
