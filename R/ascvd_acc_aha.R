@@ -42,7 +42,7 @@ ascvd_acc_aha <- function(ethnicity = c("white", "aa"), sex,
     stop("sex must be either 'male' or 'female'")
   }
 
-  if (!is.numeric(age) |  missing(age)) {
+  if (any(!is.numeric(age)) | missing(age)) {
     stop("age must be a valid numeric value")
   }
 
