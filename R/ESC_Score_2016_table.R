@@ -4,7 +4,7 @@
 #'
 #' @param sex a character vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given as years
-#' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
+#' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set the argument mmol to FALSE
 #' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param risk logical. Choose if which risk chart is used for calculation
@@ -25,6 +25,10 @@
 ESC_Score_2016_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmol = FALSE) {
 
   risk <- match.arg(risk)
+
+  if (risk != "low" & risk != "high"){
+    stop("risk must be either 'low' or 'high'")
+  }
 
   if (!all(sex %in% c("male", "female")) | missing(sex)) {
     stop("sex must be either 'male' or 'female'")

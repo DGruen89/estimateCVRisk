@@ -14,7 +14,7 @@
 #' @usage
 #' procam_score_2002(age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI)
 #' procam_score_2007(sex, age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI)
-#' @return A vector of calculated risk per record in %.
+#' @return A vector of calculated risk per record in %. Procam_2002 returns a numeric vectore, while Procam_2007 returns a character vector
 #' @aliases procam_score_2002 procam_score_2007
 #' @details
 #' The 2002-Model:
@@ -52,49 +52,67 @@ procam_score_2002 <- function(age, ldl, hdl, sbp, triglycerides, smoker, diabeti
     stop("age must be a valid numeric value")
   }
 
-  if (any(age < 35) | any(age > 65)) {
-    warning("Some values are outside the optimal age range (35-65 years). Risk calculation can thus become less accurate.")
-  }
-
   if (!is.numeric(hdl) | missing(hdl)) {
     stop("hdl must be a valid numeric value")
-  }
-
-  if (any(is.na(hdl))) {
-    warning("hdl contains NA's. This can greatly underestimate the risk for individuals")
   }
 
   if (any(!is.numeric(ldl)) & any(!is.na(ldl))) {
     stop("ldl must be a valid numeric value")
   }
 
-  if (any(is.na(ldl))) {
-    warning("ldl contains NA's. This can greatly underestimate the risk for individuals")
-  }
-
   if (!is.numeric(sbp) | missing(sbp)) {
     stop("sbp must be a valid numeric value")
-  }
-
-  if (any(is.na(sbp))) {
-    warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
   }
 
   if (any(!is.numeric(triglycerides)) & any(!is.na(triglycerides))) {
     stop("triglycerides must be a valid numeric value")
   }
 
+  if (!is.numeric(smoker) | !all(smoker %in% c(0,1,NA)) | missing(smoker)) {
+    stop("smoker must be either 0 (no) or 1 (yes)")
+  }
+
+  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1,NA)) | missing(diabetic)) {
+    stop("diabetic must be either 0 (no) or 1 (yes)")
+  }
+
+  if (!is.numeric(famMI) | !all(famMI %in% c(0,1,NA)) | missing(famMI)) {
+    stop("famMI must be either 0 (no) or 1 (yes)")
+  }
+
+  if (any(age < 35) | any(age > 65) | any(is.na(age))) {
+    warning("Some values are outside the optimal age range (35-65 years). Risk calculation can thus become less accurate.")
+  }
+
+  if (any(is.na(hdl))) {
+    warning("hdl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(ldl))) {
+    warning("ldl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(sbp))) {
+    warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
   if (any(is.na(triglycerides))) {
     warning("triglycerides contains NA's. This can greatly underestimate the risk for individuals")
   }
 
-  if (!is.numeric(smoker) | !all(smoker %in% c(0,1)) | missing(smoker)) {
-    stop("smoker must be either 0 (no) or 1 (yes)")
+  if (any(is.na(smoker))) {
+    warning("smoker contains NA's. This can greatly underestimate the risk for individuals")
   }
 
-  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1)) | missing(diabetic)) {
-    stop("diabetic must be either 0 (no) or 1 (yes)")
+  if (any(is.na(famMI))) {
+    warning("famMI contains NA's. This can greatly underestimate the risk for individuals")
   }
+
+  if (any(is.na(diabetic))) {
+    warning("diabetic contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+
 
   data <- data.frame(age = age, ldl = ldl, hdl = hdl, triglycerides = triglycerides, smoker = smoker, diabetic = diabetic, famMI = famMI, sbp = sbp)
 
@@ -112,7 +130,7 @@ procam_score_2002 <- function(age, ldl, hdl, sbp, triglycerides, smoker, diabeti
   data$score[data$age >= 45 & data$age <= 49 & !is.na(data$age)] <- data$score[data$age >= 45 & data$age <= 49 & !is.na(data$age)] + 11
   data$score[data$age >= 50 & data$age <= 54 & !is.na(data$age)] <- data$score[data$age >= 50 & data$age <= 54 & !is.na(data$age)] + 16
   data$score[data$age >= 55 & data$age <= 59 & !is.na(data$age)] <- data$score[data$age >= 55 & data$age <= 59 & !is.na(data$age)] + 21
-  data$score[data$age >= 60 & data$age <= 65 & !is.na(data$age)] <- data$score[data$age >= 60 & data$age <= 65 & !is.na(data$age)] + 26
+  data$score[data$age > 60 & !is.na(data$age)] <- data$score[data$age >= 60 & !is.na(data$age)] + 26
 
   ## Score LDL
   data$score[data$ldl < 100] <- data$score[data$ldl < 100 & !is.na(data$ldl)] + 0
@@ -175,53 +193,74 @@ procam_score_2007 <- function(sex, age, ldl, hdl, sbp, triglycerides, smoker, di
     stop("age must be a valid numeric value")
   }
 
-  if (any(age < 20) | any(age > 75)) {
-    warning("Some values are outside the optimal age range (20-75 years). Risk cannot be calculated exactly.")
-  }
-
   if (!is.numeric(hdl) | missing(hdl)) {
     stop("hdl must be a valid numeric value")
-  }
-
-  if (any(is.na(hdl))) {
-    warning("hdl contains NA's. This can greatly underestimate the risk for individuals")
   }
 
   if (any(!is.numeric(ldl)) & any(!is.na(ldl))) {
     stop("ldl must be a valid numeric value")
   }
 
-  if (any(is.na(ldl))) {
-    warning("ldl contains NA's. This can greatly underestimate the risk for individuals")
-  }
-
   if (!is.numeric(sbp) | missing(sbp)) {
     stop("sbp must be a valid numeric value")
-  }
-
-  if (any(is.na(sbp))) {
-    warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
   }
 
   if (any(!is.numeric(triglycerides)) & any(!is.na(triglycerides))) {
     stop("triglycerides must be a valid numeric value")
   }
 
-  if (any(is.na(triglycerides))) {
-    warning("triglycerides contains NA's. This can greatly underestimate the risk for individuals")
-  }
-  if (!is.numeric(smoker) | !all(smoker %in% c(0,1)) | missing(smoker)) {
+  if (!is.numeric(smoker) | !all(smoker %in% c(0,1,NA)) | missing(smoker)) {
     stop("smoker must be either 0 (no) or 1 (yes)")
   }
 
-  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1)) | missing(diabetic)) {
+  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1,NA)) | missing(diabetic)) {
     stop("diabetic must be either 0 (no) or 1 (yes)")
   }
+
+  if (!is.numeric(famMI) | !all(famMI %in% c(0,1,NA)) | missing(famMI)) {
+    stop("diabetic must be either 0 (no) or 1 (yes)")
+  }
+
+  if (any(age < 20) | any(age > 75) | any(is.na(age))) {
+    warning("Some values are outside the optimal age range (20-75 years). Risk cannot be calculated exactly.")
+  }
+
+  if (any(is.na(hdl))) {
+    warning("hdl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(ldl))) {
+    warning("ldl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(sbp))) {
+    warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(triglycerides))) {
+    warning("triglycerides contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(smoker))) {
+    warning("smoker contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(famMI))) {
+    warning("famMI contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(diabetic))) {
+    warning("diabetic contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
 
   data <- data.frame(age = age, ldl = ldl, hdl = hdl, triglycerides = triglycerides, smoker = smoker, diabetic = diabetic, famMI = famMI, sbp = sbp, sex = sex)
 
   data$score <- 0
   data$age <- round(data$age)
+  data$age[data$age > 75] <- 75
+  data$age[data$age < 25 & data$sex == "male"] <- "20-24"
+  data$age[data$age < 34 & data$sex == "female"] <- "20-33"
   data$ldl <- round(data$ldl)
   data$hdl <- round(data$hdl)
   data$triglycerides <- round(data$triglycerides)
@@ -311,13 +350,15 @@ for(i in 1:nrow(data)){
 
   if(data$sex[i] == "male"){
 
-    data$risk[i] <- risktable_procam2007_men[[as.character(data$age[i])]][data$score[i] == risktable_procam2007_men[[as.character(data$age[i])]][,1],2]
+    data$risk[i] <- ifelse(is.null(risktable_procam2007_men[[as.character(data$age[i])]][data$score[i] == risktable_procam2007_men[[as.character(data$age[i])]][,1],2]), NA,
+                           risktable_procam2007_men[[as.character(data$age[i])]][data$score[i] == risktable_procam2007_men[[as.character(data$age[i])]][,1],2])
 
   }
 
   if(data$sex[i] == "female") {
 
-    data$risk[i] <- risktable_procam2007_women[[as.character(data$age[i])]][data$score[i] == risktable_procam2007_women[[as.character(data$age[i])]][,1],2]
+    data$risk[i] <- ifelse(is.null(risktable_procam2007_women[[as.character(data$age[i])]][data$score[i] == risktable_procam2007_women[[as.character(data$age[i])]][,1],2]),NA,
+                           risktable_procam2007_women[[as.character(data$age[i])]][data$score[i] == risktable_procam2007_women[[as.character(data$age[i])]][,1],2])
 
   }
 

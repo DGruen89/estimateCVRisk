@@ -29,6 +29,10 @@ ESC_Score_OP_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","h
 
   risk <- match.arg(risk)
 
+  if (risk != "low" & risk != "high"){
+    stop("risk must be either 'low' or 'high'")
+  }
+
   if (!all(sex %in% c("male", "female")) | missing(sex)) {
     stop("sex must be either 'male' or 'female'")
   }

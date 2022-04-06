@@ -74,32 +74,16 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
         stop("age must be a valid numeric value")
     }
 
-    if (any(age < 45)) {
-        warning("Some age values are below the optimal age range. Risk calculation can thus become less accurate.")
-    }
-
     if (any(!is.na(bmi)) & any(!is.numeric(bmi))) {
         stop("bmi must be a valid value. Numeric or NA")
-    }
-
-    if (any(is.na(bmi))) {
-        warning("No or some values for BMI not provided. This results in an underestimation of the score")
     }
 
     if (!all(diabetic %in% c(0,1,NA))) {
         stop("diabetic must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (any(is.na(diabetic))) {
-        warning("No or some values for diabetic status not provided. This results in an underestimation of the score")
-    }
-
     if (!all(smoker %in% c(0,1,NA))) {
         stop("smoker must be either 0 (no), 1 (yes) or NA (missing)")
-    }
-
-    if (any(is.na(smoker))) {
-        warning("No or some values for smoker not provided. This results in an underestimation of the score")
     }
 
     if (!all(vasc %in% c(1,2,3,NA))) {
@@ -110,37 +94,55 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
         stop("cv_event must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (any(is.na(cv_event))) {
-        warning("No or some values for cv_event not provided. This results in an underestimation of the score")
-    }
-
     if (!all(af %in% c(0,1,NA))) {
         stop("af must be either 0 (no), 1 (yes) or NA (missing)")
-    }
-
-    if (any(is.na(af))) {
-        warning("No or some values for af not provided. This results in an underestimation of the score")
     }
 
     if (!all(statin %in% c(0,1,NA))) {
         stop("statin must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (any(is.na(statin))) {
-        warning("No or some values for statin not provided. This results in an underestimation of the score")
-    }
-
     if (!all(asa %in% c(0,1,NA))) {
         stop("asa must be either 0 (no), 1 (yes) or NA (missing)")
+    }
+
+    if (all(!is.logical(region_EE_or_ME)) | all(!is.logical(region_jap_aust))) {
+        stop("region must be either TRUE or FALSE")
+    }
+
+    if (any(age < 45)) {
+        warning("Some age values are below the optimal age range. Risk calculation can thus become less accurate.")
+    }
+
+    if (any(is.na(bmi))) {
+        warning("No or some values for BMI not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(diabetic))) {
+        warning("No or some values for diabetic status not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(smoker))) {
+        warning("No or some values for smoker not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(cv_event))) {
+        warning("No or some values for cv_event not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(af))) {
+        warning("No or some values for af not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(statin))) {
+        warning("No or some values for statin not provided. This results in an underestimation of the score")
     }
 
     if (any(is.na(asa))) {
         warning("No or some values for asa not provided. This results in an underestimation of the score")
     }
 
-    if (all(!is.logical(region_EE_or_ME)) | all(!is.logical(region_jap_aust))) {
-        stop("region must be either TRUE or FALSE")
-    }
+
 
     data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
                        statin = statin, asa = asa, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
@@ -152,33 +154,33 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
     ### Points for sex (0=male / 1=female)
 
     data$riskscore[is.na(data$sex)] <- data$riskscore[is.na(data$sex)]
-    data$riskscore[data$sex == "female"] <- data$riskscore[data$sex == "female"] + 0
-    data$riskscore[data$sex == "male"] <- data$riskscore[data$sex == "male"] + 1
+    data$riskscore[data$sex == "female" & !is.na(data$sex)] <- data$riskscore[data$sex == "female" & !is.na(data$sex)] + 0
+    data$riskscore[data$sex == "male" & !is.na(data$sex)] <- data$riskscore[data$sex == "male" & !is.na(data$sex)] + 1
 
     ### age
 
     data$riskscore[is.na(data$age)] <- data$riskscore[is.na(data$age)]
-    data$riskscore[data$age < 25] <- data$riskscore[data$age < 25] + 0
-    data$riskscore[data$age >= 25 & data$age < 30] <- data$riskscore[data$age >= 25 & data$age < 30] + 1
-    data$riskscore[data$age >= 30 & data$age < 35] <- data$riskscore[data$age >= 30 & data$age < 35] + 2
-    data$riskscore[data$age >= 35 & data$age < 40] <- data$riskscore[data$age >= 35 & data$age < 40] + 3
-    data$riskscore[data$age >= 40 & data$age < 45] <- data$riskscore[data$age >= 40 & data$age < 45] + 4
-    data$riskscore[data$age >= 45 & data$age < 50] <- data$riskscore[data$age >= 45 & data$age < 50] + 5
-    data$riskscore[data$age >= 50 & data$age < 55] <- data$riskscore[data$age >= 50 & data$age < 55] + 6
-    data$riskscore[data$age >= 55 & data$age < 60] <- data$riskscore[data$age >= 55 & data$age < 60] + 7
-    data$riskscore[data$age >= 60 & data$age < 65] <- data$riskscore[data$age >= 60 & data$age < 65] + 8
-    data$riskscore[data$age >= 65 & data$age < 70] <- data$riskscore[data$age >= 65 & data$age < 70] + 9
-    data$riskscore[data$age >= 70 & data$age < 75] <- data$riskscore[data$age >= 70 & data$age < 75] + 10
-    data$riskscore[data$age >= 75 & data$age < 80] <- data$riskscore[data$age >= 75 & data$age < 80] + 11
-    data$riskscore[data$age >= 80 & data$age < 85] <- data$riskscore[data$age >= 80 & data$age < 85] + 12
-    data$riskscore[data$age >= 85] <- data$riskscore[data$age >= 85] + 13
+    data$riskscore[data$age < 25 & !is.na(data$age)] <- data$riskscore[data$age < 25 & !is.na(data$age)] + 0
+    data$riskscore[data$age >= 25 & data$age < 30 & !is.na(data$age)] <- data$riskscore[data$age >= 25 & data$age < 30 & !is.na(data$age)] + 1
+    data$riskscore[data$age >= 30 & data$age < 35 & !is.na(data$age)] <- data$riskscore[data$age >= 30 & data$age < 35 & !is.na(data$age)] + 2
+    data$riskscore[data$age >= 35 & data$age < 40 & !is.na(data$age)] <- data$riskscore[data$age >= 35 & data$age < 40 & !is.na(data$age)] + 3
+    data$riskscore[data$age >= 40 & data$age < 45 & !is.na(data$age)] <- data$riskscore[data$age >= 40 & data$age < 45 & !is.na(data$age)] + 4
+    data$riskscore[data$age >= 45 & data$age < 50 & !is.na(data$age)] <- data$riskscore[data$age >= 45 & data$age < 50 & !is.na(data$age)] + 5
+    data$riskscore[data$age >= 50 & data$age < 55 & !is.na(data$age)] <- data$riskscore[data$age >= 50 & data$age < 55 & !is.na(data$age)] + 6
+    data$riskscore[data$age >= 55 & data$age < 60 & !is.na(data$age)] <- data$riskscore[data$age >= 55 & data$age < 60 & !is.na(data$age)] + 7
+    data$riskscore[data$age >= 60 & data$age < 65 & !is.na(data$age)] <- data$riskscore[data$age >= 60 & data$age < 65 & !is.na(data$age)] + 8
+    data$riskscore[data$age >= 65 & data$age < 70 & !is.na(data$age)] <- data$riskscore[data$age >= 65 & data$age < 70 & !is.na(data$age)] + 9
+    data$riskscore[data$age >= 70 & data$age < 75 & !is.na(data$age)] <- data$riskscore[data$age >= 70 & data$age < 75 & !is.na(data$age)] + 10
+    data$riskscore[data$age >= 75 & data$age < 80 & !is.na(data$age)] <- data$riskscore[data$age >= 75 & data$age < 80 & !is.na(data$age)] + 11
+    data$riskscore[data$age >= 80 & data$age < 85 & !is.na(data$age)] <- data$riskscore[data$age >= 80 & data$age < 85 & !is.na(data$age)] + 12
+    data$riskscore[data$age >= 85 & !is.na(data$age)] <- data$riskscore[data$age >= 85 & !is.na(data$age)] + 13
 
 
     ### BMI
 
     data$riskscore[is.na(data$bmi)] <- data$riskscore[is.na(data$bmi)]
-    data$riskscore[data$bmi < 20] <- data$riskscore[data$bmi < 20] + 2
-    data$riskscore[data$bmi >= 20] <- data$riskscore[data$bmi >= 20] + 0
+    data$riskscore[data$bmi < 20 & !is.na(data$bmi)] <- data$riskscore[data$bmi < 20 & !is.na(data$bmi)] + 2
+    data$riskscore[data$bmi >= 20 & !is.na(data$bmi)] <- data$riskscore[data$bmi >= 20 & !is.na(data$bmi)] + 0
 
 
 
@@ -186,54 +188,54 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
 
 
     data$riskscore[is.na(data$smoker)] <- data$riskscore[is.na(data$smoker)]
-    data$riskscore[data$smoker == 1] <- data$riskscore[data$smoker == 1] + 2
-    data$riskscore[data$smoker == 0] <- data$riskscore[data$smoker == 0]
+    data$riskscore[data$smoker == 1 & !is.na(data$smoker)] <- data$riskscore[data$smoker == 1 & !is.na(data$smoker)] + 2
+    data$riskscore[data$smoker == 0 & !is.na(data$smoker)] <- data$riskscore[data$smoker == 0 & !is.na(data$smoker)]
 
 
     ### diabeticetes
     data$riskscore[is.na(data$diabetic)] <- data$riskscore[is.na(data$diabetic)]
-    data$riskscore[data$diabetic == 1] <- data$riskscore[data$diabetic == 1] + 2
-    data$riskscore[data$diabetic == 0] <- data$riskscore[data$diabetic == 0]
+    data$riskscore[data$diabetic == 1 & !is.na(data$diabetic)] <- data$riskscore[data$diabetic == 1 & !is.na(data$diabetic)] + 2
+    data$riskscore[data$diabetic == 0 & !is.na(data$diabetic)] <- data$riskscore[data$diabetic == 0 & !is.na(data$diabetic)]
 
 
     ### Number of Vascular Beds
 
     data$riskscore[is.na(data$vasc)] <- data$riskscore[is.na(data$vasc)]
-    data$riskscore[data$vasc == 1] <- data$riskscore[data$vasc == 1] + 2
-    data$riskscore[data$vasc == 2] <- data$riskscore[data$vasc == 2] + 4
-    data$riskscore[data$vasc == 3] <- data$riskscore[data$vasc == 3] + 6
+    data$riskscore[data$vasc == 1 & !is.na(data$vasc)] <- data$riskscore[data$vasc == 1 & !is.na(data$vasc)] + 2
+    data$riskscore[data$vasc == 2 & !is.na(data$vasc)] <- data$riskscore[data$vasc == 2 & !is.na(data$vasc)] + 4
+    data$riskscore[data$vasc == 3 & !is.na(data$vasc)] <- data$riskscore[data$vasc == 3 & !is.na(data$vasc)] + 6
 
 
     ### CV Event im letzten jahr
 
     data$riskscore[is.na(data$cv_event)] <- data$riskscore[is.na(data$cv_event)]
-    data$riskscore[data$cv_event == 1] <- data$riskscore[data$cv_event == 1] + 2
-    data$riskscore[data$cv_event == 0] <- data$riskscore[data$cv_event == 0]
+    data$riskscore[data$cv_event == 1 & !is.na(data$cv_event)] <- data$riskscore[data$cv_event == 1 & !is.na(data$cv_event)] + 2
+    data$riskscore[data$cv_event == 0 & !is.na(data$cv_event)] <- data$riskscore[data$cv_event == 0 & !is.na(data$cv_event)]
 
 
     ### Congestive Heart failure Herzinsuffizienz
     data$riskscore[is.na(data$chf)] <- data$riskscore[is.na(data$chf)]
-    data$riskscore[data$chf == 1] <- data$riskscore[data$chf == 1] + 3
-    data$riskscore[data$chf == 0] <- data$riskscore[data$chf == 0]
+    data$riskscore[data$chf == 1 & !is.na(data$chf)] <- data$riskscore[data$chf == 1 & !is.na(data$chf)] + 3
+    data$riskscore[data$chf == 0 & !is.na(data$chf)] <- data$riskscore[data$chf == 0 & !is.na(data$chf)]
 
 
 
     ### Atrial fibrillation /Vorhofflimmern
     data$riskscore[is.na(data$af)] <- data$riskscore[is.na(data$af)]
-    data$riskscore[data$af == 1] <- data$riskscore[data$af == 1] + 2
-    data$riskscore[data$af == 0] <- data$riskscore[data$af == 0]
+    data$riskscore[data$af == 1 & !is.na(data$af)] <- data$riskscore[data$af == 1 & !is.na(data$af)] + 2
+    data$riskscore[data$af == 0 & !is.na(data$af)] <- data$riskscore[data$af == 0 & !is.na(data$af)]
 
 
     ### Statine therapy
     data$riskscore[is.na(data$statin)] <- data$riskscore[is.na(data$statin)]
-    data$riskscore[data$statin == 1] <- data$riskscore[data$statin == 1] - 2
-    data$riskscore[data$statin == 0] <- data$riskscore[data$statin == 0]
+    data$riskscore[data$statin == 1 & !is.na(data$statin)] <- data$riskscore[data$statin == 1 & !is.na(data$statin)] - 2
+    data$riskscore[data$statin == 0 & !is.na(data$statin)] <- data$riskscore[data$statin == 0 & !is.na(data$statin)]
 
 
     ### ASS therapy
     data$riskscore[is.na(data$asa)] <- data$riskscore[is.na(data$asa)]
-    data$riskscore[data$asa == 1] <- data$riskscore[data$asa == 1] - 1
-    data$riskscore[data$asa == 0] <- data$riskscore[data$asa == 0]
+    data$riskscore[data$asa == 1 & !is.na(data$ass)] <- data$riskscore[data$asa == 1 & !is.na(data$ass)] - 1
+    data$riskscore[data$asa == 0 & !is.na(data$ass)] <- data$riskscore[data$asa == 0 & !is.na(data$ass)]
 
 
     ### Eastern Europe or Middle East
@@ -278,77 +280,79 @@ reach_score_cv_death <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=
         stop("age must be a valid numeric value")
     }
 
-    if (any(age < 45)) {
-        warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
-    }
-
     if (any(!is.na(bmi)) & any(!is.numeric(bmi))) {
         stop("bmi must be a valid value. Numeric or NA")
-    }
-
-    if (any(is.na(bmi))) {
-        warning("No or some values for BMI not provided. This results in an underestimation of the score")
     }
 
     if (!all(diabetic %in% c(0,1,NA))) {
         stop("diabetic must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (any(is.na(diabetic))) {
-        warning("No or some values for diabetic status not provided. This results in an underestimation of the score")
-    }
-
     if (!all(smoker %in% c(0,1,NA))) {
         stop("smoker must be either 0 (no), 1 (yes) or NA (missing)")
-    }
-
-    if (any(is.na(smoker))) {
-        warning("No or some values for smoker not provided. This results in an underestimation of the score")
     }
 
     if (!all(vasc %in% c(1,2,3,NA))) {
         stop("vasc must be either 1,2,3 or NA (missing)")
     }
 
-    if (any(is.na(vasc))) {
-        warning("No or some values for vasc not provided. This results in an underestimation of the score")
-    }
-
     if (!all(cv_event %in% c(0,1,NA))) {
         stop("cv_event must be either 0 (no), 1 (yes) or NA (missing)")
-    }
-
-    if (any(is.na(cv_event))) {
-        warning("No or some values for cv_event not provided. This results in an underestimation of the score")
     }
 
     if (!all(af %in% c(0,1,NA))) {
         stop("af must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (any(is.na(af))) {
-        warning("No or some values for af not provided. This results in an underestimation of the score")
-    }
-
     if (!all(statin %in% c(0,1,NA))) {
         stop("statin must be either 0 (no), 1 (yes) or NA (missing)")
-    }
-
-    if (any(is.na(statin))) {
-        warning("No or some values for statin not provided. This results in an underestimation of the score")
     }
 
     if (!all(asa %in% c(0,1,NA))) {
         stop("asa must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
+    if (all(!is.logical(region_EE_or_ME)) | all(!is.logical(region_jap_aust))) {
+        stop("region must be either TRUE or FALSE")
+    }
+
+    if (any(age < 45)) {
+        warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
+    }
+
+    if (any(is.na(bmi))) {
+        warning("No or some values for BMI not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(diabetic))) {
+        warning("No or some values for diabetic status not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(smoker))) {
+        warning("No or some values for smoker not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(vasc))) {
+        warning("No or some values for vasc not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(cv_event))) {
+        warning("No or some values for cv_event not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(af))) {
+        warning("No or some values for af not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(statin))) {
+        warning("No or some values for statin not provided. This results in an underestimation of the score")
+    }
+
     if (any(is.na(asa))) {
         warning("No or some values for asa not provided. This results in an underestimation of the score")
     }
 
-    if (all(!is.logical(region_EE_or_ME)) | all(!is.logical(region_jap_aust))) {
-        stop("region must be either TRUE or FALSE")
-    }
+
 
     data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
                        statin = statin, asa = asa, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
@@ -485,77 +489,79 @@ reach_score_cv_death_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=N
         stop("age must be a valid numeric value")
     }
 
-    if (any(age < 45)) {
-        warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
-    }
-
     if (any(!is.na(bmi)) & any(!is.numeric(bmi))) {
         stop("bmi must be a valid value. Numeric or NA")
-    }
-
-    if (any(is.na(bmi))) {
-        warning("No or some values for BMI not provided. This results in an underestimation of the score")
     }
 
     if (!all(diabetic %in% c(0,1,NA))) {
         stop("diabetic must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (any(is.na(diabetic))) {
-        warning("No or some values for diabetic status not provided. This results in an underestimation of the score")
-    }
-
     if (!all(smoker %in% c(0,1,NA))) {
         stop("smoker must be either 0 (no), 1 (yes) or NA (missing)")
-    }
-
-    if (any(is.na(smoker))) {
-        warning("No or some values for smoker not provided. This results in an underestimation of the score")
     }
 
     if (!all(vasc %in% c(1,2,3,NA))) {
         stop("vasc must be either 1,2,3 or NA (missing)")
     }
 
-    if (any(is.na(vasc))) {
-        warning("No or some values for vasc not provided. This results in an underestimation of the score")
-    }
-
     if (!all(cv_event %in% c(0,1,NA))) {
         stop("cv_event must be either 0 (no), 1 (yes) or NA (missing)")
-    }
-
-    if (any(is.na(cv_event))) {
-        warning("No or some values for cv_event not provided. This results in an underestimation of the score")
     }
 
     if (!all(af %in% c(0,1,NA))) {
         stop("af must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (any(is.na(af))) {
-        warning("No or some values for af not provided. This results in an underestimation of the score")
-    }
-
     if (!all(statin %in% c(0,1,NA))) {
         stop("statin must be either 0 (no), 1 (yes) or NA (missing)")
-    }
-
-    if (any(is.na(statin))) {
-        warning("No or some values for statin not provided. This results in an underestimation of the score")
     }
 
     if (!all(asa %in% c(0,1,NA))) {
         stop("asa must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
+    if (all(!is.logical(region_EE_or_ME)) | all(!is.logical(region_jap_aust))) {
+        stop("region must be either TRUE or FALSE")
+    }
+
+    if (any(age < 45)) {
+        warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
+    }
+
+    if (any(is.na(bmi))) {
+        warning("No or some values for BMI not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(diabetic))) {
+        warning("No or some values for diabetic status not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(smoker))) {
+        warning("No or some values for smoker not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(vasc))) {
+        warning("No or some values for vasc not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(cv_event))) {
+        warning("No or some values for cv_event not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(af))) {
+        warning("No or some values for af not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(statin))) {
+        warning("No or some values for statin not provided. This results in an underestimation of the score")
+    }
+
     if (any(is.na(asa))) {
         warning("No or some values for asa not provided. This results in an underestimation of the score")
     }
 
-    if (all(!is.logical(region_EE_or_ME)) | all(!is.logical(region_jap_aust))) {
-        stop("region must be either TRUE or FALSE")
-    }
+
 
     data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
                        statin = statin, asa = asa, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
@@ -611,77 +617,79 @@ reach_score_next_cv_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA
         stop("age must be a valid numeric value")
     }
 
-    if (any(age < 45)) {
-        warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
-    }
-
     if (any(!is.na(bmi)) & any(!is.numeric(bmi))) {
         stop("bmi must be a valid value. Numeric or NA")
-    }
-
-    if (any(is.na(bmi))) {
-        warning("No or some values for BMI not provided. This results in an underestimation of the score")
     }
 
     if (!all(diabetic %in% c(0,1,NA))) {
         stop("diabetic must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (any(is.na(diabetic))) {
-        warning("No or some values for diabetic status not provided. This results in an underestimation of the score")
-    }
-
     if (!all(smoker %in% c(0,1,NA))) {
         stop("smoker must be either 0 (no), 1 (yes) or NA (missing)")
-    }
-
-    if (any(is.na(smoker))) {
-        warning("No or some values for smoker not provided. This results in an underestimation of the score")
     }
 
     if (!all(vasc %in% c(1,2,3,NA))) {
         stop("vasc must be either 1,2,3 or NA (missing)")
     }
 
-    if (any(is.na(vasc))) {
-        warning("No or some values for vasc not provided. This results in an underestimation of the score")
-    }
-
     if (!all(cv_event %in% c(0,1,NA))) {
         stop("cv_event must be either 0 (no), 1 (yes) or NA (missing)")
-    }
-
-    if (any(is.na(cv_event))) {
-        warning("No or some values for cv_event not provided. This results in an underestimation of the score")
     }
 
     if (!all(af %in% c(0,1,NA))) {
         stop("af must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (any(is.na(af))) {
-        warning("No or some values for af not provided. This results in an underestimation of the score")
-    }
-
     if (!all(statin %in% c(0,1,NA))) {
         stop("statin must be either 0 (no), 1 (yes) or NA (missing)")
-    }
-
-    if (any(is.na(statin))) {
-        warning("No or some values for statin not provided. This results in an underestimation of the score")
     }
 
     if (!all(asa %in% c(0,1,NA))) {
         stop("asa must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
+    if (all(!is.logical(region_EE_or_ME)) | all(!is.logical(region_jap_aust))) {
+        stop("region must be either TRUE or FALSE")
+    }
+
+    if (any(age < 45)) {
+        warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
+    }
+
+    if (any(is.na(bmi))) {
+        warning("No or some values for BMI not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(diabetic))) {
+        warning("No or some values for diabetic status not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(smoker))) {
+        warning("No or some values for smoker not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(vasc))) {
+        warning("No or some values for vasc not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(cv_event))) {
+        warning("No or some values for cv_event not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(af))) {
+        warning("No or some values for af not provided. This results in an underestimation of the score")
+    }
+
+    if (any(is.na(statin))) {
+        warning("No or some values for statin not provided. This results in an underestimation of the score")
+    }
+
     if (any(is.na(asa))) {
         warning("No or some values for asa not provided. This results in an underestimation of the score")
     }
 
-    if (all(!is.logical(region_EE_or_ME)) | all(!is.logical(region_jap_aust))) {
-        stop("region must be either TRUE or FALSE")
-    }
+
 
     data <- data.frame(sex = sex, age = age, smoker = smoker, diabetic = diabetic, bmi = bmi, vasc = vasc, cv_event = cv_event, chf = chf, af = af,
                        statin = statin, asa = asa, region_EE_or_ME = region_EE_or_ME, region_jap_aust = region_jap_aust)
