@@ -48,60 +48,64 @@ tra2p_score <- function(age, chf = NA, ah = NA, diabetic = NA, stroke = NA, bypa
     stop("smoker must be either 0 (no), 1 (yes) or NA (missing)")
   }
 
-  if (any(is.na(chf))) {
-    warning("No or some values for chf not provided. This results in an underestimation of the score")
-  }
-
   if (!all(ah %in% c(0,1,NA))) {
     stop("ah must be either 0 (no), 1 (yes) or NA (missing)")
-  }
-
-  if (any(is.na(ah))) {
-    warning("No or some values for ah not provided. This results in an underestimation of the score")
   }
 
   if (!all(diabetic %in% c(0,1,NA))) {
     stop("diabetic must be either 0 (no), 1 (yes) or NA (missing)")
   }
 
-  if (any(is.na(diabetic))) {
-    warning("No or some values for diabetic not provided. This results in an underestimation of the score")
-  }
-
   if (!all(stroke %in% c(0,1,NA))) {
     stop("stroke must be either 0 (no), 1 (yes) or NA (missing)")
-  }
-
-  if (any(is.na(stroke))) {
-    warning("No or some values for stroke not provided. This results in an underestimation of the score")
   }
 
   if (!all(bypass_surg %in% c(0,1,NA))) {
     stop("bypass_surg must be either 0 (no), 1 (yes) or NA (missing)")
   }
 
-  if (any(is.na(bypass_surg))) {
-    warning("No or some values for bypass_surg not provided. This results in an underestimation of the score")
-  }
-
   if (!all(other_surg %in% c(0,1,NA))) {
     stop("other_surg must be either 0 (no), 1 (yes) or NA (missing)")
-  }
-
-  if (any(is.na(other_surg))) {
-    warning("No or some values for other_surg not provided. This results in an underestimation of the score")
   }
 
   if (!all(smoker %in% c(0,1,NA))) {
     stop("other_surg must be either 0 (no), 1 (yes) or NA (missing)")
   }
 
-  if (any(is.na(smoker))) {
+  if (any(!is.na(egfr)) & any(!is.numeric(egfr))) {
+    stop("egfr must be a valid value. Numeric or NA")
+  }
+
+  if (any(is.na(age))) {
+    warning("No or some values for age not provided. This results in an underestimation of the score")
+  }
+
+  if (any(is.na(chf))) {
+    warning("No or some values for chf not provided. This results in an underestimation of the score")
+  }
+
+  if (any(is.na(ah))) {
+    warning("No or some values for ah not provided. This results in an underestimation of the score")
+  }
+
+  if (any(is.na(diabetic))) {
+    warning("No or some values for diabetic not provided. This results in an underestimation of the score")
+  }
+
+  if (any(is.na(stroke))) {
+    warning("No or some values for stroke not provided. This results in an underestimation of the score")
+  }
+
+  if (any(is.na(bypass_surg))) {
+    warning("No or some values for bypass_surg not provided. This results in an underestimation of the score")
+  }
+
+  if (any(is.na(other_surg))) {
     warning("No or some values for other_surg not provided. This results in an underestimation of the score")
   }
 
-  if (any(!is.na(egfr)) & any(!is.numeric(egfr))) {
-    stop("egfr must be a valid value. Numeric or NA")
+  if (any(is.na(smoker))) {
+    warning("No or some values for other_surg not provided. This results in an underestimation of the score")
   }
 
   if (any(is.na(egfr))) {

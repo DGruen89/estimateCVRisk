@@ -7,7 +7,7 @@
 #' @param bmi a numeric vector; Body Mass Index in kg/m^2
 #' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
 #' @param smoker a numeric vector. A smoker was defined as >= 5 cigarettes per day on average within the last month. Smoker = 1, non-smoker = 0.
-#' @param vasc a numeric vector; Number of vascular beds involved in previously diagnosed vascular disease. Number from 1 to 3
+#' @param vasc a numeric vector; Number of vascular beds involved in previously diagnosed vascular disease. Number from 0 to 3
 #' @param cv_event a numeric vector; cardiovascular event in past year. 1 = yes, 0 = no
 #' @param chf a numeric vector indicating whether a person had a Congestive heart failure. Values: yes = 1; no = 0.
 #' @param af numeric vector; Atrial fibrillation. 1 = yes, 0 = no
@@ -110,36 +110,36 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
         stop("region must be either TRUE or FALSE")
     }
 
-    if (any(age < 45)) {
+    if (any(age < 45) | any(is.na(age))) {
         warning("Some age values are below the optimal age range. Risk calculation can thus become less accurate.")
     }
 
     if (any(is.na(bmi))) {
-        warning("No or some values for BMI not provided. This results in an underestimation of the score")
+        warning("bmi contains NA's. This can greatly underestimate the risk for individuals")
     }
 
     if (any(is.na(diabetic))) {
-        warning("No or some values for diabetic status not provided. This results in an underestimation of the score")
+        warning("diabetic contains NA's. This can greatly underestimate the risk for individuals")
     }
 
     if (any(is.na(smoker))) {
-        warning("No or some values for smoker not provided. This results in an underestimation of the score")
+        warning("smoker contains NA's. This can greatly underestimate the risk for individuals")
     }
 
     if (any(is.na(cv_event))) {
-        warning("No or some values for cv_event not provided. This results in an underestimation of the score")
+        warning("cv_event contains NA's. This can greatly underestimate the risk for individuals")
     }
 
     if (any(is.na(af))) {
-        warning("No or some values for af not provided. This results in an underestimation of the score")
+        warning("af contains NA's. This can greatly underestimate the risk for individuals")
     }
 
     if (any(is.na(statin))) {
-        warning("No or some values for statin not provided. This results in an underestimation of the score")
+        warning("statin contains NA's. This can greatly underestimate the risk for individuals")
     }
 
     if (any(is.na(asa))) {
-        warning("No or some values for asa not provided. This results in an underestimation of the score")
+        warning("asa contains NA's. This can greatly underestimate the risk for individuals")
     }
 
 
@@ -292,7 +292,7 @@ reach_score_cv_death <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=
         stop("smoker must be either 0 (no), 1 (yes) or NA (missing)")
     }
 
-    if (!all(vasc %in% c(1,2,3,NA))) {
+    if (!all(vasc %in% c(0,1,2,3,NA))) {
         stop("vasc must be either 1,2,3 or NA (missing)")
     }
 
@@ -316,7 +316,7 @@ reach_score_cv_death <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=
         stop("region must be either TRUE or FALSE")
     }
 
-    if (any(age < 45)) {
+    if (any(age < 45) | any(is.na(age))) {
         warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
     }
 
@@ -364,33 +364,33 @@ reach_score_cv_death <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=
     ### Points for sex (0=male / 1=female)
 
     data$riskscore[is.na(data$sex)] <- data$riskscore[is.na(data$sex)]
-    data$riskscore[data$sex == "female"] <- data$riskscore[data$sex == "female"] + 0
-    data$riskscore[data$sex == "male"] <- data$riskscore[data$sex == "male"] + 1
+    data$riskscore[data$sex == "female" & !is.na(data$sex)] <- data$riskscore[data$sex == "female" & !is.na(data$sex)] + 0
+    data$riskscore[data$sex == "male" & !is.na(data$sex)] <- data$riskscore[data$sex == "male" & !is.na(data$sex)] + 1
 
     ### age
 
     data$riskscore[is.na(data$age)] <- data$riskscore[is.na(data$age)]
-    data$riskscore[data$age < 25] <- data$riskscore[data$age < 25] + 0
-    data$riskscore[data$age >= 25 & data$age < 30] <- data$riskscore[data$age >= 25 & data$age < 30] + 1
-    data$riskscore[data$age >= 30 & data$age < 35] <- data$riskscore[data$age >= 30 & data$age < 35] + 2
-    data$riskscore[data$age >= 35 & data$age < 40] <- data$riskscore[data$age >= 35 & data$age < 40] + 3
-    data$riskscore[data$age >= 40 & data$age < 45] <- data$riskscore[data$age >= 40 & data$age < 45] + 4
-    data$riskscore[data$age >= 45 & data$age < 50] <- data$riskscore[data$age >= 45 & data$age < 50] + 5
-    data$riskscore[data$age >= 50 & data$age < 55] <- data$riskscore[data$age >= 50 & data$age < 55] + 6
-    data$riskscore[data$age >= 55 & data$age < 60] <- data$riskscore[data$age >= 55 & data$age < 60] + 7
-    data$riskscore[data$age >= 60 & data$age < 65] <- data$riskscore[data$age >= 60 & data$age < 65] + 8
-    data$riskscore[data$age >= 65 & data$age < 70] <- data$riskscore[data$age >= 65 & data$age < 70] + 9
-    data$riskscore[data$age >= 70 & data$age < 75] <- data$riskscore[data$age >= 70 & data$age < 75] + 10
-    data$riskscore[data$age >= 75 & data$age < 80] <- data$riskscore[data$age >= 75 & data$age < 80] + 11
-    data$riskscore[data$age >= 80 & data$age < 85] <- data$riskscore[data$age >= 80 & data$age < 85] + 12
-    data$riskscore[data$age >= 85] <- data$riskscore[data$age >= 85] + 13
+    data$riskscore[data$age < 25 & !is.na(data$age)] <- data$riskscore[data$age < 25 & !is.na(data$age)] + 0
+    data$riskscore[data$age >= 25 & data$age < 30 & !is.na(data$age)] <- data$riskscore[data$age >= 25 & data$age < 30 & !is.na(data$age)] + 1
+    data$riskscore[data$age >= 30 & data$age < 35 & !is.na(data$age)] <- data$riskscore[data$age >= 30 & data$age < 35 & !is.na(data$age)] + 2
+    data$riskscore[data$age >= 35 & data$age < 40 & !is.na(data$age)] <- data$riskscore[data$age >= 35 & data$age < 40 & !is.na(data$age)] + 3
+    data$riskscore[data$age >= 40 & data$age < 45 & !is.na(data$age)] <- data$riskscore[data$age >= 40 & data$age < 45 & !is.na(data$age)] + 4
+    data$riskscore[data$age >= 45 & data$age < 50 & !is.na(data$age)] <- data$riskscore[data$age >= 45 & data$age < 50 & !is.na(data$age)] + 5
+    data$riskscore[data$age >= 50 & data$age < 55 & !is.na(data$age)] <- data$riskscore[data$age >= 50 & data$age < 55 & !is.na(data$age)] + 6
+    data$riskscore[data$age >= 55 & data$age < 60 & !is.na(data$age)] <- data$riskscore[data$age >= 55 & data$age < 60 & !is.na(data$age)] + 7
+    data$riskscore[data$age >= 60 & data$age < 65 & !is.na(data$age)] <- data$riskscore[data$age >= 60 & data$age < 65 & !is.na(data$age)] + 8
+    data$riskscore[data$age >= 65 & data$age < 70 & !is.na(data$age)] <- data$riskscore[data$age >= 65 & data$age < 70 & !is.na(data$age)] + 9
+    data$riskscore[data$age >= 70 & data$age < 75 & !is.na(data$age)] <- data$riskscore[data$age >= 70 & data$age < 75 & !is.na(data$age)] + 10
+    data$riskscore[data$age >= 75 & data$age < 80 & !is.na(data$age)] <- data$riskscore[data$age >= 75 & data$age < 80 & !is.na(data$age)] + 11
+    data$riskscore[data$age >= 80 & data$age < 85 & !is.na(data$age)] <- data$riskscore[data$age >= 80 & data$age < 85 & !is.na(data$age)] + 12
+    data$riskscore[data$age >= 85 & !is.na(data$age)] <- data$riskscore[data$age >= 85 & !is.na(data$age)] + 13
 
 
     ### BMI
 
     data$riskscore[is.na(data$bmi)] <- data$riskscore[is.na(data$bmi)]
-    data$riskscore[data$bmi < 20] <- data$riskscore[data$bmi < 20] + 2
-    data$riskscore[data$bmi >= 20] <- data$riskscore[data$bmi >= 20] + 0
+    data$riskscore[data$bmi < 20 & !is.na(data$bmi)] <- data$riskscore[data$bmi < 20 & !is.na(data$bmi)] + 2
+    data$riskscore[data$bmi >= 20 & !is.na(data$bmi)] <- data$riskscore[data$bmi >= 20 & !is.na(data$bmi)] + 0
 
 
 
@@ -398,54 +398,55 @@ reach_score_cv_death <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=
 
 
     data$riskscore[is.na(data$smoker)] <- data$riskscore[is.na(data$smoker)]
-    data$riskscore[data$smoker == 1] <- data$riskscore[data$smoker == 1] + 1
-    data$riskscore[data$smoker == 0] <- data$riskscore[data$smoker == 0] + 0
+    data$riskscore[data$smoker == 1 & !is.na(data$smoker)] <- data$riskscore[data$smoker == 1 & !is.na(data$smoker)] + 1
+    data$riskscore[data$smoker == 0 & !is.na(data$smoker)] <- data$riskscore[data$smoker == 0 & !is.na(data$smoker)] + 0
 
 
     ### Diabetes
     data$riskscore[is.na(data$diabetic)] <- data$riskscore[is.na(data$diabetic)]
-    data$riskscore[data$diabetic == 1] <- data$riskscore[data$diabetic == 1] + 2
-    data$riskscore[data$diabetic == 0] <- data$riskscore[data$diabetic == 0] + 0
+    data$riskscore[data$diabetic == 1 & !is.na(data$diabetic)] <- data$riskscore[data$diabetic == 1 & !is.na(data$diabetic)] + 2
+    data$riskscore[data$diabetic == 0 & !is.na(data$diabetic)] <- data$riskscore[data$diabetic == 0 & !is.na(data$diabetic)] + 0
 
 
     ### Number of Vascular Beds
 
     data$riskscore[is.na(data$vasc)] <- data$riskscore[is.na(data$vasc)] + 0
-    data$riskscore[data$vasc == 1] <- data$riskscore[data$vasc == 1] + 1
-    data$riskscore[data$vasc == 2] <- data$riskscore[data$vasc == 2] + 2
-    data$riskscore[data$vasc == 3] <- data$riskscore[data$vasc == 3] + 3
+    data$riskscore[data$vasc == 0 & !is.na(data$vasc)] <- data$riskscore[data$vasc == 0 & !is.na(data$vasc)] + 0
+    data$riskscore[data$vasc == 1 & !is.na(data$vasc)] <- data$riskscore[data$vasc == 1 & !is.na(data$vasc)] + 1
+    data$riskscore[data$vasc == 2 & !is.na(data$vasc)] <- data$riskscore[data$vasc == 2 & !is.na(data$vasc)] + 2
+    data$riskscore[data$vasc == 3 & !is.na(data$vasc)] <- data$riskscore[data$vasc == 3 & !is.na(data$vasc)] + 3
 
 
     ### CV Event im letzten jahr
 
     data$riskscore[is.na(data$cv_event)] <- data$riskscore[is.na(data$cv_event)]
-    data$riskscore[data$cv_event == 1] <- data$riskscore[data$cv_event == 1] + 1
-    data$riskscore[data$cv_event == 0] <- data$riskscore[data$cv_event == 0] + 0
+    data$riskscore[data$cv_event == 1 & !is.na(data$cv_event)] <- data$riskscore[data$cv_event == 1 & !is.na(data$cv_event)] + 1
+    data$riskscore[data$cv_event == 0 & !is.na(data$cv_event)] <- data$riskscore[data$cv_event == 0 & !is.na(data$cv_event)] + 0
 
 
     ### Congestive Heart failure Herzinsuffizienz
     data$riskscore[is.na(data$chf)] <- data$riskscore[is.na(data$chf)] + 0
-    data$riskscore[data$chf == 1] <- data$riskscore[data$chf == 1] + 4
-    data$riskscore[data$chf == 0] <- data$riskscore[data$chf == 0] + 0
+    data$riskscore[data$chf == 1 & !is.na(data$chf)] <- data$riskscore[data$chf == 1 & !is.na(data$chf)] + 4
+    data$riskscore[data$chf == 0 & !is.na(data$chf)] <- data$riskscore[data$chf == 0 & !is.na(data$chf)] + 0
 
 
 
     ### Atrial fibrillation /Vorhofflimmern
     data$riskscore[is.na(data$af)] <- data$riskscore[is.na(data$af)] + 0
-    data$riskscore[data$af == 1] <- data$riskscore[data$af == 1] + 2
-    data$riskscore[data$af == 0] <- data$riskscore[data$af == 0] + 0
+    data$riskscore[data$af == 1 & !is.na(data$af)] <- data$riskscore[data$af == 1 & !is.na(data$af)] + 2
+    data$riskscore[data$af == 0 & !is.na(data$af)] <- data$riskscore[data$af == 0 & !is.na(data$af)] + 0
 
 
     ### Statine therapy
     data$riskscore[is.na(data$statin)] <- data$riskscore[is.na(data$statin)]
-    data$riskscore[data$statin == 1] <- data$riskscore[data$statin == 1] - 1
-    data$riskscore[data$statin == 0] <- data$riskscore[data$statin == 0] + 0
+    data$riskscore[data$statin == 1 & !is.na(data$statin)] <- data$riskscore[data$statin == 1 & !is.na(data$statin)] - 1
+    data$riskscore[data$statin == 0 & !is.na(data$statin)] <- data$riskscore[data$statin == 0 & !is.na(data$statin)] + 0
 
 
     ### ASS therapy
     data$riskscore[is.na(data$asa)] <- data$riskscore[is.na(data$asa)]
-    data$riskscore[data$asa == 1] <- data$riskscore[data$asa == 1] - 1
-    data$riskscore[data$asa == 0] <- data$riskscore[data$asa == 0] + 0
+    data$riskscore[data$asa == 1 & !is.na(data$asa)] <- data$riskscore[data$asa == 1 & !is.na(data$asa)] - 1
+    data$riskscore[data$asa == 0 & !is.na(data$asa)] <- data$riskscore[data$asa == 0 & !is.na(data$asa)] + 0
 
 
     ### Eastern Europe or Middle East
@@ -525,7 +526,7 @@ reach_score_cv_death_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=N
         stop("region must be either TRUE or FALSE")
     }
 
-    if (any(age < 45)) {
+    if (any(age < 45) | any(is.na(age))) {
         warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
     }
 
@@ -582,23 +583,23 @@ reach_score_cv_death_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=N
     data[is.na(data)] <- 0
 
 
-    sum_coefs <- data$sex * reach_nextcv_coefficients$sex_coef +
-        data$age * reach_nextcv_coefficients$age_coef +
-        data$smoker * reach_nextcv_coefficients$smoker_coef +
-        data$diabetic * reach_nextcv_coefficients$diabetic_coef +
-        data$bmi * reach_nextcv_coefficients$bmi_coef +
-        data$vasc * reach_nextcv_coefficients$vasc_coef +
-        data$cv_event * reach_nextcv_coefficients$cv_event_coef +
-        data$chf * reach_nextcv_coefficients$chf_coef +
-        data$af * reach_nextcv_coefficients$af_coef +
-        data$statin * reach_nextcv_coefficients$statin_coef +
-        data$asa * reach_nextcv_coefficients$asa_coef +
-        data$region_EE_or_ME * reach_nextcv_coefficients$region_EE_or_ME_coef +
-        data$region_jap_aust * reach_nextcv_coefficients$region_jap_aust_coef
+    sum_coefs <- data$sex * reach_cvdeath_coefficients$sex_coef +
+        data$age * reach_cvdeath_coefficients$age_coef +
+        data$smoker * reach_cvdeath_coefficients$smoker_coef +
+        data$diabetic * reach_cvdeath_coefficients$diab_coef +
+        data$bmi * reach_cvdeath_coefficients$bmi_coef +
+        data$vasc * reach_cvdeath_coefficients$vasc_coef +
+        data$cv_event * reach_cvdeath_coefficients$cv_event_coef +
+        data$chf * reach_cvdeath_coefficients$chf_coef +
+        data$af * reach_cvdeath_coefficients$af_coef +
+        data$statin * reach_cvdeath_coefficients$statin_coef +
+        data$asa * reach_cvdeath_coefficients$asa_coef +
+        data$region_EE_or_ME * reach_cvdeath_coefficients$region_EE_or_ME_coef +
+        data$region_jap_aust * reach_cvdeath_coefficients$region_jap_aust_coef
 
     ## Calcualtion of Risk
 
-    cv_death <- round((1 - (reach_cvdeath_coefficients$baseline_surv^exp(sum_coefs - reach_cvdeath_coefficients$baseline_surv)))*100,2)
+    cv_death <- round((1 - (reach_cvdeath_coefficients$baseline_surv^exp(sum_coefs - reach_cvdeath_coefficients$group_mean_coef)))*100,2)
 
     cv_death <- ifelse(cv_death < 1, 1, ifelse(cv_death > 30, 30, cv_death))
 
@@ -653,7 +654,7 @@ reach_score_next_cv_formula <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA
         stop("region must be either TRUE or FALSE")
     }
 
-    if (any(age < 45)) {
+    if (any(age < 45) | any(is.na(age))) {
         warning("Some age values are below the optimal age range. Risk cannot be calculated exactly.")
     }
 

@@ -27,9 +27,7 @@
 #' Guidelines." Journal of the American College of Cardiology 63.25
 #' Part B (2014): 2935-2959.
 #' @export
-ascvd_acc_aha <- function(ethnicity = c("white", "aa"), sex,
-                             age, totchol, hdl, sbp,
-                             bp_med, smoker, diabetic) {
+ascvd_acc_aha <- function(ethnicity = c("white", "aa"), sex,age, totchol, hdl, sbp,bp_med, smoker, diabetic) {
   if(missing(ethnicity)){
     ethnicity <- match.arg(ethnicity)
   }
@@ -66,7 +64,7 @@ ascvd_acc_aha <- function(ethnicity = c("white", "aa"), sex,
     stop("diabetic must be either 0 (no) or 1 (yes)")
   }
 
-  if (!is.numeric(bp_med) | !all(bp_med %in% c(0,1, NA)) | missing(bp_med)) {
+  if (!is.numeric(bp_med) | !all(bp_med %in% c(0,1,NA)) | missing(bp_med)) {
     stop("bp_med must be either 0 (no) or 1 (yes)")
   }
 

@@ -52,37 +52,54 @@ ascvd_frs_cvd_formula <- function(sex, age, totchol, hdl, sbp, bp_med, smoker, d
     stop("totchol must be a valid numeric value")
   }
 
-  if (any(is.na(totchol))) {
-    warning("totchol contains NA's. This can greatly underestimate the risk for individuals")
-  }
-
   if (!is.numeric(hdl) | missing(hdl)) {
     stop("hdl must be a valid numeric value")
-  }
-
-  if (any(is.na(hdl))) {
-    warning("hdl contains NA's. This can greatly underestimate the risk for individuals")
   }
 
   if (!is.numeric(sbp) | missing(sbp)) {
     stop("sbp must be a valid numeric value")
   }
 
+  if (!is.numeric(bp_med) | !all(bp_med %in% c(0,1,NA)) | missing(bp_med)) {
+    stop("bp_med must be either 0 (no) or 1 (yes)")
+  }
+
+  if (!is.numeric(smoker) | !all(smoker %in% c(0,1,NA)) | missing(smoker)) {
+    stop("smoker must be either 0 (no) or 1 (yes)")
+  }
+
+  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1,NA)) | missing(diabetic)) {
+    stop("diabetic must be either 0 (no) or 1 (yes)")
+  }
+
+  if (any(age < 30) | any(age > 74) | any(is.na(age))) {
+    warning("Some values are outside the optimal age range (30-74 years). Risk calculation can thus become less accurate.")
+  }
+
+  if (any(is.na(totchol))) {
+    warning("totchol contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(hdl))) {
+    warning("hdl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
   if (any(is.na(sbp))) {
     warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
   }
 
-  if (!is.numeric(bp_med) | !all(bp_med %in% c(0,1)) | missing(bp_med)) {
-    stop("bp_med must be either 0 (no) or 1 (yes)")
+  if (any(is.na(diabetic))) {
+    warning("diabetic contains NA's. This can greatly underestimate the risk for individuals")
   }
 
-  if (!is.numeric(smoker) | !all(smoker %in% c(0,1)) | missing(smoker)) {
-    stop("smoker must be either 0 (no) or 1 (yes)")
+  if (any(is.na(smoker))) {
+    warning("smoker contains NA's. This can greatly underestimate the risk for individuals")
   }
 
-  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1)) | missing(diabetic)) {
-    stop("diabetic must be either 0 (no) or 1 (yes)")
+  if (any(is.na(bp_med))) {
+    warning("bp_med contains NA's. This can greatly underestimate the risk for individuals")
   }
+
 
   data <- data.frame(id = 1:length(sex), sex = sex, age = age, totchol = totchol,
                      hdl = hdl, sbp = sbp, bp_med = bp_med,
@@ -124,8 +141,7 @@ ascvd_frs_cvd_formula <- function(sex, age, totchol, hdl, sbp, bp_med, smoker, d
 
 }
 #' @export
-ascvd_frs_cvd_table <- function(sex, age, totchol, hdl, sbp,
-                            bp_med, smoker, diabetic, heart_age = FALSE){
+ascvd_frs_cvd_table <- function(sex, age, totchol, hdl, sbp,bp_med, smoker, diabetic, heart_age = FALSE){
 
   if (!all(sex %in% c("male", "female")) | missing(sex)) {
     stop("sex must be either 'male' or 'female'")
@@ -135,49 +151,62 @@ ascvd_frs_cvd_table <- function(sex, age, totchol, hdl, sbp,
     stop("age must be a valid numeric value")
   }
 
-  if (any(age < 30) | any(age > 74)) {
-    warning("Some values are outside the optimal age range (30-74 years). Risk calculation can thus become less accurate.")
-  }
-
   if (!is.numeric(totchol) | missing(totchol)) {
     stop("totchol must be a valid numeric value")
-  }
-
-  if (any(is.na(totchol))) {
-    warning("totchol contains NA's. This can greatly underestimate the risk for individuals")
   }
 
   if (!is.numeric(hdl) | missing(hdl)) {
     stop("hdl must be a valid numeric value")
   }
 
-  if (any(is.na(hdl))) {
-    warning("hdl contains NA's. This can greatly underestimate the risk for individuals")
-  }
-
   if (!is.numeric(sbp) | missing(sbp)) {
     stop("sbp must be a valid numeric value")
   }
 
-  if (any(is.na(sbp))) {
-    warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
-  }
-
-  if (!is.numeric(bp_med) | !all(bp_med %in% c(0,1)) | missing(bp_med)) {
+  if (!is.numeric(bp_med) | !all(bp_med %in% c(0,1,NA)) | missing(bp_med)) {
     stop("bp_med must be either 0 (no) or 1 (yes)")
   }
 
-  if (!is.numeric(smoker) | !all(smoker %in% c(0,1)) | missing(smoker)) {
+  if (!is.numeric(smoker) | !all(smoker %in% c(0,1,NA)) | missing(smoker)) {
     stop("smoker must be either 0 (no) or 1 (yes)")
   }
 
-  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1)) | missing(diabetic)) {
+  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1,NA)) | missing(diabetic)) {
     stop("diabetic must be either 0 (no) or 1 (yes)")
   }
 
   if (!is.logical(heart_age)) {
     stop("heart_age must be logical")
   }
+
+  if (any(age < 30) | any(age > 74) | any(is.na(age))) {
+    warning("Some values are outside the optimal age range (30-74 years). Risk calculation can thus become less accurate.")
+  }
+
+  if (any(is.na(totchol))) {
+    warning("totchol contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(hdl))) {
+    warning("hdl contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(sbp))) {
+    warning("sbp contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(diabetic))) {
+    warning("diabetic contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(smoker))) {
+    warning("smoker contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
+  if (any(is.na(bp_med))) {
+    warning("bp_med contains NA's. This can greatly underestimate the risk for individuals")
+  }
+
 
   data <- data.frame(id = 1:length(sex), sex = sex, age = age, totchol = totchol,
                      hdl = hdl, sbp = sbp, bp_med = bp_med,

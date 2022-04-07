@@ -77,7 +77,7 @@ ascvd_frs_chd_formula <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, db
   }
 
 
-  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1, NA)) | missing(diabetic)) {
+  if (!is.numeric(diabetic) | !all(diabetic %in% c(0,1,NA)) | missing(diabetic)) {
     stop("diabetic must be either 0 (no) or 1 (yes)")
   }
 
@@ -86,35 +86,35 @@ ascvd_frs_chd_formula <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, db
   }
 
   if (any(is.na(age))) {
-    warning("age contains NA's. Calculation not possible for affected data")
+    warning("age contains NA's. Risk calculation can thus become less accurate")
   }
 
   if (any(is.na(totchol)) & chol_cat == "tc") {
-    warning("totchol contains NA's. Calculation not possible for affected data")
+    warning("totchol contains NA's. Risk calculation can thus become less accurate")
   }
 
   if (any(is.na(hdl))) {
-    warning("hdl contains NA's. Calculation not possible for affected data")
+    warning("hdl contains NA's. Risk calculation can thus become less accurate")
   }
 
   if (any(is.na(ldl)) & chol_cat == "ldl") {
-    warning("ldl contains NA's. Calculation not possible for affected data")
+    warning("ldl contains NA's. Risk calculation can thus become less accurate")
   }
 
   if (any(is.na(sbp))) {
-    warning("sbp contains NA's. Calculation not possible for affected data")
+    warning("sbp contains NA's. Risk calculation can thus become less accurate")
   }
 
   if (any(is.na(dbp))) {
-    warning("dbp contains NA's. Calculation not possible for affected data")
+    warning("dbp contains NA's. Risk calculation can thus become less accurate")
   }
 
   if (any(is.na(smoker))) {
-    warning("smoker contains NA's. Calculation not possible for affected data")
+    warning("smoker contains NA's. Risk calculation can thus become less accurate")
   }
 
   if (any(is.na(diabetic))) {
-    warning("diabetic contains NA's. Calculation not possible for affected data")
+    warning("diabetic contains NA's. Risk calculation can thus become less accurate")
   }
 
   data <- data.frame(id = 1:length(sex), sex = sex, age = age, totchol = totchol,
@@ -243,6 +243,8 @@ ascvd_frs_chd_formula <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, db
   data <- data[!is.na(data$id),]
 
   data <- data[order(data$id),]
+
+  data[is.na(data)] <- 0
 
   ## Calculating individual sums TC
 
