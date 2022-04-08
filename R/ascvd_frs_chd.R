@@ -36,9 +36,9 @@
 #' Recommended guidelines of blood pressure, total cholesterol, and LDL cholesterol effectively predict CHD risk in a middle-aged white population sample.
 #' A simple coronary disease prediction algorithm was developed using categorical variables, which allows physicians to predict multivariate CHD risk in patients without overt CHD.
 #' @references
-#' D'Agostino RB Sr, Vasan RS, Pencina MJ, Wolf PA, Cobain M, Massaro JM, Kannel WB.
-#' General cardiovascular risk profile for use in primary care: the Framingham Heart Study.
-#' Circulation. 2008 Feb 12;117(6):743-53. doi: 10.1161/CIRCULATIONAHA.107.699579. Epub 2008 Jan 22. PMID: 18212285.
+#' Wilson PW, D'Agostino RB, Levy D, Belanger AM, Silbershatz H, Kannel WB.
+#' Prediction of coronary heart disease using risk factor categories.
+#' Circulation. 1998 May 12;97(18):1837-47. doi: 10.1161/01.cir.97.18.1837. PMID: 9603539.
 #' @export
 ascvd_frs_chd_formula <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, dbp, smoker, diabetic, chol_cat = c("tc", "ldl")){
 
@@ -225,9 +225,9 @@ ascvd_frs_chd_formula <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, db
 
     data_women$coef_age <- ascvd_frs_chd_coefficients$coef_age[1]
     data_women$coef_age.2 <- ascvd_frs_chd_coefficients$coef_age.2[1]
-    data_women$coef_ldl <- ascvd_frs_chd_coefficients_list$women_TC_totchol[data_women$ldl_cat, 1]
-    data_women$coef_hdl <- ascvd_frs_chd_coefficients_list$women_TC_HDL[data_women$hdl_cat, 1]
-    data_women$coef_bp <- ascvd_frs_chd_coefficients_list$women_TC_BP[data_women$bp_cat, 1]
+    data_women$coef_ldl <- ascvd_frs_chd_coefficients_list$women_LC_LDL[data_women$ldl_cat, 1]
+    data_women$coef_hdl <- ascvd_frs_chd_coefficients_list$women_LC_HDL[data_women$hdl_cat, 1]
+    data_women$coef_bp <- ascvd_frs_chd_coefficients_list$women_LC_BP[data_women$bp_cat, 1]
     data_women$coef_diabetic <- ascvd_frs_chd_coefficients$coef_diabetic[1]
     data_women$coef_smoker <- ascvd_frs_chd_coefficients$coef_smoker[1]
     data_women$baseline_survival <- ascvd_frs_chd_coefficients$baseline_survival[1]
@@ -266,7 +266,6 @@ ascvd_frs_chd_formula <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, db
       data$coef_diabetic
   }
 
-  ## Calculating individual sums ldl
 
   risk_score <- round((1 - (data$baseline_survival^
                               exp(indv_sum - data$group_mean_coef))) * 100.000, 2)
