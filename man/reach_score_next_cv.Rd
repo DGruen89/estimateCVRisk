@@ -31,7 +31,7 @@ region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 
 \item{smoker}{a numeric vector. A smoker was defined as >= 5 cigarettes per day on average within the last month. Smoker = 1, non-smoker = 0.}
 
-\item{vasc}{a numeric vector; Number of vascular beds involved in previously diagnosed vascular disease. Number from 1 to 3}
+\item{vasc}{a numeric vector; Number of vascular beds involved in previously diagnosed vascular disease. Number from 0 to 3}
 
 \item{cv_event}{a numeric vector; cardiovascular event in past year. 1 = yes, 0 = no}
 

@@ -234,8 +234,8 @@ reach_score_next_cv <- function(sex, age, bmi=NA, diabetic=NA, smoker=NA, vasc=N
 
     ### ASS therapy
     data$riskscore[is.na(data$asa)] <- data$riskscore[is.na(data$asa)]
-    data$riskscore[data$asa == 1 & !is.na(data$ass)] <- data$riskscore[data$asa == 1 & !is.na(data$ass)] - 1
-    data$riskscore[data$asa == 0 & !is.na(data$ass)] <- data$riskscore[data$asa == 0 & !is.na(data$ass)]
+    data$riskscore[data$asa == 1 & !is.na(data$asa)] <- data$riskscore[data$asa == 1 & !is.na(data$asa)] - 1
+    data$riskscore[data$asa == 0 & !is.na(data$asa)] <- data$riskscore[data$asa == 0 & !is.na(data$asa)]
 
 
     ### Eastern Europe or Middle East

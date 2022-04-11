@@ -11,7 +11,7 @@ ESC_Score_2016_table(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmo
 
 \item{age}{a numeric vector with the age of persons given as years}
 
-\item{totchol}{a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE}
+\item{totchol}{a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set the argument mmol to FALSE}
 
 \item{sbp}{a numeric vector with the systolic blood pressure of persons given as mmHg}
 

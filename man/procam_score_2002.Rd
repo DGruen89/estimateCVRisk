@@ -28,7 +28,7 @@ procam_score_2007(sex, age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famM
 \item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}
 }
 \value{
-A vector of calculated risk per record in \%.
+A vector of calculated risk per record in \%. Procam_2002 returns a numeric vectore, while Procam_2007 returns a character vector
 }
 \description{
 This function takes necessary parameters to calculate the PROCAM-Risk-Score Table Version for the Risk of acute Coronary Events based on the 10-year follow-up of the Prospective Cardiovascular Münster (PROCAM) study

@@ -56,7 +56,7 @@ Recommended guidelines of blood pressure, total cholesterol, and LDL cholesterol
 A simple coronary disease prediction algorithm was developed using categorical variables, which allows physicians to predict multivariate CHD risk in patients without overt CHD.
 }
 \references{
-D'Agostino RB Sr, Vasan RS, Pencina MJ, Wolf PA, Cobain M, Massaro JM, Kannel WB.
-General cardiovascular risk profile for use in primary care: the Framingham Heart Study.
-Circulation. 2008 Feb 12;117(6):743-53. doi: 10.1161/CIRCULATIONAHA.107.699579. Epub 2008 Jan 22. PMID: 18212285.
+Wilson PW, D'Agostino RB, Levy D, Belanger AM, Silbershatz H, Kannel WB.
+Prediction of coronary heart disease using risk factor categories.
+Circulation. 1998 May 12;97(18):1837-47. doi: 10.1161/01.cir.97.18.1837. PMID: 9603539.
 }

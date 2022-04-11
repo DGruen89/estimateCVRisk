@@ -67,5 +67,5 @@ test_that("Paper example is correct", {
       statin = c(1),
       asa = c(1),
       region_EE_or_ME = TRUE),
-    c(24.49))})
+    c(6.15))})
 
