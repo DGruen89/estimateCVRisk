@@ -262,8 +262,8 @@ ascvd_frs_chd_formula <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, db
     indv_sum <- data$age * data$coef_age +
       data$age^2 * data$coef_age.2 +
       data$coef_ldl + data$coef_hdl +
-      data$coef_bp + data$coef_smoker +
-      data$coef_diabetic
+      data$coef_bp + data$smoker * data$coef_smoker +
+      data$diabetic * data$coef_diabetic
   }
 
 
@@ -387,7 +387,10 @@ ascvd_frs_chd_table <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, dbp,
   data$score[data$hdl >= 45 & data$hdl < 50 & !is.na(data$hdl) & data$sex == "male"] <- data$score[data$hdl >= 45 & data$hdl < 50 & !is.na(data$hdl) & data$sex == "male"] + 0
   data$score[data$hdl >= 50 & data$hdl < 60 & !is.na(data$hdl) & data$sex == "female"] <- data$score[data$hdl >= 50 & data$hdl < 60 & !is.na(data$hdl) & data$sex == "female"] + 0
   data$score[data$hdl >= 50 & data$hdl < 60 & !is.na(data$hdl) & data$sex == "male"] <- data$score[data$hdl >= 50 & data$hdl < 60 & !is.na(data$hdl) & data$sex == "male"] + 0
-
+  data$score[data$hdl >= 60 & !is.na(data$hdl) & data$sex == "female" & chol_cat == "ldl"] <- data$score[data$hdl >= 60 & !is.na(data$hdl) & data$sex == "female" & chol_cat == "ldl"] - 2
+  data$score[data$hdl >= 60 & !is.na(data$hdl) & data$sex == "female" & chol_cat == "tc"] <- data$score[data$hdl >= 60 & !is.na(data$hdl) & data$sex == "female" & chol_cat == "tc"] - 3
+  data$score[data$hdl >= 60 & !is.na(data$hdl) & data$sex == "male" & chol_cat == "ldl"] <- data$score[data$hdl >= 60 & !is.na(data$hdl) & data$sex == "male" & chol_cat == "ldl"] - 1
+  data$score[data$hdl >= 60 & !is.na(data$hdl) & data$sex == "male" & chol_cat == "tc"] <- data$score[data$hdl >= 60 & !is.na(data$hdl) & data$sex == "male" & chol_cat == "tc"] - 2
 
   ## Score totchol
   if(chol_cat == "tc"){

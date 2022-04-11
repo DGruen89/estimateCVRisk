@@ -133,39 +133,39 @@ procam_score_2002 <- function(age, ldl, hdl, sbp, triglycerides, smoker, diabeti
   data$score[data$age > 60 & !is.na(data$age)] <- data$score[data$age >= 60 & !is.na(data$age)] + 26
 
   ## Score LDL
-  data$score[data$ldl < 100] <- data$score[data$ldl < 100 & !is.na(data$ldl)] + 0
+  data$score[data$ldl < 100 & !is.na(data$ldl)] <- data$score[data$ldl < 100 & !is.na(data$ldl)] + 0
   data$score[data$ldl >= 100 & data$ldl <= 129 & !is.na(data$ldl)] <- data$score[data$ldl >= 100 & data$ldl <= 129 & !is.na(data$ldl)] + 5
   data$score[data$ldl >= 130 & data$ldl <= 159 & !is.na(data$ldl)] <- data$score[data$ldl >= 130 & data$ldl <= 159 & !is.na(data$ldl)] + 10
   data$score[data$ldl >= 160 & data$ldl <= 189 & !is.na(data$ldl)] <- data$score[data$ldl >= 160 & data$ldl <= 189 & !is.na(data$ldl)] + 14
-  data$score[data$ldl >= 190] <- data$score[data$ldl >= 190] + 20
+  data$score[data$ldl >= 190 & !is.na(data$ldl)] <- data$score[data$ldl >= 190 & !is.na(data$ldl)] + 20
 
   ## Score hdl
-  data$score[data$hdl < 35] <- data$score[data$hdl < 35 & !is.na(data$hdl)] + 11
+  data$score[data$hdl < 35 & !is.na(data$hdl)] <- data$score[data$hdl < 35 & !is.na(data$hdl)] + 11
   data$score[data$hdl >= 35 & data$hdl <= 44 & !is.na(data$hdl)] <- data$score[data$hdl >= 35 & data$hdl <= 44 & !is.na(data$hdl)] + 8
   data$score[data$hdl >= 45 & data$hdl <= 54 & !is.na(data$hdl)] <- data$score[data$hdl >= 45 & data$hdl <= 54 & !is.na(data$hdl)] + 5
-  data$score[data$hdl >= 55] <- data$score[data$hdl >= 55 & !is.na(data$hdl)] + 0
+  data$score[data$hdl >= 55 & !is.na(data$hdl)] <- data$score[data$hdl >= 55 & !is.na(data$hdl)] + 0
 
   ## Score triglycerides
-  data$score[data$triglycerides < 100] <- data$score[data$triglycerides < 100 & !is.na(data$triglycerides)] + 0
+  data$score[data$triglycerides < 100 & !is.na(data$triglycerides)] <- data$score[data$triglycerides < 100 & !is.na(data$triglycerides)] + 0
   data$score[data$triglycerides >= 100 & data$triglycerides <= 149 & !is.na(data$triglycerides)] <- data$score[data$triglycerides >= 100 & data$triglycerides <= 149 & !is.na(data$triglycerides)] + 2
   data$score[data$triglycerides >= 150 & data$triglycerides <= 199 & !is.na(data$triglycerides)] <- data$score[data$triglycerides >= 150 & data$triglycerides <= 199 & !is.na(data$triglycerides)] + 3
-  data$score[data$triglycerides >= 200] <- data$score[data$triglycerides >= 200 & !is.na(data$triglycerides)] + 4
+  data$score[data$triglycerides >= 200 & !is.na(data$triglycerides)] <- data$score[data$triglycerides >= 200 & !is.na(data$triglycerides)] + 4
 
   ## Score smoker
-  data$score[data$smoker == 1] <- data$score[data$smoker == 1  & !is.na(data$smoker)] + 8
+  data$score[data$smoker == 1 & !is.na(data$smoker)] <- data$score[data$smoker == 1 & !is.na(data$smoker)] + 8
 
   ## Score diabetic
-  data$score[data$diabetic == 1] <- data$score[data$diabetic == 1  & !is.na(data$diabetic)] + 6
+  data$score[data$diabetic == 1 & !is.na(data$diabetic)] <- data$score[data$diabetic == 1 & !is.na(data$diabetic)] + 6
 
   ## Score famMI
-  data$score[data$famMI == 1] <- data$score[data$famMI == 1 & !is.na(data$famMI)] + 4
+  data$score[data$famMI == 1 & !is.na(data$famMI)] <- data$score[data$famMI == 1 & !is.na(data$famMI)] + 4
 
   ## Score sys BP
-  data$score[data$sbp < 120] <- data$score[data$sbp < 120 & !is.na(data$sbp)] + 0
+  data$score[data$sbp < 120 & !is.na(data$sbp)] <- data$score[data$sbp < 120 & !is.na(data$sbp)] + 0
   data$score[data$sbp >= 120 & data$sbp <= 129] <- data$score[data$sbp >= 120 & data$sbp <= 129 & !is.na(data$sbp)] + 2
   data$score[data$sbp >= 130 & data$sbp <= 139] <- data$score[data$sbp >= 130 & data$sbp <= 139 & !is.na(data$sbp)] + 3
   data$score[data$sbp >= 140 & data$sbp <= 159] <- data$score[data$sbp >= 140 & data$sbp <= 159 & !is.na(data$sbp)] + 5
-  data$score[data$sbp >= 160] <- data$score[data$sbp >= 160 & !is.na(data$sbp)] + 8
+  data$score[data$sbp >= 160 & !is.na(data$sbp)] <- data$score[data$sbp >= 160 & !is.na(data$sbp)] + 8
 
 
   data$score <- ifelse(data$score > 60, 60, data$score)
