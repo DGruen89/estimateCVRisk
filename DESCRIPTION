@@ -1,6 +1,6 @@
 Package: estimateCVRisk
 Title: Calculation of primary and secondary cardiovascular Risk Scores 
-Version: 1.0
+Version: 1.0.1
 Authors@R: 
     c(person(given = "Dimitri", family = "Grün", role = c("aut", "cre"), email = "d.gruen@kerkchoff-fgi.de", comment = c(ORCID = "YOUR-ORCID-ID")),
     person(given = "Till", family = "Keller", role = c("aut"), email = "till.keller@med.uni-giessen.de", comment = c(ORCID = "YOUR-ORCID-ID")))
