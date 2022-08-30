@@ -64,6 +64,10 @@ ESC_Score2_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","mod
     stop("mmol must be a single logical value")
   }
 
+  if (any(age < 40) | any(age > 69) | any(is.na(age))) {
+    warning("Some values are outside the optimal age range (40-69 years). Risk calculation can thus become less accurate.")
+  }
+
   ESCdata <- data.frame(age = age, totchol = totchol, sex = sex, sbp = sbp, smoker = smoker)
 
   ESCdata$Score <- NA
@@ -82,12 +86,12 @@ ESC_Score2_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","mod
   SBP_1 <- (ifelse(ESCdata$sbp < 120, 1, 0))
 
   #age
-  age_6 <- (ifelse(ESCdata$age <= 69 & ESCdata$age >= 65, 1, 0))
+  age_6 <- (ifelse(ESCdata$age >= 65, 1, 0))
   age_5 <- (ifelse(ESCdata$age < 65 & ESCdata$age >= 60, 1, 0))
   age_4 <- (ifelse(ESCdata$age < 60 & ESCdata$age >= 55, 1, 0))
   age_3 <- (ifelse(ESCdata$age < 55 & ESCdata$age >= 50, 1, 0))
   age_2 <- (ifelse(ESCdata$age < 50 & ESCdata$age >= 45, 1, 0))
-  age_1 <- (ifelse(ESCdata$age < 45 & ESCdata$age >= 40, 1, 0))
+  age_1 <- (ifelse(ESCdata$age < 45, 1, 0))
 
   if(mmol == TRUE){
     #total cholesterol
