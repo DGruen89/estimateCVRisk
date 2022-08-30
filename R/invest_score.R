@@ -6,7 +6,7 @@
 #' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
 #' @param stroke  numeric vector indicating whether a person has had a stroke. Values: yes = 1; no = 0.
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
-#' @usage tra2p_score(age, chf = NA, ah = NA, diabetic = NA, stroke = NA,
+#' @usage invest_score(age, chf = NA, ah = NA, diabetic = NA, stroke = NA,
 #' bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA)
 #' @details
 #' The function takes twelve readily available clinical variables to calculate a score (%) to predict future adverse Events (Mortality all-cause, Non-fatal myocardial infarction, non-fatal stroke)
@@ -33,7 +33,7 @@
 #' Circulation. 2016 Jul 26;134(4):304-13. doi: 10.1161/CIRCULATIONAHA.115.019861. PMID: 27440003.
 #' @return A vector of the calculated risk per record.
 #' @export
-tra2p_score <- function(age, chf = NA, ah = NA, diabetic = NA, stroke = NA, bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA){
+invest_score <- function(age, chf = NA, ah = NA, diabetic = NA, stroke = NA, bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA){
 
   if (!is.numeric(age) |  missing(age)) {
     stop("age must be a valid numeric value")
