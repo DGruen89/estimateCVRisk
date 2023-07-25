@@ -1,6 +1,6 @@
 #' Calculate ESC-Score2  Table Version
 #'
-#' @description This function takes necessary parameters to calculate the ESC-Score2 to estimate 10-year risk of cardiovascular disease in Europe.
+#' @description This function takes necessary parameters to calculate the ESC-Score2 (table) to estimate 10-year risk of cardiovascular disease in Europe in individuals aged 40-69 years in four geographical risk regions.
 #'
 #' @param sex a character vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given as years
