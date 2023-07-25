@@ -27,7 +27,7 @@ ESC_Score2_table(sex, age, totchol, hdl, sbp, smoker, risk = c("low","moderate",
 A vector of calculated risks of persons.
 }
 \description{
-This function takes necessary parameters to calculate the ESC-Score2 to estimate 10-year risk of cardiovascular disease in Europe.
+This function takes necessary parameters to calculate the ESC-Score2 (table) to estimate 10-year risk of cardiovascular disease in Europe in individuals aged 40-69 years in four geographical risk regions.
 }
 \details{
 Aims:\cr
