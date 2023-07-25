@@ -2,7 +2,7 @@
 % Please edit documentation in R/ESC_Score2_table.R
 \name{ESC_Score2_table}
 \alias{ESC_Score2_table}
-\title{Calculate ESC-Score2  Table Version}
+\title{Calculate ESC-Score2 Table Version}
 \usage{
 ESC_Score2_table(sex, age, totchol, hdl, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE)
 }
