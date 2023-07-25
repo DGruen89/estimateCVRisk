@@ -131,21 +131,22 @@ Secondary Prevention  | age | sex | bmi | asa | statin | smoker | diabetic | chf
 Reach_Score           | x   | x   | x   | x   | x      | x      | x        | x   | x  | x        | x    |    |        |             |            |      | x               | x               |
 TRA2P_Score           | x   |     |     |     |        | x      | x        | x   |    |          |      | x  | x      | x           | x          | x    |                 |                 |
 
-\* all scores using the same variables [ESC_Score_2016, ESC_Score_GER_2016, ESC_Score_OP, ESC_Score2, ESC_Score2_OP] ESC_Score2 and ESC_Score2_OP additionally use the variable hdl to calculate the value for non-hdl cholesterol.
+\* all scores using the same variables [ESC_Score_2016, ESC_Score_GER_2016, ESC_Score_OP, ESC_Score2, ESC_Score2_OP]. ESC_Score2 and ESC_Score2_OP additionally use the variable hdl to calculate the value for non-hdl cholesterol (that is used instead of totchol as in the original ESC-Scores).
 
 ## Examples ##
 
 ### Calculate CVD risk with the SCORE risk estimation for an individual ###
 
 ```R
- ESC_Score_2016_table(
+ ESC_Score2_table(
       sex = "female",
       age = 55,
-      totchol = 5,
+      totchol = 200, # mg/dL
+      hdl = 20, # mg/dL
       sbp = 135,
       smoker = 1,
-      risk = "high",
-      mmol = TRUE)
+      risk = "moderate",
+      mmol = FALSE)
 ```
 
 ### Calculate CVD risk with the FRS-CHD risk estimation for a group individuals ###
