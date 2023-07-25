@@ -10,7 +10,7 @@
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param risk logical. Choose if which risk chart is used for calculation
 #' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
-#' @usage ESC_Score2_table(sex, age, totchol, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE)
+#' @usage ESC_Score2_table(sex, age, totchol, hdl, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE)
 #' @return A vector of calculated risks of persons.
 #' @details Aims:\cr
 #' The aim of this study was to develop, validate, and illustrate an updated prediction model (SCORE2) to estimate 10-year fatal and non-fatal cardiovascular disease (CVD) risk in individuals

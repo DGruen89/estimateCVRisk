@@ -10,7 +10,7 @@
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param risk logical. Choose if which risk chart is used for calculation
 #' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
-#' @usage ESC_Score2_OP_table(sex, age, totchol, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE)
+#' @usage ESC_Score2_OP_table(sex, age, totchol, hdl, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE)
 #' @return A vector of calculated risks of persons.
 #' @details Aims:
 #' The aim of this study was to derive and validate the SCORE2-Older Persons (SCORE2-OP) risk model to estimate 5- and 10-year risk of cardiovascular disease (CVD)

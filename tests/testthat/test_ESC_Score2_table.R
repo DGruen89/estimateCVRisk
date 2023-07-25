@@ -1,4 +1,4 @@
-## Script to ESC_SCOR2E_table
+## Script to ESC_SCORE2_table
 
 test_that("Paper example is correct", {
   expect_identical(

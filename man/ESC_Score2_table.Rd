@@ -4,7 +4,7 @@
 \alias{ESC_Score2_table}
 \title{Calculate ESC-Score2  Table Version}
 \usage{
-ESC_Score2_table(sex, age, totchol, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE)
+ESC_Score2_table(sex, age, totchol, hdl, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE)
 }
 \arguments{
 \item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}
@@ -12,6 +12,8 @@ ESC_Score2_table(sex, age, totchol, sbp, smoker, risk = c("low","moderate","high
 \item{age}{a numeric vector with the age of persons given as years}
 
 \item{totchol}{a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE}
+
+\item{hdl}{a numeric vector; HDL Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE}
 
 \item{sbp}{a numeric vector with the systolic blood pressure of persons given as mmHg}
 
