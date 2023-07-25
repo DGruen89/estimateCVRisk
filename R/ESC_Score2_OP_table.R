@@ -1,6 +1,7 @@
 #' Calculate ESC-Score2 OP Table Version
 #'
 #' @description This function takes necessary parameters to calculate the ESC-Score2-OP (table) to estimate 10-year risk of cardiovascular disease in Europe in individuals aged over 70 years in four geographical risk regions.
+#'
 #' @param sex a character vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given as years
 #' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
