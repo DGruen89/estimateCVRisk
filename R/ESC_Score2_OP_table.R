@@ -5,6 +5,7 @@
 #' @param sex a character vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given as years
 #' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
+#' @param hdl a numeric vector; HDL Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
 #' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
 #' @param risk logical. Choose if which risk chart is used for calculation
@@ -32,7 +33,7 @@
 #' SCORE2-OP risk prediction algorithms: estimating incident cardiovascular event risk in older persons in four geographical risk regions,
 #' European Heart Journal, Volume 42, Issue 25, 1 July 2021, Pages 2455–2467, https://doi.org/10.1093/eurheartj/ehab312
 #' @export
-ESC_Score2_OP_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE) {
+ESC_Score2_OP_table <- function(sex, age, totchol, hdl, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE) {
 
   risk <- match.arg(risk)
 
@@ -52,6 +53,10 @@ ESC_Score2_OP_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","
     stop("totchol must be a valid numeric value")
   }
 
+  if (!is.numeric(hdl) | any(is.na(hdl))) {
+    stop("hdl must be a valid numeric value")
+  }
+
   if (!is.numeric(sbp) | any(is.na(sbp))) {
     stop("sbp must be a valid numeric value")
   }
@@ -68,12 +73,16 @@ ESC_Score2_OP_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","
     warning("Some values are outside the optimal age range (< 70 years). Risk calculation can thus become less accurate.")
   }
 
-  ESCdata <- data.frame(age = age, totchol = totchol, sex = sex, sbp = sbp, smoker = smoker)
+  ESCdata <- data.frame(age = age, totchol = totchol, hdl = hdl, sex = sex, sbp = sbp, smoker = smoker)
 
   ESCdata$Score <- NA
 
+  ## calculate non-hdl cholesterol
+
+  ESCdata$non_hdl_chol <- ESCdata$totchol - ESCdata$hdl
+
   ## defining groups
-  sex
+  ## sex
   female <- (ifelse(ESCdata$sex == 'female', 1, 0))
 
   # SBP over 170
@@ -93,18 +102,18 @@ ESC_Score2_OP_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","
 
   if(mmol == TRUE){
     #total cholesterol
-    chol_4 <- (ifelse((ESCdata$totchol) >= 6, 1, 0))
-    chol_3 <- (ifelse((ESCdata$totchol) >= 5 & (ESCdata$totchol) < 6, 1, 0))
-    chol_2 <- (ifelse((ESCdata$totchol) >= 4 & (ESCdata$totchol) < 5, 1, 0))
-    chol_1 <- (ifelse((ESCdata$totchol) < 4.0, 1, 0))
+    chol_4 <- (ifelse((ESCdata$non_hdl_chol) >= 6, 1, 0))
+    chol_3 <- (ifelse((ESCdata$non_hdl_chol) >= 5 & (ESCdata$non_hdl_chol) < 6, 1, 0))
+    chol_2 <- (ifelse((ESCdata$non_hdl_chol) >= 4 & (ESCdata$non_hdl_chol) < 5, 1, 0))
+    chol_1 <- (ifelse((ESCdata$non_hdl_chol) < 4.0, 1, 0))
   }
 
   if(mmol == FALSE){
     #total cholesterol
-    chol_4 <- (ifelse((ESCdata$totchol*0.0259) >= 6, 1, 0))
-    chol_3 <- (ifelse((ESCdata$totchol*0.0259) >= 5 & (ESCdata$totchol*0.0259) < 6, 1, 0))
-    chol_2 <- (ifelse((ESCdata$totchol*0.0259) >= 4 & (ESCdata$totchol*0.0259) < 5, 1, 0))
-    chol_1 <- (ifelse((ESCdata$totchol*0.0259) < 4, 1, 0))
+    chol_4 <- (ifelse((ESCdata$non_hdl_chol*0.0259) >= 6, 1, 0))
+    chol_3 <- (ifelse((ESCdata$non_hdl_chol*0.0259) >= 5 & (ESCdata$non_hdl_chol*0.0259) < 6, 1, 0))
+    chol_2 <- (ifelse((ESCdata$non_hdl_chol*0.0259) >= 4 & (ESCdata$non_hdl_chol*0.0259) < 5, 1, 0))
+    chol_1 <- (ifelse((ESCdata$non_hdl_chol*0.0259) < 4, 1, 0))
   }
 
   #smoker

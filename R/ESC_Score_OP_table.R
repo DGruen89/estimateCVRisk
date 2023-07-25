@@ -62,7 +62,7 @@ ESC_Score_OP_table <- function(sex, age, totchol, sbp, smoker, risk = c("low","h
   ESCdata$ESC_Score_value_OP <- 0
 
   ## defining groups
-  #sex
+  ## sex
   female <- (ifelse(ESCdata$sex == 'female', 1, 0))
 
   # SBP over 170
