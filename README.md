@@ -121,7 +121,7 @@ Primary Prevention  | age | sex | ethnicity | totchol | hdl | ldl | triglyceride
 ascvd_acc_aha       | x   | x   | x         | x       | x   |     |               | x   |     | x      | x      | x        |       |       |
 ascvd_frs_chd       | x   | x   |           | x       | x   | x   |               | x   | x   |        | x      | x        |       |       |
 ascvd_frs_cvd       | x   | x   |           | x       | x   |     |               | x   |     | x      | x      | x        |       |       |
-ESC_Score*          | x   | x   |           | x       |     |     |               | x   |     |        | x      |          |       |       |
+ESC_Score*          | x   | x   |           | x       |(x)* |     |               | x   |     |        | x      |          |       |       |
 procam_score_2002   | x   |     |           |         | x   | x   | x             | x   |     |        | x      | x        |  x    | x     |
 procam_score_2007   | x   | x   |           |         | x   | x   | x             | x   |     |        | x      | x        |  x    | x     |
 
@@ -131,7 +131,7 @@ Secondary Prevention  | age | sex | bmi | asa | statin | smoker | diabetic | chf
 Reach_Score           | x   | x   | x   | x   | x      | x      | x        | x   | x  | x        | x    |    |        |             |            |      | x               | x               |
 TRA2P_Score           | x   |     |     |     |        | x      | x        | x   |    |          |      | x  | x      | x           | x          | x    |                 |                 |
 
-\* all scores using the same variables [ESC_Score_2016, ESC_Score_GER_2016, ESC_Score_OP, ESC_Score2, ESC_Score2_OP] 
+\* all scores using the same variables [ESC_Score_2016, ESC_Score_GER_2016, ESC_Score_OP, ESC_Score2, ESC_Score2_OP] ESC_Score2 and ESC_Score2_OP additionally use the variable hdl to calculate the value for non-hdl cholesterol.
 
 ## Examples ##
 
