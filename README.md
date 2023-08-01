@@ -27,8 +27,7 @@ Currently available risk score functions in the package:<br/><br/>
 **Secondary Prevention**<br/>
 - REducation of Atherothrombosis for Continued Health (**REACH**) (https://doi.org/10.1016/j.amjmed.2012.01.014)<br/>
 - Thrombin Receptor Antagonist in Secondary Prevention of Atherothrombotic Ischemic Events-TIMI 50 (**TRA 2°P-TIMI**) (https://doi.org/10.1161/CIRCULATIONAHA.115.019861)<br/>
-- soon available - INternational VErapamil‐SR/Trandolapril STudy (**INVEST**) score (https://doi.org/10.1161/JAHA.113.000205)<br/>
-- soon available - ABC-CHF risk model (**ABC-CHD**) score (https://doi.org/10.1016/j.jacc.2017.06.030)<br/><br/>
+- INternational VErapamil‐SR/Trandolapril STudy (**INVEST**) score (https://doi.org/10.1161/JAHA.113.000205)<br/>
 
 
 ## Installation of the package in R ##
@@ -54,14 +53,16 @@ library("estimateCVRisk")
 After loading the package the following functions representing risk estimation for **primary prevention** are available
 
 ```R
-ascvd_acc_aha()             # ACC/AHA 2013 ASCVD risk score
+ascvd_acc_aha()             # ACC/AHA 2013 ASCVD risk score for people aged 40-79 years
 ascvd_frs_chd()             
 ascvd_frs_cvd()
 ESC_Score_2016_table()      # table based version of the 2016 ESC risk score
 ESC_Score_GER_2016_table()  # table based version of the 2016 german population specific risk score
 ESC_Score_OP_table()        # table based version of the 2016 ESC risk score specially for people aged 65 years or older 
-ESC_Score2_table()          # table based version of the 2021 ESC SCORE2 risk score
+ESC_Score2_table()          # table based version of the 2021 ESC SCORE2 risk score for people aged 40-69 years
+ESC_Score2_formula()        # formula based version of the 2021 ESC SCORE2 risk score for people aged 40-69 years 
 ESC_Score2_OP_table()       # table based version of the 2021 ESC SCORE2 risk score for people aged 70 years or older
+ESC_Score2_OP_formula()     # formula based version of the 2021 ESC SCORE2 risk score for people aged 70 years or older
 procam_score_2002()         # table based version of procam I score
 procam_score_2007()         # table based version of procam II score
 ```
