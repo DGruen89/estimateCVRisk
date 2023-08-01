@@ -1,19 +1,19 @@
-#' ACC/AHA 2013 ASCVD risk score
+#' ACC/AHA 2013 ASCVD risk score for people aged 40-79 years
 #'
-#' Computes 10-year risk for hard ASCVD event (defined as first occurrence of
+#' Computes 10-year risk for hard atherosclerotic cardiovascular disease (ASCVD) event (defined as first occurrence of
 #' non-fatal myocardial infarction (MI), congestive heart disease (CHD) death,
 #' or fatal or nonfatal stroke).
 #'
-#' @param ethnicity a character vector indicating the patients ethnicity. Value: "white", "aa" (afro american)
-#' @param sex a character vector indicating the sex of the person. Values: "female", "male"
-#' @param age a numeric vector with the age of persons given as years
-#' @param totchol a numeric vector; Cholesterol values given in mg/dL
-#' @param hdl a numeric vector; HDL Cholesterol values given in mg/dL
-#' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
-#' @param bp_med a numeric vector with the information if a Patient is on a blood pressure medication. Values: yes = 1; no = 0.
-#' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
-#' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
-#' @return Estimated 10-Y Risk for hard ASCVD (percent)
+#' @param ethnicity ethnicity; categorical \[white|aa\]; ("aa"=afro american)
+#' @param sex gender; categorical \[female|male\]
+#' @param age age; integer \[years\]
+#' @param totchol total cholesterol; numeric \[mg/dl\]
+#' @param hdl high-density lipoprotein; numeric \[mg/dl\]
+#' @param sbp systolic blood pressure; numeric \[mmHg\]
+#' @param bp_med information if individual is on a blood pressure medication; numeric \[1|0\]; ("1"=yes;"0"=no)
+#' @param smoker information on current self-reported smoking status; numeric \[1|0\]; ("1"=smoker;"0"=non-smoker)
+#' @param diabetic diabetic status of individual; numeric \[1|0\]; ("1"=diabetic;"0"=non-diabetic)
+#' @return Estimated 10 year risk for hard ASCVD (percent)
 #' @usage ascvd_acc_aha(ethnicity = c("white", "aa"), sex, age,
 #' totchol, hdl, sbp, bp_med, smoker, diabetic)
 #' @details

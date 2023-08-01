@@ -2,17 +2,16 @@
 #'
 #' This function takes clinical predictors of recurrent atherothrombosis to calculate the TRA2P-Score
 #'
-#' @param age a numeric vector with the age of persons given in years.
-#' @param chf a numeric vector indicating the presence of a congestive heart failure. Values: yes = 1; no = 0.
-#' @param ah a numeric vector indicating the presence of arterial hyperthorphy. Values: yes = 1; no = 0.
-#' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
-#' @param stroke  numeric vector indicating whether a person has had a stroke. Values: yes = 1; no = 0.
-#' @param bypass_surg numeric vector indicating whether a person has undergone a bypass surgery. Values: yes = 1; no = 0.
-#' @param other_surg numeric vector indicating whether a person has other vascular disease (peripheral). Values: yes = 1; no = 0.
-#' @param egfr a numeric vector; eGFR values given in mL x min^−1 x 1.73 m^−2.
-#' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
-#' @usage tra2p_score(age, chf = NA, ah = NA, diabetic = NA, stroke = NA,
-#' bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA)
+#' @param age age; integer \[years\]
+#' @param chf information if individual has a congestive heart failure (CHF); numeric \[1|0\]; ("1"=yes;"0"=no)
+#' @param ah information if individual has arterial hyperthorphy (AF); numeric \[1|0\]; ("1"=yes;"0"=no)
+#' @param diabetic diabetic status of individual; numeric \[1|0\]; ("1"=diabetic;"0"=non-diabetic)
+#' @param stroke  information if individual had a stroke; numeric \[1|0\]; ("1"=yes;"0"=no)
+#' @param bypass_surg information if individual had undergone a bypass surgery; numeric \[1|0\]; ("1"=yes;"0"=no)
+#' @param other_surg information if individual had a other vascular disease (peripheral) surgery; numeric \[1|0\]; ("1"=yes;"0"=no)
+#' @param egfr estimated glomerular filtration rate (eGFR); numeric \[mL x min^−1 x 1.73 m^−2\]
+#' @param smoker information on current self-reported smoking status; numeric \[1|0\]; ("1"=smoker;"0"=non-smoker)
+#' @usage tra2p_score(age, chf = NA, ah = NA, diabetic = NA, stroke = NA, bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA)
 #' @details
 #' The function takes nine independent baseline clinical atherothrombotic risk indicators to calculate a score (%) according to the 3-year risk of cardiovascular death, MI or ischemic stroke.
 #' The score can be divided into the following categories:

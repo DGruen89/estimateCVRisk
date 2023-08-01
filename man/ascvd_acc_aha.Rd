@@ -2,35 +2,35 @@
 % Please edit documentation in R/ascvd_acc_aha.R
 \name{ascvd_acc_aha}
 \alias{ascvd_acc_aha}
-\title{ACC/AHA 2013 ASCVD risk score}
+\title{ACC/AHA 2013 ASCVD risk score for people aged 40-79 years}
 \usage{
 ascvd_acc_aha(ethnicity = c("white", "aa"), sex, age,
 totchol, hdl, sbp, bp_med, smoker, diabetic)
 }
 \arguments{
-\item{ethnicity}{a character vector indicating the patients ethnicity. Value: "white", "aa" (afro american)}
+\item{ethnicity}{ethnicity; categorical [white|aa]; ("aa"=afro american)}
 
-\item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}
+\item{sex}{gender; categorical [female|male]}
 
-\item{age}{a numeric vector with the age of persons given as years}
+\item{age}{age; integer [years]}
 
-\item{totchol}{a numeric vector; Cholesterol values given in mg/dL}
+\item{totchol}{total cholesterol; numeric [mg/dl]}
 
-\item{hdl}{a numeric vector; HDL Cholesterol values given in mg/dL}
+\item{hdl}{high-density lipoprotein; numeric [mg/dl]}
 
-\item{sbp}{a numeric vector with the systolic blood pressure of persons given as mmHg}
+\item{sbp}{systolic blood pressure; numeric [mmHg]}
 
-\item{bp_med}{a numeric vector with the information if a Patient is on a blood pressure medication. Values: yes = 1; no = 0.}
+\item{bp_med}{information if individual is on a blood pressure medication; numeric [1|0]; ("1"=yes;"0"=no)}
 
-\item{smoker}{a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.}
+\item{smoker}{information on current self-reported smoking status; numeric [1|0]; ("1"=smoker;"0"=non-smoker)}
 
-\item{diabetic}{a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.}
+\item{diabetic}{diabetic status of individual; numeric [1|0]; ("1"=diabetic;"0"=non-diabetic)}
 }
 \value{
-Estimated 10-Y Risk for hard ASCVD (percent)
+Estimated 10 year risk for hard ASCVD (percent)
 }
 \description{
-Computes 10-year risk for hard ASCVD event (defined as first occurrence of
+Computes 10-year risk for hard atherosclerotic cardiovascular disease (ASCVD) event (defined as first occurrence of
 non-fatal myocardial infarction (MI), congestive heart disease (CHD) death,
 or fatal or nonfatal stroke).
 }

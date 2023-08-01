@@ -9,29 +9,30 @@ procam_score_2002(age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI)
 procam_score_2007(sex, age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI)
 }
 \arguments{
-\item{age}{a numeric vector with the age of persons given as years}
+\item{age}{age; integer [years]}
 
-\item{ldl}{a numeric vector; LDL Cholesterol values given in mg/dL}
+\item{ldl}{low-density lipoprotein; numeric [mg/dl]}
 
-\item{hdl}{a numeric vector; HDL Cholesterol values given in mg/dL}
+\item{hdl}{high-density lipoprotein; numeric [mg/dl]}
 
-\item{sbp}{a numeric vector with the systolic blood pressure of persons given as mmHg}
+\item{sbp}{systolic blood pressure; numeric [mmHg]}
 
-\item{triglycerides}{a numeric vector; triglycerides values given in mg/dL}
+\item{triglycerides}{triglycerides; numeric [mg/dl]}
 
-\item{smoker}{a numeric vector. A smoker was defined as current self-reported smoker. Values: Smoker = 1, non-smoker = 0.}
+\item{smoker}{information on current self-reported smoking status; numeric [1|0]; ("1"=smoker;"0"=non-smoker)}
 
-\item{diabetic}{a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.}
+\item{diabetic}{diabetic status of individual; numeric [1|0]; ("1"=diabetic;"0"=non-diabetic)}
 
-\item{famMI}{a numeric vector indicating family history of premature myocardial infarction in parents, grandparents or siblings before the age of 60 years. Values: yes = 1; no = 0.}
+\item{famMI}{family history of premature myocardial infarction; numeric [1|0]; ("1"=yes;"0"=no)}
 
-\item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}
+\item{sex}{gender; categorical [female|male]}
 }
 \value{
 A vector of calculated risk per record in \%. Procam_2002 returns a numeric vectore, while Procam_2007 returns a character vector
 }
 \description{
-This function takes necessary parameters to calculate the PROCAM-Risk-Score Table Version for the Risk of acute Coronary Events based on the 10-year follow-up of the Prospective Cardiovascular Münster (PROCAM) study
+This function takes necessary parameters to calculate the PROCAM-Risk-Score table version for the Risk of acute coronary events based on the 10-year follow-up of the prospective cardiovascular Münster (PROCAM) study.
+Functions are available for PROCAM I (2002) and PROCAM II (2007) Score
 }
 \details{
 The 2002-Model:
@@ -44,7 +45,7 @@ The 2002-Model:
 The 2007-Model:
 \itemize{
 \item{based on Weibull-Model}
-\item{includes men an Women with age range from 20 - 75 years}
+\item{includes men an women with age range from 20 - 75 years}
 }
 Abstract:\cr
 Background: \cr

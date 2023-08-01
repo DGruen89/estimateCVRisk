@@ -17,15 +17,15 @@ ESC_Score_OP_table(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmol 
 
 \item{smoker}{a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.}
 
-\item{risk}{logical. Choose if which risk chart is used for calculation}
+\item{risk}{choose which risk chart is used for calculation; categorical ["low"|"high"]}
 
-\item{mmol}{logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).}
+\item{mmol}{is Cholesterol given as mmol/L; logical [TRUE|FASLE]}
 }
 \value{
 A vector of the calculated risk per record.
 }
 \description{
-This function takes necessary parameters to calculate the ESC-Score Older People (OP) Table Version for high and low risk
+This function takes necessary parameters to calculate the ESC-Score older people (OP)(age > 65) table version in two geographical risk regions.
 }
 \details{
 Abstract: \cr

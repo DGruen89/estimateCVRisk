@@ -3,40 +3,37 @@
 \name{ascvd_frs_chd_formula}
 \alias{ascvd_frs_chd_formula}
 \alias{ascvd_frs_chd_table}
-\title{ACC/AHA 2013 ASCVD risk score}
+\title{Framingham risk score (CHD)}
 \usage{
-ascvd_frs_chd_formula(sex, age, totchol = NA, hdl, ldl = NA, sbp,
-dbp, smoker, diabetic, chol_cat = c("tc", "ldl"))
-ascvd_frs_chd_table(sex, age, totchol = NA, hdl, ldl = NA, sbp,
-dbp, smoker, diabetic, chol_cat = c("tc", "ldl"))
+ascvd_frs_chd_formula(sex, age, totchol = NA, hdl, ldl = NA, sbp, dbp, smoker, diabetic, chol_cat = c("tc", "ldl"))
+ascvd_frs_chd_table(sex, age, totchol = NA, hdl, ldl = NA, sbp, dbp, smoker, diabetic, chol_cat = c("tc", "ldl"))
 }
 \arguments{
-\item{sex}{a numeric vector indicating the sex of the person. Values: "female", "male"}
+\item{sex}{gender; categorical [female|male]}
 
-\item{age}{a numeric vector with the age of persons given as years}
+\item{age}{age; integer [years]}
 
-\item{totchol}{a numeric vector; Cholesterol values given in mg/dL}
+\item{totchol}{total cholesterol; numeric [mg/dl]}
 
-\item{hdl}{a numeric vector; HDL Cholesterol values given in mg/dL}
+\item{hdl}{high-density lipoprotein; numeric [mg/dl]}
 
-\item{ldl}{a numeric vector; LDL Cholesterol values given in mg/dL}
+\item{ldl}{low-density lipoprotein; numeric [mg/dl]}
 
-\item{sbp}{a numeric vector with the systolic blood pressure of persons given as mmHg}
+\item{sbp}{systolic blood pressure; numeric [mmHg]}
 
-\item{dbp}{Diastolic blood pressure (mm Hg)}
+\item{dbp}{diastolic blood pressure; numeric [mmHg]}
 
-\item{smoker}{a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.}
+\item{smoker}{information on current self-reported smoking status; numeric [1|0]; ("1"=smoker;"0"=non-smoker)}
 
-\item{diabetic}{a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.}
+\item{diabetic}{diabetic status of individual; numeric [1|0]; ("1"=diabetic;"0"=non-diabetic)}
 
-\item{chol_cat}{a single character value to specify the use of total cholesterol ("tc") or LDL cholesterol ("ldl")}
+\item{chol_cat}{value to specify the use of total cholesterol ("tc") or LDL cholesterol ("ldl") in the function; categorical [tc|ldl]}
 }
 \value{
-Estimated 10-Y Risk for CHD (percent)
+Estimated 10 year risk for CHD (percent)
 }
 \description{
-Computes 10-year risk for specific atherosclerotic cardiovascular disease (CVD) events, ie, coronary heart disease, cerebrovascular disease, peripherial vascular disease
-and heart failure.
+Computes 10-year risk of developing coronary heart disease (CHD).
 }
 \details{
 Background: \cr
@@ -56,7 +53,5 @@ Recommended guidelines of blood pressure, total cholesterol, and LDL cholesterol
 A simple coronary disease prediction algorithm was developed using categorical variables, which allows physicians to predict multivariate CHD risk in patients without overt CHD.
 }
 \references{
-Wilson PW, D'Agostino RB, Levy D, Belanger AM, Silbershatz H, Kannel WB.
-Prediction of coronary heart disease using risk factor categories.
-Circulation. 1998 May 12;97(18):1837-47. doi: 10.1161/01.cir.97.18.1837. PMID: 9603539.
+Wilson PW, et al.Prediction of coronary heart disease using risk factor categories. Circulation. 1998 May 12;97(18):1837-47. doi: 10.1161/01.cir.97.18.1837. PMID: 9603539.
 }

@@ -1,6 +1,6 @@
-#' Calculate ESC-Score2 OP Table Version
+#' Calculate ESC-Score2 OP table and formula Version
 #'
-#' @description This function takes necessary parameters to calculate the ESC-Score2-OP (table) to estimate 10-year risk of cardiovascular disease in Europe in individuals aged over 70 years in four geographical risk regions.
+#' @description This function takes necessary parameters to calculate the ESC-Score2-OP to estimate 10-year risk of cardiovascular disease in Europe in individuals aged over 70 years in four geographical risk regions.
 #'
 #' @param sex a character vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given as years
@@ -8,9 +8,12 @@
 #' @param hdl a numeric vector; HDL Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
 #' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
+#' @param diabetic a numeric vector. Diabetic status of individual. 1 = diabetic = 1, non-diabetic = 0.
 #' @param risk logical. Choose if which risk chart is used for calculation
 #' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
+#' @aliases ESC_Score2_OP_table ESC_Score2_OP_formula
 #' @usage ESC_Score2_OP_table(sex, age, totchol, hdl, sbp, smoker, risk = c("low","moderate","high","very high"), mmol = FALSE)
+#' @usage ESC_Score2_OP_formula(sex, age, totchol, hdl, sbp, smoker, diabetic, risk = c("low","moderate","high","very high"), mmol = FALSE)
 #' @return A vector of calculated risks of persons.
 #' @details Aims:
 #' The aim of this study was to derive and validate the SCORE2-Older Persons (SCORE2-OP) risk model to estimate 5- and 10-year risk of cardiovascular disease (CVD)
@@ -576,4 +579,119 @@ ESC_Score2_OP_table <- function(sex, age, totchol, hdl, sbp, smoker, risk = c("l
 
 
   return(ESCdata$Score)
+}
+#' @export
+ESC_Score2_OP_formula <- function(sex, age, totchol, hdl, sbp, smoker, diabetic, risk = c("low","moderate","high","very high"), mmol = FALSE) {
+
+  risk <- match.arg(risk)
+
+  if (risk != "low" & risk != "moderate" & risk != "high" & risk != "very high"){
+    stop("risk must be either 'low', 'moderate', 'high' or 'very high'")
+  }
+
+  if (!all(sex %in% c("male", "female")) | missing(sex)) {
+    stop("sex must be either 'male' or 'female'")
+  }
+
+  if (!is.numeric(age) | any(is.na(age))) {
+    stop("age must be a valid numeric value")
+  }
+
+  if (any(!is.na(totchol)) & any(!is.numeric(totchol))) {
+    stop("totchol must be a valid value. Numeric or NA")
+  }
+
+  if (any(!is.na(hdl)) & any(!is.numeric(hdl))) {
+    stop("hdl must be a valid value. Numeric or NA")
+  }
+
+  if (any(!is.na(sbp)) & any(!is.numeric(sbp))) {
+    stop("sbp must be a valid value. Numeric or NA")
+  }
+
+  if (!all(diabetic %in% c(0,1,NA))) {
+    stop("diabetic must be either 0 (no), 1 (yes) or NA (missing)")
+  }
+
+  if (!all(smoker %in% c(0,1,NA))) {
+    stop("smoker must be either 0 (no), 1 (yes) or NA (missing)")
+  }
+
+  if(!is.logical(mmol)){
+    stop("mmol must be a single logical value")
+  }
+
+  if (any(age < 40) | any(age > 69) | any(is.na(age))) {
+    warning("Some values are outside the optimal age range (40-69 years). Risk calculation can thus become less accurate.")
+  }
+
+  if (any(is.na(totchol))) {
+    warning("No or some values for total cholesterol not provided. This results in an underestimation of the score")
+  }
+
+  if (any(is.na(hdl))) {
+    warning("No or some values for HDL cholesterol not provided. This results in an underestimation of the score")
+  }
+
+  if (any(is.na(sbp))) {
+    warning("No or some values for systolic blood preasure not provided. This results in an underestimation of the score")
+  }
+
+  if (any(is.na(diabetic))) {
+    warning("No or some values for diabetic status not provided. This results in an underestimation of the score")
+  }
+
+  if (any(is.na(smoker))) {
+    warning("No or some values for smoker not provided. This results in an underestimation of the score")
+  }
+
+  ESCdata <- data.frame(id = 1:length(sex), sex = sex, age = age, totchol = totchol, hdl = hdl, diabetic = diabetic, sbp = sbp, smoker = smoker)
+
+  # mg/dL to mmol/L
+
+  if(mmol == FALSE){
+    ESCdata$totchol <- ESCdata$totchol * 0.0259
+    ESCdata$hdl <- ESCdata$hdl * 0.0259
+  }
+
+  # Generate data.frame of coefficients based on input `sex`
+  # vectors. We lose the original order after the merge operation, so will
+  # need to re-sort the output based on the original order of `race_sex`.
+
+  ESCdata <- merge(ESCdata, esc_score_2_OP_coefficients, by = "sex", all.x = TRUE)
+
+  if(nrow(ESCdata) > 1) {
+    ESCdata <- ESCdata[order(ESCdata$id),]
+  }
+
+
+  ## set all NAs to 0
+  ESCdata[is.na(ESCdata)] <- 0
+
+
+  sum_coefs <- (ESCdata$age-73) * esc_score_2_OP_coefficients$age_coef +
+    (ESCdata$totchol-6) * esc_score_2_OP_coefficients$totchol_coef +
+    (ESCdata$hdl-1.4) * esc_score_2_OP_coefficients$hdl_coef +
+    (ESCdata$sbp-150) * esc_score_2_OP_coefficients$sbp_coef +
+    ESCdata$diabetic * esc_score_2_OP_coefficients$diab_coef +
+    ESCdata$smoker * esc_score_2_OP_coefficients$smoker_coef +
+    (ESCdata$age-73) * (ESCdata$totchol-6) * esc_score_2_OP_coefficients$totchol_age_coef +
+    (ESCdata$age-73) * (ESCdata$hdl-1.4) * esc_score_2_OP_coefficients$hdl_age_coef +
+    (ESCdata$age-73) * (ESCdata$sbp-150) * esc_score_2_OP_coefficients$sbp_age_coef +
+    (ESCdata$age-73) * ESCdata$diabetic * esc_score_2_OP_coefficients$diab_age_coef +
+    (ESCdata$age-73) * ESCdata$smoker * esc_score_2_OP_coefficients$smoker_age_coef
+
+  ## Calcualtion of raw Risk
+
+  ESCdata$risk_10y <- 1 - (ESCdata$baseline_surv_coef^exp(sum_coefs-ESCdata$mean_lp))
+
+  ## Calibration of risk estimate according to region specific scaling factors
+
+  if(risk == "low"){risk_10y_scaling <- round((1-exp(-exp(ESCdata$scale1_low + ESCdata$scale2_low * log(-log(1-ESCdata$risk_10y)))))*100,2)}
+  if(risk == "moderate"){risk_10y_scaling <- round((1-exp(-exp(ESCdata$scale1_mod + ESCdata$scale2_mod * log(-log(1-ESCdata$risk_10y)))))*100,2)}
+  if(risk == "high"){risk_10y_scaling <- round((1-exp(-exp(ESCdata$scale1_high + ESCdata$scale2_high * log(-log(1-ESCdata$risk_10y)))))*100,2)}
+  if(risk == "very high"){risk_10y_scaling <- round((1-exp(-exp(ESCdata$scale1_vhigh + ESCdata$scale2_vhigh * log(-log(1-ESCdata$risk_10y)))))*100,2)}
+
+  return(risk_10y_scaling)
+
 }

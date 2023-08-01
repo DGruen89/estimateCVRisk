@@ -1,16 +1,17 @@
 #' Calculate Procam Score (Version 2002 and 2007)
 #'
-#' @description This function takes necessary parameters to calculate the PROCAM-Risk-Score Table Version for the Risk of acute Coronary Events based on the 10-year follow-up of the Prospective Cardiovascular Münster (PROCAM) study
+#' @description This function takes necessary parameters to calculate the PROCAM-Risk-Score table version for the Risk of acute coronary events based on the 10-year follow-up of the prospective cardiovascular Münster (PROCAM) study.
+#' Functions are available for PROCAM I (2002) and PROCAM II (2007) Score
 #'
-#' @param sex a character vector indicating the sex of the person. Values: "female", "male"
-#' @param age a numeric vector with the age of persons given as years
-#' @param ldl  a numeric vector; LDL Cholesterol values given in mg/dL
-#' @param hdl a numeric vector; HDL Cholesterol values given in mg/dL
-#' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
-#' @param triglycerides a numeric vector; triglycerides values given in mg/dL
-#' @param smoker a numeric vector. A smoker was defined as current self-reported smoker. Values: Smoker = 1, non-smoker = 0.
-#' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
-#' @param famMI a numeric vector indicating family history of premature myocardial infarction in parents, grandparents or siblings before the age of 60 years. Values: yes = 1; no = 0.
+#' @param sex gender; categorical \[female|male\]
+#' @param age age; integer \[years\]
+#' @param ldl low-density lipoprotein; numeric \[mg/dl\]
+#' @param hdl high-density lipoprotein; numeric \[mg/dl\]
+#' @param sbp systolic blood pressure; numeric \[mmHg\]
+#' @param triglycerides triglycerides; numeric \[mg/dl\]
+#' @param smoker information on current self-reported smoking status; numeric \[1|0\]; ("1"=smoker;"0"=non-smoker)
+#' @param diabetic diabetic status of individual; numeric \[1|0\]; ("1"=diabetic;"0"=non-diabetic)
+#' @param famMI family history of premature myocardial infarction; numeric \[1|0\]; ("1"=yes;"0"=no)
 #' @usage
 #' procam_score_2002(age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI)
 #' procam_score_2007(sex, age, ldl, hdl, sbp, triglycerides, smoker, diabetic, famMI)
@@ -27,7 +28,7 @@
 #'  The 2007-Model:
 #'  \itemize{
 #'   \item{based on Weibull-Model}
-#'   \item{includes men an Women with age range from 20 - 75 years}
+#'   \item{includes men an women with age range from 20 - 75 years}
 #'  }
 #' Abstract:\cr
 #' Background: \cr

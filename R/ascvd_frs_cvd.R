@@ -1,18 +1,18 @@
-#' ACC/AHA 2013 ASCVD risk score
+#' Framingham risk score (CVD)
 #'
 #' Computes 10-year risk for specific atherosclerotic cardiovascular disease (CVD) events, ie, coronary heart disease, cerebrovascular disease, peripherial vascular disease
 #' and heart failure.
 #'
-#' @param sex a numeric vector indicating the sex of the person. Values: "female", "male"
-#' @param age a numeric vector with the age of persons given as years
-#' @param totchol a numeric vector; Cholesterol values given in mg/dL
-#' @param hdl a numeric vector; HDL Cholesterol values given in mg/dL
-#' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
-#' @param bp_med a numeric vector with the information if a Patient is on a blood pressure medication. Values: yes = 1; no = 0.
-#' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
-#' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
+#' @param sex gender; categorical \[female|male\]
+#' @param age age; integer \[years\]
+#' @param totchol total cholesterol; numeric \[mg/dl\]
+#' @param hdl high-density lipoprotein; numeric \[mg/dl\]
+#' @param sbp systolic blood pressure; numeric \[mmHg\]
+#' @param bp_med information if individual is on a blood pressure medication; numeric \[1|0\]; ("1"=yes;"0"=no)
+#' @param smoker information on current self-reported smoking status; numeric \[1|0\]; ("1"=smoker;"0"=non-smoker)
+#' @param diabetic diabetic status of individual; numeric \[1|0\]; ("1"=diabetic;"0"=non-diabetic)
 #' @param heart_age logical; only available in tabl version. if TRUE a dataframe (n > 1) with 2 columns or a vector (n = 1) with 2 elements is returned, containing the Values for Risk Score and Heart Age
-#' @return Estimated 10-Y Risk for CVD (percent)
+#' @return Estimated 10 year risk for CVD (percent)
 #' @aliases ascvd_frs_cvd_formula ascvd_frs_cvd_table
 #' @usage
 #' ascvd_frs_cvd_formula(sex, age, totchol, hdl, sbp, bp_med, smoker, diabetic)

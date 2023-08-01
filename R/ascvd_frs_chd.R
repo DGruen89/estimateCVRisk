@@ -1,29 +1,26 @@
-#' ACC/AHA 2013 ASCVD risk score
+#' Framingham risk score (CHD)
 #'
-#' Computes 10-year risk for specific atherosclerotic cardiovascular disease (CVD) events, ie, coronary heart disease, cerebrovascular disease, peripherial vascular disease
-#' and heart failure.
+#' Computes 10-year risk of developing coronary heart disease (CHD).
 #'
-#' @param sex a numeric vector indicating the sex of the person. Values: "female", "male"
-#' @param age a numeric vector with the age of persons given as years
-#' @param totchol a numeric vector; Cholesterol values given in mg/dL
-#' @param ldl a numeric vector; LDL Cholesterol values given in mg/dL
-#' @param hdl a numeric vector; HDL Cholesterol values given in mg/dL
-#' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
-#' @param dbp Diastolic blood pressure (mm Hg)
-#' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
-#' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
-#' @param chol_cat a single character value to specify the use of total cholesterol ("tc") or LDL cholesterol ("ldl")
-#' @return Estimated 10-Y Risk for CHD (percent)
+#' @param sex gender; categorical \[female|male\]
+#' @param age age; integer \[years\]
+#' @param totchol total cholesterol; numeric \[mg/dl\]
+#' @param ldl low-density lipoprotein; numeric \[mg/dl\]
+#' @param hdl high-density lipoprotein; numeric \[mg/dl\]
+#' @param sbp systolic blood pressure; numeric \[mmHg\]
+#' @param dbp diastolic blood pressure; numeric \[mmHg\]
+#' @param smoker information on current self-reported smoking status; numeric \[1|0\]; ("1"=smoker;"0"=non-smoker)
+#' @param diabetic diabetic status of individual; numeric \[1|0\]; ("1"=diabetic;"0"=non-diabetic)
+#' @param chol_cat value to specify the use of total cholesterol ("tc") or LDL cholesterol ("ldl") in the function; categorical \[tc|ldl\]
+#' @return Estimated 10 year risk for CHD (percent)
 #' @aliases ascvd_frs_chd_formula ascvd_frs_chd_table
 #' @usage
-#' ascvd_frs_chd_formula(sex, age, totchol = NA, hdl, ldl = NA, sbp,
-#' dbp, smoker, diabetic, chol_cat = c("tc", "ldl"))
-#' ascvd_frs_chd_table(sex, age, totchol = NA, hdl, ldl = NA, sbp,
-#' dbp, smoker, diabetic, chol_cat = c("tc", "ldl"))
+#' ascvd_frs_chd_formula(sex, age, totchol = NA, hdl, ldl = NA, sbp, dbp, smoker, diabetic, chol_cat = c("tc", "ldl"))
+#' ascvd_frs_chd_table(sex, age, totchol = NA, hdl, ldl = NA, sbp, dbp, smoker, diabetic, chol_cat = c("tc", "ldl"))
 #' @details Background: \cr
 #' The objective of this study was to examine the association of Joint National Committee (JNC-V) blood pressure and National Cholesterol Education Program (NCEP) cholesterol categories
-#'  with coronary heart disease (CHD) risk, to incorporate them into coronary prediction algorithms, and to compare the discrimination properties of this approach
-#'  with other noncategorical prediction functions.\cr
+#' with coronary heart disease (CHD) risk, to incorporate them into coronary prediction algorithms, and to compare the discrimination properties of this approach
+#' with other noncategorical prediction functions.\cr
 #' Methods and Results:\cr
 #' This work was designed as a prospective, single-center study in the setting of a community-based cohort. The patients were 2489 men and 2856 women 30 to 74 years old at baseline
 #' with 12 years of follow-up. During the 12 years of follow-up, a total of 383 men and 227 women developed CHD, which was significantly associated with categories of
@@ -36,9 +33,7 @@
 #' Recommended guidelines of blood pressure, total cholesterol, and LDL cholesterol effectively predict CHD risk in a middle-aged white population sample.
 #' A simple coronary disease prediction algorithm was developed using categorical variables, which allows physicians to predict multivariate CHD risk in patients without overt CHD.
 #' @references
-#' Wilson PW, D'Agostino RB, Levy D, Belanger AM, Silbershatz H, Kannel WB.
-#' Prediction of coronary heart disease using risk factor categories.
-#' Circulation. 1998 May 12;97(18):1837-47. doi: 10.1161/01.cir.97.18.1837. PMID: 9603539.
+#' Wilson PW, et al.Prediction of coronary heart disease using risk factor categories. Circulation. 1998 May 12;97(18):1837-47. doi: 10.1161/01.cir.97.18.1837. PMID: 9603539.
 #' @export
 ascvd_frs_chd_formula <- function(sex, age, totchol = NA, hdl, ldl = NA, sbp, dbp, smoker, diabetic, chol_cat = c("tc", "ldl")){
 

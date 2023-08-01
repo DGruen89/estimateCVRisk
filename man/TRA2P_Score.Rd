@@ -4,27 +4,26 @@
 \alias{tra2p_score}
 \title{Calculate TRA2P-Score}
 \usage{
-tra2p_score(age, chf = NA, ah = NA, diabetic = NA, stroke = NA,
-bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA)
+tra2p_score(age, chf = NA, ah = NA, diabetic = NA, stroke = NA, bypass_surg = NA, other_surg = NA, egfr = NA, smoker = NA)
 }
 \arguments{
-\item{age}{a numeric vector with the age of persons given in years.}
+\item{age}{age; integer [years]}
 
-\item{chf}{a numeric vector indicating the presence of a congestive heart failure. Values: yes = 1; no = 0.}
+\item{chf}{information if individual has a congestive heart failure (CHF); numeric [1|0]; ("1"=yes;"0"=no)}
 
-\item{ah}{a numeric vector indicating the presence of arterial hyperthorphy. Values: yes = 1; no = 0.}
+\item{ah}{information if individual has arterial hyperthorphy (AF); numeric [1|0]; ("1"=yes;"0"=no)}
 
-\item{diabetic}{a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.}
+\item{diabetic}{diabetic status of individual; numeric [1|0]; ("1"=diabetic;"0"=non-diabetic)}
 
-\item{stroke}{numeric vector indicating whether a person has had a stroke. Values: yes = 1; no = 0.}
+\item{stroke}{information if individual had a stroke; numeric [1|0]; ("1"=yes;"0"=no)}
 
-\item{bypass_surg}{numeric vector indicating whether a person has undergone a bypass surgery. Values: yes = 1; no = 0.}
+\item{bypass_surg}{information if individual had undergone a bypass surgery; numeric [1|0]; ("1"=yes;"0"=no)}
 
-\item{other_surg}{numeric vector indicating whether a person has other vascular disease (peripheral). Values: yes = 1; no = 0.}
+\item{other_surg}{information if individual had a other vascular disease (peripheral) surgery; numeric [1|0]; ("1"=yes;"0"=no)}
 
-\item{egfr}{a numeric vector; eGFR values given in mL x min^−1 x 1.73 m^−2.}
+\item{egfr}{estimated glomerular filtration rate (eGFR); numeric [mL x min^−1 x 1.73 m^−2]}
 
-\item{smoker}{a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.}
+\item{smoker}{information on current self-reported smoking status; numeric [1|0]; ("1"=smoker;"0"=non-smoker)}
 }
 \value{
 A vector of the calculated risk per record.

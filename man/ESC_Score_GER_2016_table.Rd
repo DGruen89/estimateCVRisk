@@ -2,7 +2,7 @@
 % Please edit documentation in R/ESC_Score_GER_2016_table.R
 \name{ESC_Score_GER_2016_table}
 \alias{ESC_Score_GER_2016_table}
-\title{Calculate ESC-Score Germany 2016 Table Version}
+\title{Calculate SCORE Germany 2016 table version}
 \usage{
 ESC_Score_GER_2016_table(sex, age, totchol, sbp, smoker, mmol = FALSE)
 }
@@ -17,13 +17,13 @@ ESC_Score_GER_2016_table(sex, age, totchol, sbp, smoker, mmol = FALSE)
 
 \item{smoker}{a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.}
 
-\item{mmol}{logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).}
+\item{mmol}{is Cholesterol given as mmol/L; logical [TRUE|FASLE]}
 }
 \value{
 A vector of the calculated risk per record.
 }
 \description{
-This function takes necessary parameters to calculate the ESC-Score Germany 2016 Table Version
+This function takes necessary parameters to calculate the SCORE Germany 2016 table version for people aged 40 -65 years.
 }
 \details{
 Abstract:\cr

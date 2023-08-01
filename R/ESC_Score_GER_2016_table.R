@@ -1,13 +1,13 @@
-#' Calculate ESC-Score Germany 2016 Table Version
+#' Calculate SCORE Germany 2016 table version
 #'
-#' @description This function takes necessary parameters to calculate the ESC-Score Germany 2016 Table Version
+#' @description This function takes necessary parameters to calculate the SCORE Germany 2016 table version for people aged 40 -65 years.
 #'
 #' @param sex a character vector indicating the sex of the person. Values: "female", "male"
 #' @param age a numeric vector with the age of persons given in years
 #' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set  the argument mmol to FALSE
 #' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
 #' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
-#' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
+#' @param mmol is Cholesterol given as mmol/L; logical \[TRUE|FASLE\]
 #' @usage ESC_Score_GER_2016_table(sex, age, totchol, sbp, smoker, mmol = FALSE)
 #' @return A vector of the calculated risk per record.
 #' @details Abstract:\cr
@@ -49,6 +49,10 @@ ESC_Score_GER_2016_table <- function(sex, age, totchol, sbp, smoker, mmol = FALS
 
   if(!is.logical(mmol)){
     stop("mmol must be a single logical value")
+  }
+
+  if (any(age < 40) | any(age > 65) | any(is.na(age))) {
+    warning("Some values are outside the optimal age range (40-65 years). Risk calculation can thus become less accurate.")
   }
 
   ESCdata <- data.frame(age = age, totchol = totchol, sex = sex, sbp = sbp, smoker = smoker)

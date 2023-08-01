@@ -1,14 +1,14 @@
-#' Calculate ESC-Score 2016 Table Version
+#' Calculate ESC-Score 2016 table version
 #'
-#' @description This function takes necessary parameters to calculate the ESC-Score 2016 Table Version for high and low risk
+#' @description This function takes necessary parameters to calculate the ESC-Score 2016 table version for people aged 40-65 years in two geographical risk regions.
 #'
-#' @param sex a character vector indicating the sex of the person. Values: "female", "male"
-#' @param age a numeric vector with the age of persons given as years
-#' @param totchol a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set the argument mmol to FALSE
-#' @param sbp a numeric vector with the systolic blood pressure of persons given as mmHg
-#' @param smoker a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.
-#' @param risk logical. Choose if which risk chart is used for calculation
-#' @param mmol logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).
+#' @param sex gender; categorical \[female|male\]
+#' @param age age; integer \[years\]
+#' @param totchol total cholesterol; numeric \[mg/dl\] or \[mmol/L\]. If unit is mg/dL set the argument mmol=FALSE
+#' @param sbp systolic blood pressure; numeric \[mmHg\]
+#' @param smoker information on current self-reported smoking status; numeric \[1|0\]; ("1"=smoker;"0"=non-smoker)
+#' @param risk choose which risk chart is used for calculation; categorical \["low"|"high"\]
+#' @param mmol is Cholesterol given as mmol/L; logical \[TRUE|FALSE\]
 #' @usage ESC_Score_2016_table(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmol = FALSE)
 #' @return A vector of calculated risks of persons.
 #' @details The SCORE risk assessment is derived from a large dataset of prospective European studies and predicts fatal atherosclerotic CVD events over a ten year period.
@@ -52,6 +52,10 @@ ESC_Score_2016_table <- function(sex, age, totchol, sbp, smoker, risk = c("low",
 
   if(!is.logical(mmol)){
     stop("mmol must be a single logical value")
+  }
+
+  if (any(age < 40) | any(age > 65) | any(is.na(age))) {
+    warning("Some values are outside the optimal age range (40-65 years). Risk calculation can thus become less accurate.")
   }
 
   ESCdata <- data.frame(age = age, totchol = totchol, sex = sex, sbp = sbp, smoker = smoker)

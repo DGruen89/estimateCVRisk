@@ -2,19 +2,19 @@
 #'
 #' This function takes necessary parameters to calculate the Reach-Score. You can choose between a calculation based on a score sheet or based on a cox model (formula).
 #'
-#' @param sex a character vector indicating the sex of the person. Values: "female", "male"
-#' @param age a numeric vector with the age of persons given as years
-#' @param bmi a numeric vector; Body Mass Index in kg/m^2
-#' @param diabetic a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.
-#' @param smoker a numeric vector. A smoker was defined as >= 5 cigarettes per day on average within the last month. Smoker = 1, non-smoker = 0.
-#' @param vasc a numeric vector; Number of vascular beds involved in previously diagnosed vascular disease. Number from 0 to 3
-#' @param cv_event a numeric vector; cardiovascular event in past year. 1 = yes, 0 = no
-#' @param chf a numeric vector indicating whether a person had a Congestive heart failure. Values: yes = 1; no = 0.
-#' @param af numeric vector; Atrial fibrillation. 1 = yes, 0 = no
-#' @param statin a numeric vector; indicating whether a person is on a statin therapy. 1 = yes, 0 = no
-#' @param asa information if individual is on a acetylsalicylic acid medication; numeric ("1"=yes;"0"=no)
-#' @param region_EE_or_ME a logical vector; Geographical region membership in East Europe or Middel East
-#' @param region_jap_aust a logical vector; Geographical region membership in Japan or Australia
+#' @param sex gender; categorical \[female|male\]
+#' @param age age; integer \[years\]
+#' @param bmi body mass index; numeric \[kg/m^2\]
+#' @param diabetic diabetic status of individual; numeric \[1|0\]; ("1"=diabetic;"0"=non-diabetic)
+#' @param smoker information on current self-reported smoking status; numeric \[1|0\]; ("1"=smoker;"0"=non-smoker)
+#' @param vasc Number of vascular beds involved in previously diagnosed vascular disease; numeric \[0-3\]
+#' @param cv_event information if individual had a cardiovascular event in the past year; numeric \[1|0\]; ("1"=yes;"0"=no)
+#' @param chf information if individual has a congestive heart failure (CHF); numeric \[1|0\]; ("1"=yes;"0"=no)
+#' @param af information if individual has atrial fibrillation (AF); numeric \[1|0\]; ("1"=yes;"0"=no)
+#' @param statin information if individual is on a statin medication; numeric \[1|0\]; ("1"=yes;"0"=no)
+#' @param asa information if individual is on a acetylsalicylic acid medication; numeric \[1|0\]; ("1"=yes;"0"=no)
+#' @param region_EE_or_ME Geographical region membership in East Europe or Middel East; logical \[TRUE|FALSE\]
+#' @param region_jap_aust Geographical region membership in Japan or Australia; logical \[TRUE|FALSE\]
 #' @aliases reach_score_next_cv reach_score_cv_death reach_score_cv_death_formula reach_score_next_cv_formula
 #' @usage
 #' reach_score_next_cv(sex, age, bmi=NA, diabetic=NA, smoker=NA,

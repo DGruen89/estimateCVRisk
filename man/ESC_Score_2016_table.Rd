@@ -2,30 +2,30 @@
 % Please edit documentation in R/ESC_Score_2016_table.R
 \name{ESC_Score_2016_table}
 \alias{ESC_Score_2016_table}
-\title{Calculate ESC-Score 2016 Table Version}
+\title{Calculate ESC-Score 2016 table version}
 \usage{
 ESC_Score_2016_table(sex, age, totchol, sbp, smoker, risk = c("low","high"), mmol = FALSE)
 }
 \arguments{
-\item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}
+\item{sex}{gender; categorical [female|male]}
 
-\item{age}{a numeric vector with the age of persons given as years}
+\item{age}{age; integer [years]}
 
-\item{totchol}{a numeric vector; Cholesterol values given in mg/dL or mmol/L. If unit is mg/dL set the argument mmol to FALSE}
+\item{totchol}{total cholesterol; numeric [mg/dl] or [mmol/L]. If unit is mg/dL set the argument mmol=FALSE}
 
-\item{sbp}{a numeric vector with the systolic blood pressure of persons given as mmHg}
+\item{sbp}{systolic blood pressure; numeric [mmHg]}
 
-\item{smoker}{a numeric vector. Smoker = 1, non-smoker = 0. A smoker was defined as current self-reported smoker.}
+\item{smoker}{information on current self-reported smoking status; numeric [1|0]; ("1"=smoker;"0"=non-smoker)}
 
-\item{risk}{logical. Choose if which risk chart is used for calculation}
+\item{risk}{choose which risk chart is used for calculation; categorical ["low"|"high"]}
 
-\item{mmol}{logical. Is Cholesterol given as mmol/L (TRUE) or mg/dL (FALSE).}
+\item{mmol}{is Cholesterol given as mmol/L; logical [TRUE|FALSE]}
 }
 \value{
 A vector of calculated risks of persons.
 }
 \description{
-This function takes necessary parameters to calculate the ESC-Score 2016 Table Version for high and low risk
+This function takes necessary parameters to calculate the ESC-Score 2016 table version for people aged 40-65 years in two geographical risk regions.
 }
 \details{
 The SCORE risk assessment is derived from a large dataset of prospective European studies and predicts fatal atherosclerotic CVD events over a ten year period.

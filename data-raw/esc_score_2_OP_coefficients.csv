@@ -1,0 +1,3 @@
+"sex","age_coef","smoker_coef","sbp_coef","diab_coef","totchol_coef","hdl_coef","smoker_age_coef","sbp_age_coef","totchol_age_coef","hdl_age_coef","diab_age_coef","baseline_surv_coef","mean_lp","scale1_low","scale2_low","scale1_mod","scale2_mod","scale1_high","scale2_high","scale1_vhigh","scale2_vhigh"
+"male",0.0634,0.3524,0.0094,0.4245,0.085,-0.3564,-0.0247,-0.0005,0.0073,0.0091,-0.0174,0.7576,0.0929,-0.34,1.19,0.01,1.25,0.08,1.15,0.05,0.7
+"female",0.0789,0.4921,0.0102,0.601,0.0605,-0.304,-0.0255,-0.0004,-0.0009,0.0154,-0.0107,0.8082,0.229,-0.52,1.01,-0.1,1.1,0.38,1.09,0.38,0.69

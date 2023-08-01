@@ -21,31 +21,31 @@ vasc=NA, cv_event=NA, chf=NA, af=NA, statin=NA, asa=NA,
 region_EE_or_ME = FALSE, region_jap_aust = FALSE)
 }
 \arguments{
-\item{sex}{a character vector indicating the sex of the person. Values: "female", "male"}
+\item{sex}{gender; categorical [female|male]}
 
-\item{age}{a numeric vector with the age of persons given as years}
+\item{age}{age; integer [years]}
 
-\item{bmi}{a numeric vector; Body Mass Index in kg/m^2}
+\item{bmi}{body mass index; numeric [kg/m^2]}
 
-\item{diabetic}{a numeric vector indicating whether a person is diabetic. Values: yes = 1; no = 0.}
+\item{diabetic}{diabetic status of individual; numeric [1|0]; ("1"=diabetic;"0"=non-diabetic)}
 
-\item{smoker}{a numeric vector. A smoker was defined as >= 5 cigarettes per day on average within the last month. Smoker = 1, non-smoker = 0.}
+\item{smoker}{information on current self-reported smoking status; numeric [1|0]; ("1"=smoker;"0"=non-smoker)}
 
-\item{vasc}{a numeric vector; Number of vascular beds involved in previously diagnosed vascular disease. Number from 0 to 3}
+\item{vasc}{Number of vascular beds involved in previously diagnosed vascular disease; numeric [0-3]}
 
-\item{cv_event}{a numeric vector; cardiovascular event in past year. 1 = yes, 0 = no}
+\item{cv_event}{information if individual had a cardiovascular event in the past year; numeric [1|0]; ("1"=yes;"0"=no)}
 
-\item{chf}{a numeric vector indicating whether a person had a Congestive heart failure. Values: yes = 1; no = 0.}
+\item{chf}{information if individual has a congestive heart failure (CHF); numeric [1|0]; ("1"=yes;"0"=no)}
 
-\item{af}{numeric vector; Atrial fibrillation. 1 = yes, 0 = no}
+\item{af}{information if individual has atrial fibrillation (AF); numeric [1|0]; ("1"=yes;"0"=no)}
 
-\item{statin}{a numeric vector; indicating whether a person is on a statin therapy. 1 = yes, 0 = no}
+\item{statin}{information if individual is on a statin medication; numeric [1|0]; ("1"=yes;"0"=no)}
 
-\item{asa}{information if individual is on a acetylsalicylic acid medication; numeric ("1"=yes;"0"=no)}
+\item{asa}{information if individual is on a acetylsalicylic acid medication; numeric [1|0]; ("1"=yes;"0"=no)}
 
-\item{region_EE_or_ME}{a logical vector; Geographical region membership in East Europe or Middel East}
+\item{region_EE_or_ME}{Geographical region membership in East Europe or Middel East; logical [TRUE|FALSE]}
 
-\item{region_jap_aust}{a logical vector; Geographical region membership in Japan or Australia}
+\item{region_jap_aust}{Geographical region membership in Japan or Australia; logical [TRUE|FALSE]}
 }
 \value{
 A vector of the calculated risk per record.
